@@ -1,0 +1,44 @@
+import type { Metadata } from "next";
+import { Be_Vietnam_Pro, Quicksand } from "next/font/google";
+import "./globals.css";
+
+const beVietnamPro = Be_Vietnam_Pro({
+  variable: "--font-heading",
+  subsets: ["latin", "latin-ext"],
+  weight: ["500", "600", "700", "800"],
+});
+
+const quicksand = Quicksand({
+  variable: "--font-quicksand",
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700"],
+});
+
+export const metadata: Metadata = {
+  title: "ChamChamEdemy | Hóa phổ thông vững nền, nâng cao đúng sức",
+  description:
+    "Học Hóa THCS–THPT cùng cô Trâm: xây nền, ôn thi vào 10 hoặc chuyên Hóa ở lớp 9, học chắc chương trình và luyện thi lớp 11–12.",
+  other: {
+    "codex-preview": "development",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+  },
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="vi">
+      <body
+        className={`${beVietnamPro.variable} ${quicksand.variable} antialiased`}
+      >
+        {children}
+      </body>
+    </html>
+  );
+}
