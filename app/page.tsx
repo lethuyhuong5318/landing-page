@@ -192,15 +192,15 @@ export default function Home() {
           <span>ChamCham<span>Edemy</span><small>Học Hóa bằng tư duy trực quan</small></span>
         </a>
         <nav className="desktop-nav" aria-label="Điều hướng chính">
-          <a href="#khoa-hoc">Khóa học</a>
-          <a href="#giang-vien">Giảng viên</a>
-          <a href="/feedback">Feedback</a>
-          <a href="/blog">Blog Hóa</a>
-          <a href="#dang-ky" className="nav-cta">Nhận test đầu vào</a>
+          <a href={getAssetPath("/#khoa-hoc")}>Khóa học</a>
+          <a href={getAssetPath("/#giang-vien")}>Giảng viên</a>
+          <a href={getAssetPath("/feedback")}>Feedback</a>
+          <a href={getAssetPath("/blog")}>Blog Hóa</a>
+          <a href={getAssetPath("/#dang-ky")} className="nav-cta">Nhận test đầu vào</a>
         </nav>
         <details className="mobile-menu">
           <summary aria-label="Mở menu"><span /><span /><span /></summary>
-          <nav aria-label="Điều hướng mobile"><a href="#khoa-hoc">Khóa học</a><a href="#giang-vien">Giảng viên</a><a href="/feedback">Feedback</a><a href="/blog">Blog Hóa</a><a href="#dang-ky">Nhận tư vấn</a></nav>
+          <nav aria-label="Điều hướng mobile"><a href={getAssetPath("/#khoa-hoc")}>Khóa học</a><a href={getAssetPath("/#giang-vien")}>Giảng viên</a><a href={getAssetPath("/feedback")}>Feedback</a><a href={getAssetPath("/blog")}>Blog Hóa</a><a href={getAssetPath("/#dang-ky")}>Nhận tư vấn</a></nav>
         </details>
       </header>
 
