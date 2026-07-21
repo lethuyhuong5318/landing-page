@@ -1,13 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  output: "export",
   trailingSlash: true,
+  basePath: "",
+  assetPrefix: "",
   images: {
     unoptimized: true,
-  },
-  basePath: '/landing-page',
-  env: {
-    NEXT_PUBLIC_BASE_PATH: '/landing-page',
   },
 };
 

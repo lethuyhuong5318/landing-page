@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Be_Vietnam_Pro, Quicksand } from "next/font/google";
+import { getAssetPath } from "./basePath";
 import "./globals.css";
 
 const beVietnamPro = Be_Vietnam_Pro({
@@ -32,8 +33,12 @@ export const metadata: Metadata = {
     "codex-preview": "development",
   },
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
+    icon: [
+      { url: getAssetPath("/favicon.png"), type: "image/png" },
+      { url: getAssetPath("/favicon.ico") },
+    ],
+    shortcut: getAssetPath("/favicon.png"),
+    apple: getAssetPath("/favicon.png"),
   },
 };
 
