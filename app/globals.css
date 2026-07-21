@@ -305,10 +305,14 @@ h1, h2, h3,
   display: block;
   width: 50px;
   height: 50px;
-  padding: 2px;
-  border: 1px solid #d8e4e7;
-  background: #fff;
-  object-fit: cover;
+  padding: 3px;
+  border: 1px solid #d4e3e6;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(28,67,98,.1);
+  object-fit: contain;
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
 .hero h1 {
@@ -564,12 +568,9 @@ h1, h2, h3,
 
 /* Evidence, materials and content pages */
 .brand-logo {
-  padding: 0;
-  border: 0;
-  background: transparent;
-  box-shadow: none;
-  clip-path: circle(43% at 50% 50%);
-  transform: scale(1.16);
+  border-radius: 50%;
+  object-fit: contain;
+  overflow: hidden;
 }
 
 .learning-lab {

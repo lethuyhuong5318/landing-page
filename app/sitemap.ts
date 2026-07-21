@@ -8,6 +8,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: base, changeFrequency: "weekly", priority: 1 },
     { url: `${base}/feedback`, changeFrequency: "monthly", priority: .8 },
     { url: `${base}/blog`, changeFrequency: "weekly", priority: .9 },
+    { url: `${base}/blog/gia-su-luyen-thi-hoa-quan-9-tp-thu-duc`, changeFrequency: "weekly", priority: .9 },
+    { url: `${base}/blog/meo-hoc-tot-khtn-9-lay-goc-hoa-thcs-quan-9`, changeFrequency: "weekly", priority: .9 },
     { url: `${base}/blog/cach-can-bang-phuong-trinh-hoa-hoc`, changeFrequency: "monthly", priority: .8 },
     { url: `${base}/blog/bai-toan-nong-do-dung-dich`, changeFrequency: "monthly", priority: .8 },
     { url: `${base}/blog/lo-trinh-lay-goc-hoa-thcs-vao-10`, changeFrequency: "monthly", priority: .8 },

@@ -15,9 +15,19 @@ const quicksand = Quicksand({
 });
 
 export const metadata: Metadata = {
-  title: "ChamChamEdemy | Hóa phổ thông vững nền, nâng cao đúng sức",
+  title: "Gia sư & Luyện thi Hóa học Quận 9 (TP. Thủ Đức) | ChamChamEdemy - Cô Trâm",
   description:
-    "Học Hóa THCS–THPT cùng cô Trâm: xây nền, ôn thi vào 10 hoặc chuyên Hóa ở lớp 9, học chắc chương trình và luyện thi lớp 11–12.",
+    "Luyện thi Hóa & gia sư Hóa Quận 9, TP. Thủ Đức cùng Cô Trâm ChamChamEdemy: Lấy gốc Hóa THCS (lớp 8–9), học tốt KHTN 9, ôn thi vào 10 và luyện thi Hóa THPT lớp 11–12.",
+  keywords: [
+    "gia sư Hóa Quận 9",
+    "luyện thi Hóa Quận 9",
+    "học Hóa Quận 9",
+    "lớp Hóa cô Trâm Quận 9",
+    "ôn thi vào 10 Hóa Quận 9",
+    "lấy gốc Hóa THCS Quận 9",
+    "gia sư KHTN 9 Quận 9",
+    "lớp học Hóa TP Thủ Đức"
+  ],
   other: {
     "codex-preview": "development",
   },

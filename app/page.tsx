@@ -187,8 +187,8 @@ export default function Home() {
     <main>
       <a className="skip-link" href="#main-content">Bỏ qua điều hướng</a>
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="ChamChamEdemy — về đầu trang">
-          <img className="brand-logo" src="/chamcham-logo.png" alt="Logo ChamChamEdemy" width="58" height="58" />
+        <a className="brand" href={getAssetPath("/")} aria-label="ChamChamEdemy — trang chủ">
+          <img className="brand-logo" src={getAssetPath("/chamcham-logo.png")} alt="Logo ChamChamEdemy" width="58" height="58" />
           <span>ChamCham<span>Edemy</span><small>Học Hóa bằng tư duy trực quan</small></span>
         </a>
         <nav className="desktop-nav" aria-label="Điều hướng chính">
