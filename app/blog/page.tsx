@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SiteChrome from "../components/SiteChrome";
+import { getAssetPath } from "../basePath";
 
 export const metadata: Metadata = {
   title: "Blog Hóa học THCS–THPT | ChamChamEdemy",
@@ -18,7 +19,7 @@ export default function BlogPage() {
       <div className="content-shell">
         <section className="page-hero"><p className="section-kicker">BLOG HÓA DỄ HIỂU</p><h1>Mỗi bài viết giải quyết<br />một điểm học sinh hay vướng.</h1><p>Nội dung ngắn gọn, có quy trình và ví dụ trực quan dành cho học sinh THCS–THPT.</p></section>
         <section className="blog-grid">
-          {posts.map((post) => <a className="blog-card" href={post.href} key={post.href}><img src={post.image} alt="" /><div><small>{post.tag}</small><h2>{post.title}</h2><p>{post.excerpt}</p><span>Đọc bài viết →</span></div></a>)}
+          {posts.map((post) => <a className="blog-card" href={getAssetPath(post.href)} key={post.href}><img src={getAssetPath(post.image)} alt="" /><div><small>{post.tag}</small><h2>{post.title}</h2><p>{post.excerpt}</p><span>Đọc bài viết →</span></div></a>)}
         </section>
       </div>
     </SiteChrome>

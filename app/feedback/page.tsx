@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SiteChrome from "../components/SiteChrome";
+import { getAssetPath } from "../basePath";
 
 export const metadata: Metadata = {
   title: "Feedback học viên | ChamChamEdemy",
@@ -14,10 +15,10 @@ export default function FeedbackPage() {
           <p className="section-kicker">FEEDBACK HỌC VIÊN</p>
           <h1>Không dùng lời khen chung chung.<br />Dùng dữ liệu sau buổi học.</h1>
           <p>Kết quả dưới đây đến từ khảo sát sau buổi live lấy gốc Hóa THCS. ChamChamEdemy công khai cả điểm tốt lẫn góp ý để tiếp tục điều chỉnh cách dạy.</p>
-          <div className="page-actions"><a href="/#dang-ky">Đăng ký học thử</a><a className="secondary" href="/blog">Đọc Blog Hóa</a></div>
+          <div className="page-actions"><a href={getAssetPath("/#dang-ky")}>Đăng ký học thử</a><a className="secondary" href={getAssetPath("/blog")}>Đọc Blog Hóa</a></div>
         </section>
         <div className="feedback-layout">
-          <figure className="feedback-image"><img src="/feedback-buoi-live.jpg" alt="Infographic kết quả khảo sát buổi live lấy gốc Hóa THCS ChamChamEdemy" /></figure>
+          <figure className="feedback-image"><img src={getAssetPath("/feedback-buoi-live.jpg")} alt="Infographic kết quả khảo sát buổi live lấy gốc Hóa THCS ChamChamEdemy" /></figure>
           <aside className="feedback-stats">
             <article><strong>28</strong><h2>Học sinh tham gia khảo sát</h2><p>100% người điền khảo sát đã tham gia buổi học.</p></article>
             <article><strong>4,07/5</strong><h2>Điểm hiểu bài trung bình</h2><p>Phần lớn học sinh tự đánh giá ở mức hiểu khá hoặc rất hiểu.</p></article>

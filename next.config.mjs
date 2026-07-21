@@ -4,7 +4,10 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: process.env.NODE_ENV === 'production' ? '/landing-page' : '',
+  basePath: '/landing-page',
+  env: {
+    NEXT_PUBLIC_BASE_PATH: '/landing-page',
+  },
 };
 
 export default nextConfig;

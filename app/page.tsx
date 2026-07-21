@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import { getAssetPath } from "./basePath";
 
 const FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61590518783118";
 const ZALO_URL = "https://zalo.me/0329309293";
@@ -242,7 +243,7 @@ export default function Home() {
           <div className="atom atom-b"><i /><i /></div>
           <div className="mascot-card">
             <div className="mascot-badge">HỌC CÙNG CÔ TRÂM</div>
-            <img className="mascot-image" src="/co-tram-mascot.jpg" alt="Mascot gấu Cô Trâm Hóa Học của ChamChamEdemy" width="620" height="620" fetchPriority="high" />
+            <img className="mascot-image" src={getAssetPath("/co-tram-mascot.jpg")} alt="Mascot gấu Cô Trâm Hóa Học của ChamChamEdemy" width="620" height="620" fetchPriority="high" />
             <div className="speech">À, hóa ra là vậy!</div>
           </div>
           <div className="floating-card float-top">
@@ -386,7 +387,7 @@ export default function Home() {
       <section className="teacher-profile" id="giang-vien" aria-labelledby="teacher-title">
         <div className="teacher-portrait" data-reveal>
           <div className="portrait-frame">
-            <img src="/co-le-thuy-tram-professional.png" alt="Cô Lê Thùy Trâm - giáo viên Hóa học ChamChamEdemy" loading="lazy" />
+            <img src={getAssetPath("/co-le-thuy-tram-professional.png")} alt="Cô Lê Thùy Trâm - giáo viên Hóa học ChamChamEdemy" loading="lazy" />
             <span className="portrait-formula" aria-hidden="true">H₂O</span>
           </div>
           <div className="experience-seal"><strong>4+</strong><span>năm kinh nghiệm<br />THCS & THPT</span></div>
@@ -424,7 +425,7 @@ export default function Home() {
             <div className="survey-proof">
               <div><strong>28</strong><span>học sinh tham gia khảo sát</span></div>
               <div><strong>100%</strong><span>đánh giá cách giảng dễ hiểu</span></div>
-              <a href="/feedback">Xem feedback thật →</a>
+              <a href={getAssetPath("/feedback")}>Xem feedback thật →</a>
             </div>
           </div>
           <div className="lab-cycle" aria-label="Chu trình học tập tại ChamChamEdemy">
@@ -464,7 +465,7 @@ export default function Home() {
             </div>
             <div className="report-window">
               <div className="report-header">
-                <img src="/chamcham-logo.png" alt="" aria-hidden="true" />
+                <img src={getAssetPath("/chamcham-logo.png")} alt="" aria-hidden="true" />
                 <strong>PHIẾU NHẬN XÉT BUỔI HỌC</strong>
               </div>
               <div className="report-content">
@@ -509,9 +510,9 @@ export default function Home() {
             <p>Infographic, sơ đồ dòng chất và tài liệu khóa học đều được thiết kế để học sinh nhìn thấy mối liên hệ giữa các bước giải.</p>
           </div>
           <div className="material-grid">
-            <a href="/lay-goc-hoa-bang-mindmap.jpg" target="_blank"><img src="/lay-goc-hoa-bang-mindmap.jpg" alt="Mindmap lấy gốc Hóa: hóa trị, oxide, acid, base, muối và dãy hoạt động kim loại" loading="lazy" /><span><strong>Lấy gốc Hóa bằng mindmap</strong><small>Xem toàn bộ ↗</small></span></a>
-            <a href="/so-do-dong-chat-fe-cu.jpg" target="_blank"><img src="/so-do-dong-chat-fe-cu.jpg" alt="Sơ đồ dòng chất Fe và Cu trong bài toán hóa học" loading="lazy" /><span><strong>Sơ đồ dòng chất Fe – Cu</strong><small>Xem toàn bộ ↗</small></span></a>
-            <a href="/khoa-hoc-khtn-9.jpg" target="_blank"><img src="/khoa-hoc-khtn-9.jpg" alt="Tổng quan tài liệu và bài giảng khóa học KHTN 9 ChamChamEdemy" loading="lazy" /><span><strong>Kho học liệu KHTN 9</strong><small>Xem toàn bộ ↗</small></span></a>
+            <a href={getAssetPath("/lay-goc-hoa-bang-mindmap.jpg")} target="_blank"><img src={getAssetPath("/lay-goc-hoa-bang-mindmap.jpg")} alt="Mindmap lấy gốc Hóa: hóa trị, oxide, acid, base, muối và dãy hoạt động kim loại" loading="lazy" /><span><strong>Lấy gốc Hóa bằng mindmap</strong><small>Xem toàn bộ ↗</small></span></a>
+            <a href={getAssetPath("/so-do-dong-chat-fe-cu.jpg")} target="_blank"><img src={getAssetPath("/so-do-dong-chat-fe-cu.jpg")} alt="Sơ đồ dòng chất Fe và Cu trong bài toán hóa học" loading="lazy" /><span><strong>Sơ đồ dòng chất Fe – Cu</strong><small>Xem toàn bộ ↗</small></span></a>
+            <a href={getAssetPath("/khoa-hoc-khtn-9.jpg")} target="_blank"><img src={getAssetPath("/khoa-hoc-khtn-9.jpg")} alt="Tổng quan tài liệu và bài giảng khóa học KHTN 9 ChamChamEdemy" loading="lazy" /><span><strong>Kho học liệu KHTN 9</strong><small>Xem toàn bộ ↗</small></span></a>
           </div>
         </div>
 
@@ -562,10 +563,10 @@ export default function Home() {
       <footer className="site-footer">
         <div className="footer-inner">
           <a className="brand footer-brand" href="#main-content">
-            <img className="brand-logo" src="/chamcham-logo.png" alt="Logo ChamChamEdemy" width="52" height="52" />
+            <img className="brand-logo" src={getAssetPath("/chamcham-logo.png")} alt="Logo ChamChamEdemy" width="52" height="52" />
             <span>ChamCham<span>Edemy</span><small>Học Hóa bằng tư duy trực quan</small></span>
           </a>
-          <nav className="footer-nav" aria-label="Liên kết cuối trang"><a href="#khoa-hoc">Khóa học</a><a href="#giang-vien">Giảng viên</a><a href="/feedback">Feedback</a><a href="/blog">Blog</a><a href="#dang-ky">Đăng ký</a></nav>
+          <nav className="footer-nav" aria-label="Liên kết cuối trang"><a href={getAssetPath("/#khoa-hoc")}>Khóa học</a><a href={getAssetPath("/#giang-vien")}>Giảng viên</a><a href={getAssetPath("/feedback")}>Feedback</a><a href={getAssetPath("/blog")}>Blog</a><a href={getAssetPath("/#dang-ky")}>Đăng ký</a></nav>
           <div className="footer-social" aria-label="Kết nối với ChamChamEdemy">
             <a href={MAP_URL} target="_blank" rel="noreferrer" aria-label="Địa chỉ ChamChamEdemy trên Google Maps"><span>⌖</span>Địa chỉ</a>
             <a href={YOUTUBE_URL} target="_blank" rel="noreferrer" aria-label="YouTube ChamChamEdemy"><span>▶</span>YouTube</a>

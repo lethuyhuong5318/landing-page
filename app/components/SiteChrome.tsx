@@ -1,28 +1,29 @@
 import type { ReactNode } from "react";
+import { getAssetPath } from "../basePath";
 
 export default function SiteChrome({ children }: { children: ReactNode }) {
   return (
     <main className="content-page">
       <a className="skip-link" href="#page-content">Bỏ qua điều hướng</a>
       <header className="site-header">
-        <a className="brand" href="/" aria-label="ChamChamEdemy — trang chủ">
-          <img className="brand-logo" src="/chamcham-logo.png" alt="Logo ChamChamEdemy" width="58" height="58" />
+        <a className="brand" href={getAssetPath("/")} aria-label="ChamChamEdemy — trang chủ">
+          <img className="brand-logo" src={getAssetPath("/chamcham-logo.png")} alt="Logo ChamChamEdemy" width="58" height="58" />
           <span>ChamCham<span>Edemy</span><small>Học Hóa bằng tư duy trực quan</small></span>
         </a>
         <nav className="desktop-nav" aria-label="Điều hướng chính">
-          <a href="/#khoa-hoc">Khóa học</a>
-          <a href="/#giang-vien">Giảng viên</a>
-          <a href="/feedback">Feedback</a>
-          <a href="/blog">Blog Hóa</a>
-          <a href="/#dang-ky" className="nav-cta">Nhận tư vấn</a>
+          <a href={getAssetPath("/#khoa-hoc")}>Khóa học</a>
+          <a href={getAssetPath("/#giang-vien")}>Giảng viên</a>
+          <a href={getAssetPath("/feedback")}>Feedback</a>
+          <a href={getAssetPath("/blog")}>Blog Hóa</a>
+          <a href={getAssetPath("/#dang-ky")} className="nav-cta">Nhận tư vấn</a>
         </nav>
-        <details className="mobile-menu"><summary aria-label="Mở menu"><span /><span /><span /></summary><nav aria-label="Điều hướng mobile"><a href="/#khoa-hoc">Khóa học</a><a href="/#giang-vien">Giảng viên</a><a href="/feedback">Feedback</a><a href="/blog">Blog Hóa</a><a href="/#dang-ky">Nhận tư vấn</a></nav></details>
+        <details className="mobile-menu"><summary aria-label="Mở menu"><span /><span /><span /></summary><nav aria-label="Điều hướng mobile"><a href={getAssetPath("/#khoa-hoc")}>Khóa học</a><a href={getAssetPath("/#giang-vien")}>Giảng viên</a><a href={getAssetPath("/feedback")}>Feedback</a><a href={getAssetPath("/blog")}>Blog Hóa</a><a href={getAssetPath("/#dang-ky")}>Nhận tư vấn</a></nav></details>
       </header>
       <div id="page-content">{children}</div>
       <footer className="site-footer">
         <div className="footer-inner">
-          <a className="brand footer-brand" href="/"><img className="brand-logo" src="/chamcham-logo.png" alt="Logo ChamChamEdemy" width="52" height="52" /><span>ChamCham<span>Edemy</span><small>Học Hóa bằng tư duy trực quan</small></span></a>
-          <nav className="footer-nav" aria-label="Liên kết cuối trang"><a href="/#khoa-hoc">Khóa học</a><a href="/#giang-vien">Giảng viên</a><a href="/feedback">Feedback</a><a href="/blog">Blog</a><a href="/#dang-ky">Đăng ký</a></nav>
+          <a className="brand footer-brand" href={getAssetPath("/")}><img className="brand-logo" src={getAssetPath("/chamcham-logo.png")} alt="Logo ChamChamEdemy" width="52" height="52" /><span>ChamCham<span>Edemy</span><small>Học Hóa bằng tư duy trực quan</small></span></a>
+          <nav className="footer-nav" aria-label="Liên kết cuối trang"><a href={getAssetPath("/#khoa-hoc")}>Khóa học</a><a href={getAssetPath("/#giang-vien")}>Giảng viên</a><a href={getAssetPath("/feedback")}>Feedback</a><a href={getAssetPath("/blog")}>Blog</a><a href={getAssetPath("/#dang-ky")}>Đăng ký</a></nav>
           <div className="footer-social" aria-label="Kết nối với ChamChamEdemy">
             <a href="https://maps.app.goo.gl/ujtgE2iRYuLd7j8m9" target="_blank" rel="noreferrer" aria-label="Địa chỉ ChamChamEdemy trên Google Maps"><span>⌖</span>Địa chỉ</a>
             <a href="https://www.youtube.com/@chamcham97-c6f" target="_blank" rel="noreferrer" aria-label="YouTube ChamChamEdemy"><span>▶</span>YouTube</a>
