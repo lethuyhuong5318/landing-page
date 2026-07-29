@@ -1,24 +1,38 @@
 import type { Metadata } from "next";
 import SiteChrome from "../../components/SiteChrome";
+import JsonLd from "../../../components/seo/JsonLd";
+import { articleSchema, breadcrumbSchema } from "../../../lib/schema";
 import { getAssetPath } from "../../basePath";
 
+const TITLE = "Mẹo học tốt KHTN 9 & Lấy gốc Hóa THCS cấp tốc";
+const DESCRIPTION = "Bí quyết học giỏi môn KHTN 9 phân môn Hóa học, lấy gốc Hóa THCS nhanh chóng cùng Cô Trâm ChamChamEdemy.";
+const SLUG = "/blog/meo-hoc-tot-khtn-9-lay-goc-hoa-thcs-quan-9";
+const IMAGE = "/khoa-hoc-khtn-9.jpg";
+const DATE_PUBLISHED = "2026-07-21";
+
 export const metadata: Metadata = {
-  title: "Mẹo học tốt KHTN 9 & Lấy gốc Hóa THCS cấp tốc cho học sinh Quận 9",
-  description: "Bí quyết học giỏi môn KHTN 9 phân môn Hóa học, lấy gốc Hóa THCS nhanh chóng cho học sinh tại Quận 9, TP. Thủ Đức cùng Cô Trâm ChamChamEdemy.",
+  title: TITLE,
+  description: DESCRIPTION,
   keywords: ["học tốt KHTN 9 Quận 9", "lấy gốc Hóa THCS Quận 9", "bí quyết học giỏi Hóa lớp 9", "ôn thi lớp 10 môn Hóa Quận 9"],
+  alternates: { canonical: SLUG },
+  openGraph: { type: "article", title: TITLE, description: DESCRIPTION, url: SLUG, images: [getAssetPath(IMAGE)] },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 };
 
 export default function KHTN9Article() {
   return (
     <SiteChrome>
+      <JsonLd data={breadcrumbSchema([{ name: "Trang chủ", path: "/" }, { name: "Blog Hóa", path: "/blog" }, { name: TITLE, path: SLUG }])} />
+      <JsonLd data={articleSchema({ headline: TITLE, description: DESCRIPTION, path: SLUG, image: IMAGE, datePublished: DATE_PUBLISHED })} />
       <article className="article-wrap">
         <p className="section-kicker">BÍ QUYẾT HỌC TẬP · HỌC SINH THCS QUẬN 9</p>
         <h1>Mẹo học tốt KHTN 9 & Lấy gốc Hóa THCS cấp tốc cho học sinh Quận 9 – TP. Thủ Đức</h1>
         <p className="article-lead">
           Chương trình Khoa học tự nhiên 9 (KHTN 9) mới đòi hỏi học sinh kết hợp tư duy giữa Vật lý, Hóa học và Sinh học. Để không bị mất gốc Hóa và chuẩn bị tốt cho kỳ thi tuyển sinh vào lớp 10 tại Quận 9, dưới đây là những mẹo học tập hiệu quả được đúc kết bởi Cô Trâm ChamChamEdemy.
         </p>
+        <p className="article-byline">Tác giả: Cô Lê Thùy Trâm · Đăng ngày 21/07/2026</p>
 
-        <img className="cover" src={getAssetPath("/khoa-hoc-khtn-9.jpg")} alt="Mẹo học tốt KHTN 9 và lấy gốc Hóa THCS tại Quận 9" />
+        <img className="cover" src={getAssetPath(IMAGE)} alt="Mẹo học tốt KHTN 9 và lấy gốc Hóa THCS tại Quận 9" />
 
         <div className="article-body">
           <h2>1. Hệ thống hóa bảng Hóa trị và Đơn chất - Hợp chất</h2>

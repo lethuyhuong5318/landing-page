@@ -35,8 +35,13 @@ yarn-error.log*
 
 # typescript
 next-env.d.ts
+*.tsbuildinfo
 /dist/
 /.wrangler/
 /.sites-runtime/
 /outputs/
 /work/
+/.vinext/
+
+# local AI assistant tooling (not part of the deployed site)
+/.claude/

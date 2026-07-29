@@ -1,15 +1,24 @@
 import type { Metadata } from "next";
 import SiteChrome from "../components/SiteChrome";
+import JsonLd from "../../components/seo/JsonLd";
+import { breadcrumbSchema } from "../../lib/schema";
 import { getAssetPath } from "../basePath";
 
+const TITLE = "Feedback học viên | ChamChamEdemy";
+const DESCRIPTION = "Kết quả khảo sát thật sau buổi học lấy gốc Hóa THCS cùng Cô Trâm tại ChamChamEdemy.";
+
 export const metadata: Metadata = {
-  title: "Feedback học viên | ChamChamEdemy",
-  description: "Kết quả khảo sát thật sau buổi học lấy gốc Hóa THCS cùng cô Trâm tại ChamChamEdemy.",
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/feedback" },
+  openGraph: { type: "website", title: TITLE, description: DESCRIPTION, url: "/feedback" },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 };
 
 export default function FeedbackPage() {
   return (
     <SiteChrome>
+      <JsonLd data={breadcrumbSchema([{ name: "Trang chủ", path: "/" }, { name: "Feedback", path: "/feedback" }])} />
       <div className="content-shell">
         <section className="page-hero">
           <p className="section-kicker">FEEDBACK HỌC VIÊN</p>

@@ -36,6 +36,9 @@ jobs:
 
       - name: Build Next.js
         run: npx --no-install next build
+        env:
+          NEXT_PUBLIC_WEB3FORMS_KEY: ${{ secrets.NEXT_PUBLIC_WEB3FORMS_KEY }}
+          NEXT_PUBLIC_NOTIFY_EMAIL: ${{ secrets.NEXT_PUBLIC_NOTIFY_EMAIL }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

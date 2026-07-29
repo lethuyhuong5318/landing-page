@@ -1,13 +1,20 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, InvalidEvent, useEffect, useState } from "react";
 import { getAssetPath } from "./basePath";
+import JsonLd from "../components/seo/JsonLd";
+import { teacherPersonSchema } from "../lib/schema";
 
 const FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61590518783118";
 const ZALO_URL = "https://zalo.me/0329309293";
 const MAP_URL = "https://maps.app.goo.gl/ujtgE2iRYuLd7j8m9";
 const YOUTUBE_URL = "https://www.youtube.com/@chamcham97-c6f";
 const TIKTOK_URL = "https://www.tiktok.com/@chamchamedemy?_r=1&_t=ZS-98BKi5KPsQB";
+
+
+
+const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "";
+const NOTIFY_EMAIL = process.env.NEXT_PUBLIC_NOTIFY_EMAIL ?? "";
 
 const reactionItems = [
   { type: "Phản ứng hóa hợp", formula: "2H₂ + O₂ → 2H₂O", icon: "💧" },
@@ -105,9 +112,12 @@ const benefits = [
   },
 ];
 
+type SubmitStatus = "idle" | "sending" | "success" | "error";
+
 export default function Home() {
-  const [message, setMessage] = useState("");
-  const [contactReady, setContactReady] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
+  const [fallbackMessage, setFallbackMessage] = useState("");
+  const [copied, setCopied] = useState(false);
   const [reactionActive, setReactionActive] = useState(false);
   const [activeElement, setActiveElement] = useState(elementExplorer[0]);
   const [discoveredElements, setDiscoveredElements] = useState<string[]>([elementExplorer[0].symbol]);
@@ -164,18 +174,70 @@ export default function Home() {
     }
   }
 
-  async function handleCopy(event: FormEvent<HTMLFormElement>) {
+  async function handleRegister(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const form = new FormData(event.currentTarget);
+    const formEl = event.currentTarget;
+    const form = new FormData(formEl);
+    const name = form.get("name");
+    const phone = form.get("phone");
+    const parentEmail = form.get("parentEmail");
     const grade = form.get("grade");
+    const level = form.get("level");
     const goal = form.get("goal");
-    const generatedMessage = `Em muốn nhận bài test đầu vào 15 phút tại ChamChamEdemy. Lớp hiện tại: ${grade}. Mục tiêu: ${goal}. Cô Trâm giúp em kiểm tra phần đang hổng và tư vấn lộ trình phù hợp với ạ.`;
-    setMessage(generatedMessage);
-    setContactReady(await copyToClipboard(generatedMessage));
+    const timeSlot = form.get("timeSlot");
+
+    const summary = `Đăng ký bài test đầu vào 15 phút — ChamChamEdemy\nHọ tên: ${name}\nSĐT/Zalo: ${phone}\nEmail phụ huynh: ${parentEmail || "(không cung cấp)"}\nLớp hiện tại: ${grade}\nMức độ hiện tại: ${level}\nMục tiêu: ${goal}\nKhung giờ mong muốn: ${timeSlot}`;
+    setFallbackMessage(summary);
+
+    if (!WEB3FORMS_ACCESS_KEY) {
+      setSubmitStatus("error");
+      setCopied(await copyToClipboard(summary));
+      return;
+    }
+
+    setSubmitStatus("sending");
+    form.append("access_key", WEB3FORMS_ACCESS_KEY);
+    form.append("subject", `[ChamChamEdemy] Đăng ký test đầu vào — ${name}`);
+    form.append("from_name", "ChamChamEdemy Website");
+    form.append("message", summary);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: form,
+      });
+      const result = await response.json();
+      if (result.success) {
+        setSubmitStatus("success");
+        formEl.reset();
+      } else {
+        setSubmitStatus("error");
+        setCopied(await copyToClipboard(summary));
+      }
+    } catch {
+      setSubmitStatus("error");
+      setCopied(await copyToClipboard(summary));
+    }
+  }
+
+  function showVietnameseValidity(event: InvalidEvent<HTMLInputElement>) {
+    const input = event.currentTarget;
+    if (input.validity.valueMissing) {
+      input.setCustomValidity(input.name === "phone" ? "Vui lòng nhập số điện thoại." : "Vui lòng nhập họ tên.");
+    } else if (input.validity.typeMismatch) {
+      input.setCustomValidity("Email chưa đúng định dạng.");
+    } else {
+      input.setCustomValidity("");
+    }
+  }
+
+  function clearValidity(event: FormEvent<HTMLInputElement>) {
+    event.currentTarget.setCustomValidity("");
   }
 
   async function handleCopyAgain() {
-    setContactReady(await copyToClipboard(message));
+    setCopied(await copyToClipboard(fallbackMessage));
   }
 
   function discoverElement(element: (typeof elementExplorer)[number]) {
@@ -185,6 +247,7 @@ export default function Home() {
 
   return (
     <main>
+      <JsonLd data={teacherPersonSchema()} />
       <a className="skip-link" href="#main-content">Bỏ qua điều hướng</a>
       <header className="site-header">
         <a className="brand" href={getAssetPath("/")} aria-label="ChamChamEdemy — trang chủ">
@@ -195,12 +258,13 @@ export default function Home() {
           <a href={getAssetPath("/#khoa-hoc")}>Khóa học</a>
           <a href={getAssetPath("/#giang-vien")}>Giảng viên</a>
           <a href={getAssetPath("/feedback")}>Feedback</a>
+          <a href={getAssetPath("/lay-goc-hoa.html")}>Lấy gốc hóa</a>
           <a href={getAssetPath("/blog")}>Blog Hóa</a>
           <a href={getAssetPath("/#dang-ky")} className="nav-cta">Nhận test đầu vào</a>
         </nav>
         <details className="mobile-menu">
-          <summary aria-label="Mở menu"><span /><span /><span /></summary>
-          <nav aria-label="Điều hướng mobile"><a href={getAssetPath("/#khoa-hoc")}>Khóa học</a><a href={getAssetPath("/#giang-vien")}>Giảng viên</a><a href={getAssetPath("/feedback")}>Feedback</a><a href={getAssetPath("/blog")}>Blog Hóa</a><a href={getAssetPath("/#dang-ky")}>Nhận tư vấn</a></nav>
+          <summary aria-label="Mở menu" aria-controls="mobile-nav-home"><span /><span /><span /></summary>
+          <nav id="mobile-nav-home" aria-label="Điều hướng mobile"><a href={getAssetPath("/#khoa-hoc")}>Khóa học</a><a href={getAssetPath("/#giang-vien")}>Giảng viên</a><a href={getAssetPath("/feedback")}>Feedback</a><a href={getAssetPath("/lay-goc-hoa.html")}>Lấy gốc hóa</a><a href={getAssetPath("/blog")}>Blog Hóa</a><a href={getAssetPath("/#dang-ky")}>Nhận tư vấn</a></nav>
         </details>
       </header>
 
@@ -520,9 +584,18 @@ export default function Home() {
           <div className="register-copy">
             <span className="register-tag">BÀI TEST NỀN TẢNG 15 PHÚT</span>
             <h2>Chẩn đoán trước.<br />Xếp đúng lộ trình sau.</h2>
-            <p>Chọn lớp và mục tiêu hiện tại. Cô Trâm sẽ gửi bài test phù hợp, nhận xét phần đang hổng rồi mới tư vấn lớp — phổ thông hay nâng cao đều bắt đầu từ năng lực thật.</p>
+            <p>Điền thông tin bên dưới, cô Trâm sẽ chủ động liên hệ qua SĐT/Zalo trong vòng 24h để gửi bài test và tư vấn lộ trình phù hợp với năng lực thật.</p>
           </div>
-          <form onSubmit={handleCopy}>
+          <form onSubmit={handleRegister}>
+            <label htmlFor="name">Họ tên học sinh</label>
+            <input id="name" name="name" type="text" required placeholder="VD: Nguyễn Văn A" onInvalid={showVietnameseValidity} onInput={clearValidity} />
+
+            <label htmlFor="phone">Số điện thoại / Zalo</label>
+            <input id="phone" name="phone" type="tel" inputMode="tel" required placeholder="VD: 0912 345 678" onInvalid={showVietnameseValidity} onInput={clearValidity} />
+
+            <label htmlFor="parentEmail">Email phụ huynh (không bắt buộc)</label>
+            <input id="parentEmail" name="parentEmail" type="email" placeholder="VD: phuhuynh@email.com" onInvalid={showVietnameseValidity} onInput={clearValidity} />
+
             <label htmlFor="grade">Lớp hiện tại</label>
             <select id="grade" name="grade" defaultValue="Lớp 10">
               <option>Lớp 8</option>
@@ -531,6 +604,15 @@ export default function Home() {
               <option>Lớp 11</option>
               <option>Lớp 12</option>
             </select>
+
+            <label htmlFor="level">Mức độ hiểu Hóa hiện tại</label>
+            <select id="level" name="level" defaultValue="Mất gốc">
+              <option>Mất gốc</option>
+              <option>Trung bình</option>
+              <option>Khá</option>
+              <option>Giỏi</option>
+            </select>
+
             <label htmlFor="goal">Mục tiêu chính</label>
             <select id="goal" name="goal" defaultValue="Lấy lại kiến thức nền">
               <option>Lấy lại kiến thức nền</option>
@@ -541,21 +623,41 @@ export default function Home() {
               <option>Ôn thi chuyển cấp</option>
               <option>Ôn thi tốt nghiệp THPT</option>
             </select>
-            <button className="button button-primary submit-button" type="submit">Nhận bài test phù hợp →</button>
-            {message && (
+
+            <label htmlFor="timeSlot">Khung giờ học mong muốn</label>
+            <select id="timeSlot" name="timeSlot" defaultValue="Chưa chắc, cần tư vấn">
+              <option>Sáng</option>
+              <option>Chiều</option>
+              <option>Tối</option>
+              <option>Cuối tuần</option>
+              <option>Chưa chắc, cần tư vấn</option>
+            </select>
+
+            <button className="button button-primary submit-button" type="submit" disabled={submitStatus === "sending"}>
+              {submitStatus === "sending" ? "Đang gửi…" : "Nhận bài test phù hợp →"}
+            </button>
+
+            {submitStatus === "success" && (
+              <div className="message-preview is-success" role="status" aria-live="polite">
+                <p>✓ Đã gửi đăng ký thành công! Cô Trâm sẽ liên hệ qua SĐT/Zalo trong vòng 24h.</p>
+              </div>
+            )}
+
+            {submitStatus === "error" && (
               <div className="message-preview" role="status" aria-live="polite">
-                <p>{message}</p>
+                <p>{fallbackMessage}</p>
                 <div>
-                  <span>{contactReady ? "✓ Đã sao chép. Chọn kênh bên dưới để gửi." : "Trình duyệt chưa cho phép sao chép tự động."}</span>
-                  <button type="button" onClick={handleCopyAgain}>{contactReady ? "Sao chép lại" : "Sao chép lời nhắn"}</button>
+                  <span>{copied ? "✓ Đã sao chép nội dung. Gửi qua kênh bên dưới giúp em nhé." : "Chưa gửi được tự động — hãy nhắn trực tiếp qua kênh bên dưới."}</span>
+                  <button type="button" onClick={handleCopyAgain}>{copied ? "Sao chép lại" : "Sao chép lời nhắn"}</button>
                 </div>
               </div>
             )}
+
             <div className="contact-buttons">
               <a href={FACEBOOK_URL} target="_blank" rel="noreferrer">Facebook ↗</a>
               <a href={ZALO_URL} target="_blank" rel="noreferrer">Zalo: 0329 309 293 ↗</a>
             </div>
-            <small>Không lưu thông tin cá nhân trên website.</small>
+            <small>Thông tin chỉ dùng để liên hệ tư vấn, gửi tới {NOTIFY_EMAIL}, không chia sẻ cho bên thứ ba.</small>
           </form>
         </div>
       </section>
@@ -567,6 +669,7 @@ export default function Home() {
             <span>ChamCham<span>Edemy</span><small>Học Hóa bằng tư duy trực quan</small></span>
           </a>
           <nav className="footer-nav" aria-label="Liên kết cuối trang"><a href={getAssetPath("/#khoa-hoc")}>Khóa học</a><a href={getAssetPath("/#giang-vien")}>Giảng viên</a><a href={getAssetPath("/feedback")}>Feedback</a><a href={getAssetPath("/blog")}>Blog</a><a href={getAssetPath("/#dang-ky")}>Đăng ký</a></nav>
+          <p className="footer-address">9/5A Đường Số 1, Thành phố Thủ Đức, TP. Hồ Chí Minh · Học trực tiếp tại Quận 9 & học online toàn quốc</p>
           <div className="footer-social" aria-label="Kết nối với ChamChamEdemy">
             <a href={MAP_URL} target="_blank" rel="noreferrer" aria-label="Địa chỉ ChamChamEdemy trên Google Maps"><span>⌖</span>Địa chỉ</a>
             <a href={YOUTUBE_URL} target="_blank" rel="noreferrer" aria-label="YouTube ChamChamEdemy"><span>▶</span>YouTube</a>
@@ -575,7 +678,7 @@ export default function Home() {
           </div>
         </div>
       </footer>
-      <div className="mobile-cta-bar" aria-label="Liên hệ nhanh"><a href={FACEBOOK_URL} target="_blank" rel="noreferrer">Facebook</a><a href={ZALO_URL} target="_blank" rel="noreferrer">Zalo tư vấn</a></div>
+      <div className="mobile-cta-bar" aria-label="Liên hệ nhanh"><a href="tel:0329309293" aria-label="Gọi điện cho Cô Trâm">Gọi điện</a><a href={FACEBOOK_URL} target="_blank" rel="noreferrer" aria-label="Nhắn tin qua Facebook">Facebook</a><a href={ZALO_URL} target="_blank" rel="noreferrer" aria-label="Nhận tư vấn qua Zalo">Zalo tư vấn</a></div>
     </main>
   );
 }

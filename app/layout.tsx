@@ -1,36 +1,73 @@
 import type { Metadata } from "next";
-import { Be_Vietnam_Pro, Quicksand } from "next/font/google";
+import { Be_Vietnam_Pro, Caveat, Quicksand } from "next/font/google";
 import { getAssetPath } from "./basePath";
+import JsonLd from "../components/seo/JsonLd";
+import { organizationSchema, websiteSchema } from "../lib/schema";
+import { SITE_NAME, SITE_URL } from "../lib/seo";
 import "./globals.css";
 
 const beVietnamPro = Be_Vietnam_Pro({
   variable: "--font-heading",
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin", "latin-ext", "vietnamese"],
   weight: ["500", "600", "700", "800"],
+  display: "swap",
 });
 
 const quicksand = Quicksand({
   variable: "--font-quicksand",
   subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
+// Chỉ dùng cho điểm nhấn nhỏ dạng chữ viết tay (logo tagline, ghi chú hero) — không dùng cho nội dung dài.
+const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin", "latin-ext"],
+  weight: ["600", "700"],
+  display: "swap",
+});
+
+const HOME_TITLE = "Học Hóa mất gốc Quận 9 & Online | ChamChamEdemy - Cô Trâm";
+const HOME_DESCRIPTION =
+  "ChamChamEdemy cùng Cô Trâm dạy Hóa THCS–THPT cho học sinh mất gốc: học trực tiếp tại Quận 9, TP. Thủ Đức hoặc online toàn quốc, gia sư 1:1 và lớp nhóm nhỏ.";
+const SHARE_IMAGE = getAssetPath("/co-tram-mascot.jpg");
+
 export const metadata: Metadata = {
-  title: "Gia sư & Luyện thi Hóa học Quận 9 (TP. Thủ Đức) | ChamChamEdemy - Cô Trâm",
-  description:
-    "Luyện thi Hóa & gia sư Hóa Quận 9, TP. Thủ Đức cùng Cô Trâm ChamChamEdemy: Lấy gốc Hóa THCS (lớp 8–9), học tốt KHTN 9, ôn thi vào 10 và luyện thi Hóa THPT lớp 11–12.",
+  metadataBase: new URL(SITE_URL),
+  title: HOME_TITLE,
+  description: HOME_DESCRIPTION,
   keywords: [
+    "học Hóa mất gốc",
     "gia sư Hóa Quận 9",
-    "luyện thi Hóa Quận 9",
     "học Hóa Quận 9",
-    "lớp Hóa cô Trâm Quận 9",
-    "ôn thi vào 10 Hóa Quận 9",
-    "lấy gốc Hóa THCS Quận 9",
-    "gia sư KHTN 9 Quận 9",
-    "lớp học Hóa TP Thủ Đức"
+    "học Hóa online",
+    "lớp Hóa cô Trâm",
+    "ôn thi vào 10 môn Hóa",
+    "lấy gốc Hóa THCS",
+    "gia sư KHTN 9",
   ],
-  other: {
-    "codex-preview": "development",
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    type: "website",
+    locale: "vi_VN",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    images: [{ url: SHARE_IMAGE, width: 620, height: 620, alt: "Mascot Cô Trâm - ChamChamEdemy" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    images: [SHARE_IMAGE],
   },
   icons: {
     icon: [
@@ -50,8 +87,10 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <body
-        className={`${beVietnamPro.variable} ${quicksand.variable} antialiased`}
+        className={`${beVietnamPro.variable} ${quicksand.variable} ${caveat.variable} antialiased`}
       >
+        <JsonLd data={organizationSchema()} />
+        <JsonLd data={websiteSchema()} />
         {children}
       </body>
     </html>

@@ -1,24 +1,38 @@
 import type { Metadata } from "next";
 import SiteChrome from "../../components/SiteChrome";
+import JsonLd from "../../../components/seo/JsonLd";
+import { articleSchema, breadcrumbSchema } from "../../../lib/schema";
 import { getAssetPath } from "../../basePath";
 
+const TITLE = "Gia sư Hóa học Quận 9: Lộ trình vững nền cùng Cô Trâm";
+const DESCRIPTION = "Lớp học Hóa THCS–THPT, gia sư Hóa Quận 9: lấy gốc Hóa 8–9, ôn thi vào 10 và luyện thi lớp 11–12 cùng Cô Trâm ChamChamEdemy.";
+const SLUG = "/blog/gia-su-luyen-thi-hoa-quan-9-tp-thu-duc";
+const IMAGE = "/co-le-thuy-tram-professional.png";
+const DATE_PUBLISHED = "2026-07-21";
+
 export const metadata: Metadata = {
-  title: "Luyện thi & Gia sư Hóa học Quận 9 (TP. Thủ Đức): Lộ trình vững nền cùng Cô Trâm",
-  description: "Lớp học Hóa THCS–THPT, gia sư Hóa Quận 9, lấy gốc Hóa 8–9, ôn thi vào 10 và luyện thi lớp 11–12 tại Phước Long, Tăng Nhơn Phú, Hiệp Phú - Cô Trâm ChamChamEdemy.",
+  title: TITLE,
+  description: DESCRIPTION,
   keywords: ["gia sư Hóa Quận 9", "luyện thi Hóa Quận 9", "học Hóa Quận 9", "lớp Hóa cô Trâm Quận 9", "ôn thi vào 10 Hóa Quận 9", "gia sư KHTN 9 Quận 9", "lớp học Hóa TP Thủ Đức"],
+  alternates: { canonical: SLUG },
+  openGraph: { type: "article", title: TITLE, description: DESCRIPTION, url: SLUG, images: [getAssetPath(IMAGE)] },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 };
 
 export default function District9Article() {
   return (
     <SiteChrome>
+      <JsonLd data={breadcrumbSchema([{ name: "Trang chủ", path: "/" }, { name: "Blog Hóa", path: "/blog" }, { name: TITLE, path: SLUG }])} />
+      <JsonLd data={articleSchema({ headline: TITLE, description: DESCRIPTION, path: SLUG, image: IMAGE, datePublished: DATE_PUBLISHED })} />
       <article className="article-wrap">
         <p className="section-kicker">SEO & ĐỒNG HÀNH KHU VỰC QUẬN 9 · TP. THỦ ĐỨC</p>
         <h1>Luyện thi & Gia sư Hóa học Quận 9 (TP. Thủ Đức): Lộ trình lấy gốc & nâng cao cùng Cô Trâm</h1>
         <p className="article-lead">
           Học sinh khu vực Quận 9 (Phước Long A/B, Tăng Nhơn Phú A/B, Hiệp Phú, Long Thạnh Mỹ, Tân Phú...) khi gặp khó khăn với môn Hóa THCS (lớp 8, 9) và Hóa THPT (lớp 10, 11, 12) thường lo lắng vì mất gốc kiến thức. Tại <strong>ChamChamEdemy</strong>, Cô Lê Thùy Trâm mang đến giải pháp học Hóa trực quan, giúp các em lấy lại căn bản và tự tin bứt phá điểm số.
         </p>
+        <p className="article-byline">Tác giả: Cô Lê Thùy Trâm · Đăng ngày 21/07/2026</p>
 
-        <img className="cover" src={getAssetPath("/co-le-thuy-tram-professional.png")} alt="Cô Lê Thùy Trâm - Luyện thi & Gia sư Hóa học Quận 9 TP. Thủ Đức" />
+        <img className="cover" src={getAssetPath(IMAGE)} alt="Cô Lê Thùy Trâm - Luyện thi & Gia sư Hóa học Quận 9 TP. Thủ Đức" />
 
         <div className="article-body">
           <h2>1. Thực trạng học Hóa của học sinh THCS – THPT tại Quận 9</h2>
@@ -68,7 +82,7 @@ export default function District9Article() {
           </p>
           <div className="tip">
             📞 <strong>Hotline/Zalo tư vấn Quận 9:</strong> 0329 309 293<br />
-            📍 <strong>Địa chỉ hỗ trợ:</strong> Quận 9, TP. Thủ Đức, TP. Hồ Chí Minh
+            📍 <strong>Địa chỉ:</strong> 9/5A Đường Số 1, Thành phố Thủ Đức, TP. Hồ Chí Minh
           </div>
         </div>
       </article>

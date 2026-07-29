@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
 import SiteChrome from "../components/SiteChrome";
+import JsonLd from "../../components/seo/JsonLd";
+import { breadcrumbSchema } from "../../lib/schema";
 import { getAssetPath } from "../basePath";
 
+const TITLE = "Blog Hóa học THCS–THPT | ChamChamEdemy";
+const DESCRIPTION = "Kiến thức Hóa học dễ hiểu: cân bằng phương trình, nồng độ dung dịch và lộ trình lấy gốc Hóa trước khi vào lớp 10.";
+
 export const metadata: Metadata = {
-  title: "Blog Hóa học THCS–THPT | ChamChamEdemy",
-  description: "Kiến thức Hóa học dễ hiểu: cân bằng phương trình, nồng độ dung dịch và lộ trình lấy gốc Hóa trước khi vào lớp 10.",
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/blog" },
+  openGraph: { type: "website", title: TITLE, description: DESCRIPTION, url: "/blog" },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 };
 
 const posts = [
@@ -18,10 +26,11 @@ const posts = [
 export default function BlogPage() {
   return (
     <SiteChrome>
+      <JsonLd data={breadcrumbSchema([{ name: "Trang chủ", path: "/" }, { name: "Blog Hóa", path: "/blog" }])} />
       <div className="content-shell">
         <section className="page-hero"><p className="section-kicker">BLOG HÓA DỄ HIỂU</p><h1>Mỗi bài viết giải quyết<br />một điểm học sinh hay vướng.</h1><p>Nội dung ngắn gọn, có quy trình và ví dụ trực quan dành cho học sinh THCS–THPT.</p></section>
         <section className="blog-grid">
-          {posts.map((post) => <a className="blog-card" href={getAssetPath(post.href)} key={post.href}><img src={getAssetPath(post.image)} alt="" /><div><small>{post.tag}</small><h2>{post.title}</h2><p>{post.excerpt}</p><span>Đọc bài viết →</span></div></a>)}
+          {posts.map((post) => <a className="blog-card" href={getAssetPath(post.href)} key={post.href}><img src={getAssetPath(post.image)} alt={post.title} /><div><small>{post.tag}</small><h2>{post.title}</h2><p>{post.excerpt}</p><span>Đọc bài viết →</span></div></a>)}
         </section>
       </div>
     </SiteChrome>
