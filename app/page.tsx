@@ -4,6 +4,7 @@ import { FormEvent, InvalidEvent, useEffect, useState } from "react";
 import { getAssetPath } from "./basePath";
 import JsonLd from "../components/seo/JsonLd";
 import { teacherPersonSchema } from "../lib/schema";
+import StatisticsSection from "./components/StatisticsSection";
 
 const FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61590518783118";
 const ZALO_URL = "https://zalo.me/0329309293";
@@ -318,6 +319,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <StatisticsSection />
 
       <div className="reaction-marquee" aria-label="Các phương trình hóa học minh họa">
         <div>
