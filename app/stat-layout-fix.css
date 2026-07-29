@@ -1,0 +1,76 @@
+.teacher-results{
+  align-items:stretch;
+}
+.teacher-results>div{
+  min-width:0;
+  min-height:140px;
+  overflow:hidden;
+}
+.teacher-results-top{
+  min-width:0;
+}
+.teacher-results strong{
+  display:block;
+  flex:0 0 auto;
+  max-width:100%;
+  font-size:clamp(44px,4.2vw,58px);
+  line-height:.9;
+  white-space:nowrap;
+}
+.teacher-results span{
+  display:block;
+  max-width:100%;
+  overflow-wrap:anywhere;
+  font-size:9px;
+  line-height:1.4;
+}
+.gain-badge{
+  width:fit-content;
+  max-width:100%;
+  display:grid;
+  grid-template-columns:auto auto;
+  grid-template-areas:"number unit" "note note";
+  align-items:end;
+  column-gap:8px;
+  row-gap:5px;
+  overflow:hidden;
+}
+.gain-badge strong{
+  grid-area:number;
+  display:block;
+  min-width:0;
+  font-size:clamp(52px,5.2vw,68px);
+  line-height:.85;
+  white-space:nowrap;
+}
+.gain-badge b{
+  grid-area:unit;
+  padding-bottom:3px;
+  font-family:var(--font-heading),sans-serif;
+  font-size:20px;
+  line-height:1;
+}
+.gain-badge span{
+  grid-area:note;
+  max-width:none;
+  font-size:10px;
+  line-height:1.3;
+}
+@media(max-width:1020px){
+  .teacher-results>div{min-height:96px}
+  .teacher-results-top{
+    display:grid;
+    grid-template-columns:minmax(82px,auto) minmax(0,1fr);
+    align-items:center;
+    gap:12px;
+  }
+  .teacher-results strong{font-size:48px}
+}
+@media(max-width:780px){
+  .teacher-results>div{min-width:220px;min-height:122px}
+  .teacher-results-top{display:flex;align-items:flex-start}
+}
+@media(max-width:430px){
+  .gain-badge{width:100%}
+  .gain-badge strong{font-size:56px}
+}

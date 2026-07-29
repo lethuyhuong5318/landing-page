@@ -1,0 +1,27 @@
+.periodic-filter-bar{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 12px}
+.periodic-filter{
+  display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:7px 11px;
+  border:1px solid var(--navy-100);border-radius:999px;background:#fff;color:var(--navy-800);
+  font:700 10px/1 'Be Vietnam Pro',sans-serif;cursor:pointer;transition:.18s
+}
+.periodic-filter::before{content:"";width:10px;height:10px;border:1px solid rgba(11,47,91,.15);border-radius:3px;background:var(--filter-color,#fff)}
+.periodic-filter:hover{border-color:var(--sky-300);transform:translateY(-1px)}
+.periodic-filter.active{color:#fff;border-color:var(--navy-900);background:var(--navy-900)}
+.periodic-filter[data-filter="all"]::before{background:linear-gradient(135deg,#ffd9d9 0 25%,#d9ecff 25% 50%,#fff7a8 50% 75%,#dff7df 75%)}
+.periodic-grid.has-filter .pel{opacity:.16;filter:saturate(.3);transform:none}
+.periodic-grid.has-filter .pel.filter-match{opacity:1;filter:none;box-shadow:0 0 0 2px var(--yellow-500),0 5px 12px rgba(11,47,91,.18)}
+.periodic-grid .pel{font-family:'Be Vietnam Pro',sans-serif}
+.periodic-grid button.pel{appearance:none;color:inherit}
+.periodic-grid .pel:focus-visible{outline:3px solid var(--yellow-500);outline-offset:2px;z-index:3}
+.periodic-grid .pel:hover{z-index:2;border-color:var(--yellow-500);transform:translateY(-2px);box-shadow:0 5px 12px rgba(11,47,91,.15)}
+.periodic-grid.has-filter .pel:not(.filter-match):hover{opacity:.45}
+.periodic-count{margin:-5px 0 10px;color:var(--muted);font-size:9px;font-weight:700}
+.periodic-modal-category{display:inline-flex;margin-top:7px;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.16);color:#fff;font-size:9px;font-weight:800}
+.periodic-shell-diagram{display:flex;justify-content:center;margin:14px 0 8px}
+.periodic-shell-diagram svg{width:164px;height:164px}
+.periodic-shell-note{text-align:center;color:var(--muted);font-size:10px;font-weight:600}
+.periodic-app-note{margin:12px 0 0;padding:10px 12px;border-radius:10px;background:var(--yellow-100);font-size:11px;font-weight:600;line-height:1.5}
+@media(max-width:560px){
+  .periodic-filter-bar{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .periodic-filter{width:100%;justify-content:flex-start;padding:8px 10px;font-size:9px}
+}

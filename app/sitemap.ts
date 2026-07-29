@@ -4,6 +4,10 @@ import { SITE_URL } from "../lib/seo";
 export const dynamic = "force-static";
 
 const posts = [
+  "/blog/mat-goc-hoa-nen-bat-dau-tu-dau",
+  "/blog/bai-kiem-tra-chan-doan-mat-goc-hoa",
+  "/blog/checklist-kien-thuc-hoa-thcs",
+  "/blog/hoc-hoa-tai-quan-9",
   "/blog/gia-su-luyen-thi-hoa-quan-9-tp-thu-duc",
   "/blog/meo-hoc-tot-khtn-9-lay-goc-hoa-thcs-quan-9",
   "/blog/cach-can-bang-phuong-trinh-hoa-hoc",

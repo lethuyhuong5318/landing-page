@@ -1,10 +1,15 @@
 "use client";
 
-import { FormEvent, InvalidEvent, useEffect, useState } from "react";
+import { CSSProperties, FormEvent, InvalidEvent, MouseEvent as ReactMouseEvent, useEffect, useRef, useState } from "react";
 import { getAssetPath } from "./basePath";
 import JsonLd from "../components/seo/JsonLd";
+import MobileMenu from "./components/MobileMenu";
 import { teacherPersonSchema } from "../lib/schema";
 import StatisticsSection from "./components/StatisticsSection";
+import "./home-layout-fixes.css";
+import "./stat-emphasis.css";
+import "./stat-layout-fix.css";
+import "./stat-layout-v2.css";
 
 const FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61590518783118";
 const ZALO_URL = "https://zalo.me/0329309293";
@@ -12,10 +17,18 @@ const MAP_URL = "https://maps.app.goo.gl/ujtgE2iRYuLd7j8m9";
 const YOUTUBE_URL = "https://www.youtube.com/@chamcham97-c6f";
 const TIKTOK_URL = "https://www.tiktok.com/@chamchamedemy?_r=1&_t=ZS-98BKi5KPsQB";
 
+const MOBILE_LINKS = [
+  { href: getAssetPath("/#khoa-hoc"), label: "Khóa học" },
+  { href: getAssetPath("/#giang-vien"), label: "Giảng viên" },
+  { href: getAssetPath("/feedback"), label: "Feedback" },
+  { href: getAssetPath("/lay-goc-hoa.html"), label: "Lấy gốc hóa" },
+  { href: getAssetPath("/blog"), label: "Blog Hóa" },
+  { href: getAssetPath("/#dang-ky"), label: "Nhận tư vấn" },
+];
+
 
 
 const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "";
-const NOTIFY_EMAIL = process.env.NEXT_PUBLIC_NOTIFY_EMAIL ?? "";
 
 const reactionItems = [
   { type: "Phản ứng hóa hợp", formula: "2H₂ + O₂ → 2H₂O", icon: "💧" },
@@ -37,6 +50,14 @@ const elementExplorer = [
   { number: 20, symbol: "Ca", name: "Calcium", category: "Kim loại kiềm thổ", application: "Vật liệu xây dựng; ion calcium quan trọng với xương và răng.", fact: "Đá vôi có thành phần chính là calcium carbonate.", visual: "🦴", visualLabel: "Xương & vật liệu", tone: "gold" },
   { number: 26, symbol: "Fe", name: "Iron", category: "Kim loại chuyển tiếp", application: "Sản xuất thép cho cầu đường, nhà ở và máy móc.", fact: "Ion iron là thành phần quan trọng trong hemoglobin.", visual: "🏗️", visualLabel: "Thép xây dựng", tone: "mint" },
   { number: 29, symbol: "Cu", name: "Copper", category: "Kim loại chuyển tiếp", application: "Dây điện, động cơ và thiết bị điện tử nhờ dẫn điện tốt.", fact: "Copper có màu đỏ cam đặc trưng.", visual: "🔌", visualLabel: "Dây điện & điện tử", tone: "mint" },
+  { number: 19, symbol: "K", name: "Potassium", category: "Kim loại kiềm", application: "Thành phần chính trong phân bón kali cho cây trồng.", fact: "Potassium phản ứng mạnh với nước và cháy với ngọn lửa tím đặc trưng.", visual: "🌾", visualLabel: "Phân bón cây trồng", tone: "gold" },
+  { number: 16, symbol: "S", name: "Sulfur", category: "Phi kim", application: "Sản xuất axit sulfuric, diêm và lưu hóa cao su.", fact: "Sulfur có màu vàng đặc trưng, thường gặp quanh miệng núi lửa.", visual: "🌋", visualLabel: "Công nghiệp hóa chất", tone: "gold" },
+  { number: 15, symbol: "P", name: "Phosphorus", category: "Phi kim", application: "Sản xuất phân bón, diêm quẹt và có trong DNA, xương.", fact: "Phosphorus trắng phát quang trong bóng tối và rất độc.", visual: "🦴", visualLabel: "Phân bón & xương", tone: "violet" },
+  { number: 30, symbol: "Zn", name: "Zinc", category: "Kim loại chuyển tiếp", application: "Mạ kẽm chống gỉ cho thép và hợp kim đồng thau.", fact: "Cơ thể người cần một lượng nhỏ zinc để hỗ trợ hệ miễn dịch.", visual: "🛡️", visualLabel: "Mạ chống gỉ", tone: "mint" },
+  { number: 24, symbol: "Cr", name: "Chromium", category: "Kim loại chuyển tiếp", application: "Mạ crôm sáng bóng và tạo độ bền cho thép không gỉ (inox).", fact: "Chromium là thành phần giúp thép không gỉ chống ăn mòn.", visual: "🔧", visualLabel: "Thép không gỉ", tone: "sky" },
+  { number: 56, symbol: "Ba", name: "Barium", category: "Kim loại kiềm thổ", application: "Barium sulfate dùng trong chụp X-quang đường tiêu hóa.", fact: "Barium kim loại độc, nhưng hợp chất barium sulfate không tan nên an toàn khi dùng y tế.", visual: "🩻", visualLabel: "Chụp X-quang", tone: "ink" },
+  { number: 25, symbol: "Mn", name: "Manganese", category: "Kim loại chuyển tiếp", application: "Hợp kim thép cường độ cao và sản xuất pin khô.", fact: "Cơ thể người cần một lượng rất nhỏ manganese mỗi ngày.", visual: "🔋", visualLabel: "Thép & pin khô", tone: "mint" },
+  { number: 35, symbol: "Br", name: "Bromine", category: "Halogen", application: "Khử trùng nước hồ bơi và sản xuất một số loại thuốc.", fact: "Bromine là phi kim duy nhất ở thể lỏng tại nhiệt độ phòng.", visual: "💧", visualLabel: "Khử trùng nước hồ bơi", tone: "violet" },
 ];
 
 const trustNotices = [
@@ -115,6 +136,54 @@ const benefits = [
 
 type SubmitStatus = "idle" | "sending" | "success" | "error";
 
+function CountUp({ to, decimals = 0, prefix = "", suffix = "" }: { to: number; decimals?: number; prefix?: string; suffix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    let started = false;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !started) {
+            started = true;
+            const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (reduceMotion) {
+              setValue(to);
+              observer.disconnect();
+              return;
+            }
+            const duration = 1200;
+            const start = performance.now();
+            function tick(now: number) {
+              const progress = Math.min(1, (now - start) / duration);
+              const eased = 1 - Math.pow(1 - progress, 3);
+              setValue(to * eased);
+              if (progress < 1) requestAnimationFrame(tick);
+              else setValue(to);
+            }
+            requestAnimationFrame(tick);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.4 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [to]);
+
+  return (
+    <span ref={ref}>
+      {prefix}
+      {value.toFixed(decimals)}
+      {suffix}
+    </span>
+  );
+}
+
 export default function Home() {
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
   const [fallbackMessage, setFallbackMessage] = useState("");
@@ -123,6 +192,33 @@ export default function Home() {
   const [activeElement, setActiveElement] = useState(elementExplorer[0]);
   const [discoveredElements, setDiscoveredElements] = useState<string[]>([elementExplorer[0].symbol]);
   const [noticeIndex, setNoticeIndex] = useState(0);
+  const [resultOpen, setResultOpen] = useState(false);
+  const [hoveredBenefit, setHoveredBenefit] = useState<(typeof benefits)[number] | null>(null);
+  const portraitFrameRef = useRef<HTMLDivElement>(null);
+  const formLoadedAt = useRef(Date.now());
+
+  function handlePortraitTilt(event: ReactMouseEvent<HTMLDivElement>) {
+    const frame = portraitFrameRef.current;
+    if (!frame) return;
+    const rect = frame.getBoundingClientRect();
+    const px = (event.clientX - rect.left) / rect.width - 0.5;
+    const py = (event.clientY - rect.top) / rect.height - 0.5;
+    frame.style.transform = `rotateY(${px * 3}deg) rotateX(${py * -3}deg)`;
+  }
+
+  function resetPortraitTilt() {
+    const frame = portraitFrameRef.current;
+    if (frame) frame.style.transform = "";
+  }
+
+  useEffect(() => {
+    if (!resultOpen) return;
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setResultOpen(false);
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [resultOpen]);
 
   useEffect(() => {
     const elements = document.querySelectorAll<HTMLElement>("[data-reveal]");
@@ -179,6 +275,28 @@ export default function Home() {
     event.preventDefault();
     const formEl = event.currentTarget;
     const form = new FormData(formEl);
+
+    // Honeypot: trường ẩn chỉ bot mới điền — người dùng thật sẽ luôn để trống.
+    if (form.get("botcheck")) {
+      return;
+    }
+
+    // Chặn submit quá nhanh (bot điền form tức thì, người thật cần ít nhất vài giây để gõ).
+    if (Date.now() - formLoadedAt.current < 3000) {
+      setSubmitStatus("error");
+      setFallbackMessage("Vui lòng kiểm tra lại thông tin và gửi lại sau ít giây.");
+      return;
+    }
+
+    // Chặn spam gửi liên tục từ cùng một trình duyệt.
+    const lastSubmitKey = "cce_last_register_submit";
+    const lastSubmit = Number(window.localStorage.getItem(lastSubmitKey) ?? 0);
+    if (Date.now() - lastSubmit < 60000) {
+      setSubmitStatus("error");
+      setFallbackMessage("Bạn vừa gửi thông tin. Vui lòng đợi ít phút rồi thử lại, hoặc nhắn trực tiếp qua Zalo/Facebook bên dưới.");
+      return;
+    }
+
     const name = form.get("name");
     const phone = form.get("phone");
     const parentEmail = form.get("parentEmail");
@@ -241,9 +359,14 @@ export default function Home() {
     setCopied(await copyToClipboard(fallbackMessage));
   }
 
-  function discoverElement(element: (typeof elementExplorer)[number]) {
+  function previewElement(element: (typeof elementExplorer)[number]) {
     setActiveElement(element);
     setDiscoveredElements((current) => current.includes(element.symbol) ? current : [...current, element.symbol]);
+  }
+
+  function discoverElement(element: (typeof elementExplorer)[number]) {
+    previewElement(element);
+    setResultOpen(true);
   }
 
   return (
@@ -263,10 +386,7 @@ export default function Home() {
           <a href={getAssetPath("/blog")}>Blog Hóa</a>
           <a href={getAssetPath("/#dang-ky")} className="nav-cta">Nhận test đầu vào</a>
         </nav>
-        <details className="mobile-menu">
-          <summary aria-label="Mở menu" aria-controls="mobile-nav-home"><span /><span /><span /></summary>
-          <nav id="mobile-nav-home" aria-label="Điều hướng mobile"><a href={getAssetPath("/#khoa-hoc")}>Khóa học</a><a href={getAssetPath("/#giang-vien")}>Giảng viên</a><a href={getAssetPath("/feedback")}>Feedback</a><a href={getAssetPath("/lay-goc-hoa.html")}>Lấy gốc hóa</a><a href={getAssetPath("/blog")}>Blog Hóa</a><a href={getAssetPath("/#dang-ky")}>Nhận tư vấn</a></nav>
-        </details>
+        <MobileMenu links={MOBILE_LINKS} navId="mobile-nav-home" />
       </header>
 
       <section className="hero" id="main-content">
@@ -351,7 +471,7 @@ export default function Home() {
         <div className="game-shell" data-reveal>
           <div className="periodic-panel">
             <div className="periodic-toolbar">
-              <div><span>MINI PERIODIC LAB</span><strong>12 nguyên tố quanh em</strong></div>
+              <div><span>MINI PERIODIC LAB</span><strong>20 nguyên tố quanh em</strong></div>
               <div className="game-progress" aria-label={`Đã khám phá ${discoveredElements.length} trên ${elementExplorer.length} nguyên tố`}>
                 <small>{discoveredElements.length}/{elementExplorer.length} đã khám phá</small>
                 <span><i style={{ width: `${(discoveredElements.length / elementExplorer.length) * 100}%` }} /></span>
@@ -364,6 +484,7 @@ export default function Home() {
                   className={`element-tile ${element.tone} ${activeElement.symbol === element.symbol ? "is-active" : ""} ${discoveredElements.includes(element.symbol) ? "is-discovered" : ""}`}
                   key={element.symbol}
                   onClick={() => discoverElement(element)}
+                  onMouseEnter={() => previewElement(element)}
                   aria-pressed={activeElement.symbol === element.symbol}
                   aria-label={`Khám phá ${element.name}`}
                 >
@@ -373,7 +494,13 @@ export default function Home() {
             </div>
           </div>
 
-          <aside className={`element-result ${activeElement.tone}`} aria-live="polite">
+          <div
+            className={`element-result-backdrop ${resultOpen ? "is-open" : ""}`}
+            onClick={() => setResultOpen(false)}
+            aria-hidden="true"
+          />
+          <aside className={`element-result ${activeElement.tone} ${resultOpen ? "is-open" : ""}`} aria-live="polite">
+            <button type="button" className="element-result-close" onClick={() => setResultOpen(false)} aria-label="Đóng chi tiết nguyên tố">✕</button>
             <div className="result-top"><span>{activeElement.number}</span><small>{activeElement.category}</small></div>
             <div className="result-identity">
               <div className="result-symbol">{activeElement.symbol}</div>
@@ -453,7 +580,7 @@ export default function Home() {
 
       <section className="teacher-profile" id="giang-vien" aria-labelledby="teacher-title">
         <div className="teacher-portrait" data-reveal>
-          <div className="portrait-frame">
+          <div className="portrait-frame" ref={portraitFrameRef} onMouseMove={handlePortraitTilt} onMouseLeave={resetPortraitTilt}>
             <img src={getAssetPath("/co-le-thuy-tram-professional.png")} alt="Cô Lê Thùy Trâm - giáo viên Hóa học ChamChamEdemy" loading="lazy" />
             <span className="portrait-formula" aria-hidden="true">H₂O</span>
           </div>
@@ -463,23 +590,23 @@ export default function Home() {
 
         <div className="teacher-copy" data-reveal>
           <p className="section-kicker">GIẢNG VIÊN ĐỒNG HÀNH</p>
-          <h2 id="teacher-title">Cô Lê Thùy Trâm<br /><span>Dạy Hóa bằng tư duy trực quan.</span></h2>
+          <h2 id="teacher-title"><span className="heading-line heading-line-1">Cô Lê Thùy Trâm</span><br /><span className="heading-line heading-line-2 heading-highlight heading-underline">Dạy Hóa bằng tư duy trực quan.</span></h2>
           <p className="teacher-lead">Giáo viên Hóa học với hơn 4 năm kinh nghiệm giảng dạy THCS–THPT; thế mạnh là giải bài theo từng bước logic, dạy học liên môn KHTN và phối hợp cùng phụ huynh trong suốt tiến trình học.</p>
 
           <div className="credential-grid">
             <article><span>🎓</span><div><small>ĐÀO TẠO CHUYÊN MÔN</small><strong>Sư phạm Hóa học</strong><p>Đại học Đồng Nai · Tốt nghiệp loại Khá</p></div></article>
-            <article><span>🏅</span><div><small>CHỨNG CHỈ LIÊN MÔN</small><strong>Khoa học tự nhiên</strong><p>Đại học Thủ đô Hà Nội · Loại Xuất sắc</p></div></article>
+            <article><span>🏅</span><div><small>CHỨNG CHỈ LIÊN MÔN</small><strong>Khoa học tự nhiên</strong><p>Đại học Thủ đô Hà Nội · <strong className="credential-highlight">Loại Xuất sắc</strong></p></div></article>
             <article><span>🤖</span><div><small>PHƯƠNG PHÁP GIẢNG DẠY</small><strong>STEM & công nghệ</strong><p>Học liệu số, AI, Robotics và bài học nhập vai</p></div></article>
           </div>
 
           <div className="teacher-results" aria-label="Kết quả giảng dạy nổi bật theo hồ sơ chuyên môn">
-            <div><strong>80%</strong><span>học sinh tiến bộ rõ rệt</span></div>
-            <div><strong>73%</strong><span>học sinh khá giỏi Hóa 8–9 & KHTN</span></div>
-            <div><strong>97%</strong><span>kết quả lớp Hóa 9.3</span></div>
+            <div><div className="teacher-results-top"><strong><CountUp to={80} suffix="%" /></strong><span>học sinh tiến bộ rõ rệt</span></div><div className="teacher-results-bar" style={{ "--fill": "80%" } as CSSProperties}><i /></div></div>
+            <div><div className="teacher-results-top"><strong><CountUp to={73} suffix="%" /></strong><span>học sinh khá giỏi Hóa 8–9 & KHTN</span></div><div className="teacher-results-bar" style={{ "--fill": "73%" } as CSSProperties}><i /></div></div>
+            <div><div className="teacher-results-top"><strong><CountUp to={97} suffix="%" /></strong><span>kết quả lớp Hóa 9.3</span></div><div className="teacher-results-bar" style={{ "--fill": "97%" } as CSSProperties}><i /></div></div>
           </div>
 
           <div className="career-line"><span>2022–2023 · THCS Tân Bửu</span><i>→</i><span>2023–2024 · VStarSchool</span><i>→</i><span>2024–2026 · KDI Education</span></div>
-          <small className="profile-source">Thông tin và số liệu được tổng hợp từ hồ sơ chuyên môn do giảng viên cung cấp.</small>
+          <small className="profile-source">Thông tin và số liệu được tổng hợp từ hồ sơ chuyên môn do giảng viên cung cấp. Chỉ số khảo sát trên nhóm học sinh đã theo học, không đại diện toàn bộ học viên.</small>
         </div>
       </section>
 
@@ -487,18 +614,29 @@ export default function Home() {
         <div className="learning-lab" data-reveal>
           <div className="lab-copy">
             <p className="section-kicker light">PHÒNG THÍ NGHIỆM CỦA SỰ TIẾN BỘ</p>
-            <h2>Không học để nhớ tạm.<br /><span>Học để tự làm được.</span></h2>
+            <h2><span className="heading-line heading-line-1">Không học để nhớ tạm.</span><br /><span className="heading-line heading-line-2 heading-highlight heading-underline">Học để tự làm được.</span></h2>
             <p>Mỗi buổi học là một chu trình khép kín: tìm điểm hổng, giải thích bản chất, luyện ngay tại lớp và chốt lại điều cần cải thiện.</p>
             <div className="survey-proof">
-              <div><strong>28</strong><span>học sinh tham gia khảo sát</span></div>
-              <div><strong>100%</strong><span>đánh giá cách giảng dễ hiểu</span></div>
+              <div><strong><CountUp to={28} /></strong><span>học sinh tham gia khảo sát</span></div>
+              <div><strong><CountUp to={100} suffix="%" /></strong><span>đánh giá cách giảng dễ hiểu</span></div>
               <a href={getAssetPath("/feedback")}>Xem feedback thật →</a>
             </div>
           </div>
           <div className="lab-cycle" aria-label="Chu trình học tập tại ChamChamEdemy">
-            <div className="lab-core"><span>Hiểu</span><strong>BẢN CHẤT</strong></div>
+            <div className={`lab-core${hoveredBenefit ? " is-hovering" : ""}`}>
+              {hoveredBenefit ? (
+                <><span>{`0${hoveredBenefit.number}`.slice(-2)}</span><strong>{hoveredBenefit.title}</strong></>
+              ) : (
+                <><span>Hiểu</span><strong>BẢN CHẤT</strong></>
+              )}
+            </div>
             {benefits.map((benefit, index) => (
-              <article key={benefit.number} className={`lab-step lab-step-${index + 1}`}>
+              <article
+                key={benefit.number}
+                className={`lab-step lab-step-${index + 1}`}
+                onMouseEnter={() => setHoveredBenefit(benefit)}
+                onMouseLeave={() => setHoveredBenefit(null)}
+              >
                 <b>{benefit.number}</b><span>{benefit.title}</span>
               </article>
             ))}
@@ -512,16 +650,26 @@ export default function Home() {
               <p className="section-kicker">TIẾN BỘ NHÌN THẤY ĐƯỢC</p>
               <h2 id="outcome-title">Không chỉ “cảm thấy hiểu”.<br /><span>Điểm số phải kể được câu chuyện.</span></h2>
               <p>Kết quả học viên được ẩn danh. Mỗi lộ trình bắt đầu bằng bài kiểm tra ngắn để theo dõi đúng phần em cần cải thiện.</p>
-              <div className="gain-badge"><strong>+3.5 điểm</strong><span>sau 2 tuần học</span></div>
+              <div className="gain-badge"><strong>+<CountUp to={3.5} decimals={1} /></strong><b>điểm</b><span>sau 2 tuần học</span></div>
             </div>
-            <div className="score-chart" role="img" aria-label="Điểm kiểm tra tăng từ 4 lên 7.5 sau hai tuần">
+            <div className="score-chart" role="img" aria-label="Điểm kiểm tra tăng từ 4 lên 7.5 sau hai tuần (dữ liệu minh họa)">
               <div className="chart-scale" aria-hidden="true"><span>10</span><span>5</span><span>0</span></div>
               <div className="chart-bars">
-                <div className="score-column before"><strong>4.0</strong><i style={{ height: "40%" }} /><span>Trước khi học</span></div>
-                <div className="score-column after"><strong>7.5</strong><i style={{ height: "75%" }} /><span>Sau 2 tuần</span></div>
+                <div className="score-column before">
+                  <strong><CountUp to={4} decimals={1} /></strong>
+                  <i style={{ height: "40%" }} />
+                  <span>Trước khi học</span>
+                  <div className="score-tooltip"><strong>Trước khi học</strong>Điểm khảo sát đầu vào: 4.0</div>
+                </div>
+                <div className="score-column after">
+                  <strong><CountUp to={7.5} decimals={1} /></strong>
+                  <i style={{ height: "75%" }} />
+                  <span>Sau 2 tuần</span>
+                  <div className="score-tooltip"><strong>Sau 2 tuần</strong>Điểm kiểm tra gần nhất: 7.5</div>
+                </div>
               </div>
             </div>
-            <small className="outcome-note">Kết quả có thể khác nhau tùy điểm xuất phát và mức độ hoàn thành bài tập.</small>
+            <small className="outcome-note">* Biểu đồ minh họa một trường hợp thực tế; kết quả có thể khác nhau tùy điểm xuất phát và mức độ hoàn thành bài tập.</small>
           </section>
 
           <section className="parent-value" aria-labelledby="parent-value-title" data-reveal>
@@ -660,7 +808,6 @@ export default function Home() {
               <a href={FACEBOOK_URL} target="_blank" rel="noreferrer">Facebook ↗</a>
               <a href={ZALO_URL} target="_blank" rel="noreferrer">Zalo: 0329 309 293 ↗</a>
             </div>
-            <small>Thông tin chỉ dùng để liên hệ tư vấn, gửi tới {NOTIFY_EMAIL}, không chia sẻ cho bên thứ ba.</small>
           </form>
         </div>
       </section>
