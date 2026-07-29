@@ -1,15 +1,11 @@
 "use client";
 
-import { CSSProperties, FormEvent, InvalidEvent, MouseEvent as ReactMouseEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, InvalidEvent, MouseEvent as ReactMouseEvent, useEffect, useRef, useState } from "react";
 import { getAssetPath } from "./basePath";
 import JsonLd from "../components/seo/JsonLd";
 import MobileMenu from "./components/MobileMenu";
 import { teacherPersonSchema } from "../lib/schema";
-import StatisticsSection from "./components/StatisticsSection";
 import "./home-layout-fixes.css";
-import "./stat-emphasis.css";
-import "./stat-layout-fix.css";
-import "./stat-layout-v2.css";
 
 const FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61590518783118";
 const ZALO_URL = "https://zalo.me/0329309293";
@@ -28,6 +24,11 @@ const MOBILE_LINKS = [
 
 
 
+const progressStats = [
+  { value: "80%", label: "học sinh tiến bộ rõ rệt", progress: 80 },
+  { value: "73%", label: "học sinh khá giỏi Hóa 8–9 & KHTN", progress: 73 },
+  { value: "97%", label: "kết quả lớp Hóa 9", progress: 97 },
+];
 const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "";
 
 const reactionItems = [
@@ -440,7 +441,6 @@ export default function Home() {
         </div>
       </section>
 
-      <StatisticsSection />
 
       <div className="reaction-marquee" aria-label="Các phương trình hóa học minh họa">
         <div>
@@ -578,17 +578,18 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="teacher-profile" id="giang-vien" aria-labelledby="teacher-title">
-        <div className="teacher-portrait" data-reveal>
+      <section className="teacher-section" id="giang-vien" aria-labelledby="teacher-title">
+        <div className="teacher-section__grid">
+          <div className="teacher-section__media teacher-portrait" data-reveal>
           <div className="portrait-frame" ref={portraitFrameRef} onMouseMove={handlePortraitTilt} onMouseLeave={resetPortraitTilt}>
-            <img src={getAssetPath("/co-le-thuy-tram-professional.png")} alt="Cô Lê Thùy Trâm - giáo viên Hóa học ChamChamEdemy" loading="lazy" />
+            <img src={getAssetPath("/co-le-thuy-tram-professional.png")} alt="Cô Lê Thùy Trâm - giáo viên Hóa học ChamChamEdemy" width={1023} height={1537} loading="lazy" />
             <span className="portrait-formula" aria-hidden="true">H₂O</span>
           </div>
           <div className="experience-seal"><strong>4+</strong><span>năm kinh nghiệm<br />THCS & THPT</span></div>
           <div className="teacher-quote">“Hiểu bản chất trước, công thức sẽ không còn đáng sợ.”</div>
         </div>
 
-        <div className="teacher-copy" data-reveal>
+          <div className="teacher-section__content teacher-copy" data-reveal>
           <p className="section-kicker">GIẢNG VIÊN ĐỒNG HÀNH</p>
           <h2 id="teacher-title"><span className="heading-line heading-line-1">Cô Lê Thùy Trâm</span><br /><span className="heading-line heading-line-2 heading-highlight heading-underline">Dạy Hóa bằng tư duy trực quan.</span></h2>
           <p className="teacher-lead">Giáo viên Hóa học với hơn 4 năm kinh nghiệm giảng dạy THCS–THPT; thế mạnh là giải bài theo từng bước logic, dạy học liên môn KHTN và phối hợp cùng phụ huynh trong suốt tiến trình học.</p>
@@ -599,14 +600,9 @@ export default function Home() {
             <article><span>🤖</span><div><small>PHƯƠNG PHÁP GIẢNG DẠY</small><strong>STEM & công nghệ</strong><p>Học liệu số, AI, Robotics và bài học nhập vai</p></div></article>
           </div>
 
-          <div className="teacher-results" aria-label="Kết quả giảng dạy nổi bật theo hồ sơ chuyên môn">
-            <div><div className="teacher-results-top"><strong><CountUp to={80} suffix="%" /></strong><span>học sinh tiến bộ rõ rệt</span></div><div className="teacher-results-bar" style={{ "--fill": "80%" } as CSSProperties}><i /></div></div>
-            <div><div className="teacher-results-top"><strong><CountUp to={73} suffix="%" /></strong><span>học sinh khá giỏi Hóa 8–9 & KHTN</span></div><div className="teacher-results-bar" style={{ "--fill": "73%" } as CSSProperties}><i /></div></div>
-            <div><div className="teacher-results-top"><strong><CountUp to={97} suffix="%" /></strong><span>kết quả lớp Hóa 9.3</span></div><div className="teacher-results-bar" style={{ "--fill": "97%" } as CSSProperties}><i /></div></div>
-          </div>
-
           <div className="career-line"><span>2022–2023 · THCS Tân Bửu</span><i>→</i><span>2023–2024 · VStarSchool</span><i>→</i><span>2024–2026 · KDI Education</span></div>
           <small className="profile-source">Thông tin và số liệu được tổng hợp từ hồ sơ chuyên môn do giảng viên cung cấp. Chỉ số khảo sát trên nhóm học sinh đã theo học, không đại diện toàn bộ học viên.</small>
+        </div>
         </div>
       </section>
 
@@ -645,33 +641,32 @@ export default function Home() {
         </div>
 
         <div className="outcome-report-grid">
-          <section className="outcome-card" aria-labelledby="outcome-title" data-reveal>
-            <div className="outcome-copy">
+          <section className="progress-section" aria-labelledby="progress-title" data-reveal>
+            <div className="progress-section__header">
               <p className="section-kicker">TIẾN BỘ NHÌN THẤY ĐƯỢC</p>
-              <h2 id="outcome-title">Không chỉ “cảm thấy hiểu”.<br /><span>Điểm số phải kể được câu chuyện.</span></h2>
+              <h2 id="progress-title">Không chỉ “cảm thấy hiểu”.<br /><span>Điểm số phải kể được câu chuyện.</span></h2>
               <p>Kết quả học viên được ẩn danh. Mỗi lộ trình bắt đầu bằng bài kiểm tra ngắn để theo dõi đúng phần em cần cải thiện.</p>
-              <div className="gain-badge"><strong>+<CountUp to={3.5} decimals={1} /></strong><b>điểm</b><span>sau 2 tuần học</span></div>
             </div>
-            <div className="score-chart" role="img" aria-label="Điểm kiểm tra tăng từ 4 lên 7.5 sau hai tuần (dữ liệu minh họa)">
-              <div className="chart-scale" aria-hidden="true"><span>10</span><span>5</span><span>0</span></div>
-              <div className="chart-bars">
-                <div className="score-column before">
-                  <strong><CountUp to={4} decimals={1} /></strong>
-                  <i style={{ height: "40%" }} />
-                  <span>Trước khi học</span>
-                  <div className="score-tooltip"><strong>Trước khi học</strong>Điểm khảo sát đầu vào: 4.0</div>
+            <div className="progress-section__grid">
+              {progressStats.map((stat) => (
+                <article className="progress-card progress-card--dark" key={stat.value}>
+                  <strong className="progress-card__value"><CountUp to={stat.progress} suffix="%" /></strong>
+                  <p className="progress-card__label">{stat.label}</p>
+                  <div className="progress-card__bar" aria-hidden="true">
+                    <span className="progress-card__bar-fill" style={{ width: `${stat.progress}%` }} />
+                  </div>
+                </article>
+              ))}
+              <article className="progress-card progress-card--highlight">
+                <div className="progress-card__highlight-value">
+                  <span className="progress-card__plus">+</span>
+                  <span className="progress-card__number"><CountUp to={3.5} decimals={1} /></span>
+                  <span className="progress-card__unit">điểm</span>
                 </div>
-                <div className="score-column after">
-                  <strong><CountUp to={7.5} decimals={1} /></strong>
-                  <i style={{ height: "75%" }} />
-                  <span>Sau 2 tuần</span>
-                  <div className="score-tooltip"><strong>Sau 2 tuần</strong>Điểm kiểm tra gần nhất: 7.5</div>
-                </div>
-              </div>
+                <p className="progress-card__label">sau 2 tuần học</p>
+              </article>
             </div>
-            <small className="outcome-note">* Biểu đồ minh họa một trường hợp thực tế; kết quả có thể khác nhau tùy điểm xuất phát và mức độ hoàn thành bài tập.</small>
           </section>
-
           <section className="parent-value" aria-labelledby="parent-value-title" data-reveal>
             <div className="parent-value-copy">
               <p className="section-kicker light">ĐỒNG HÀNH CÙNG PHỤ HUYNH</p>
