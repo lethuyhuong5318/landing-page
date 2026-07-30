@@ -37,6 +37,7 @@ export default function MobileMenu({ links, navId }: { links: MobileMenuLink[]; 
   return (
     <div className={`mobile-menu${open ? " is-open" : ""}`} ref={wrapRef}>
       <button
+        className="mobile-menu-toggle"
         type="button"
         aria-label={open ? "Đóng menu" : "Mở menu"}
         aria-expanded={open}
@@ -45,7 +46,9 @@ export default function MobileMenu({ links, navId }: { links: MobileMenuLink[]; 
       >
         <span /><span /><span />
       </button>
-      <nav id={navId} aria-label="Điều hướng mobile">
+      <button className="mobile-menu-backdrop" type="button" aria-label="Đóng menu" tabIndex={open ? 0 : -1} onClick={() => setOpen(false)} />
+      <nav id={navId} aria-label="Điều hướng mobile" aria-hidden={!open}>
+        <div className="mobile-menu-heading"><small>CHAMCHAMEDEMY</small><strong>Khám phá nội dung</strong></div>
         {links.map((link) => (
           <a key={link.href} href={link.href} onClick={() => setOpen(false)}>
             {link.label}

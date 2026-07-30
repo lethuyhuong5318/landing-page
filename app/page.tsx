@@ -13,6 +13,7 @@ import {
   Cog,
   Compass,
   Construction,
+  Crosshair,
   Cpu,
   Dna,
   Droplets,
@@ -35,6 +36,7 @@ import {
   Sun,
   TestTubes,
   TrendingUp,
+  Trophy,
   Waves,
   Wheat,
   Wrench,
@@ -47,7 +49,21 @@ import { teacherPersonSchema } from "../lib/schema";
 import "./home-layout-fixes.css";
 
 function AppIcon({ icon: Icon, size = 22 }: { icon: LucideIcon; size?: number }) {
-  return <Icon aria-hidden="true" width={size} height={size} strokeWidth={1.9} />;
+  return <Icon aria-hidden="true" width={size} height={size} strokeWidth={2.15} />;
+}
+
+type NoticeBadgeKind = "diagnostic" | "course" | "report";
+
+function NoticeBadge({ kind }: { kind: NoticeBadgeKind }) {
+  return (
+    <svg viewBox="0 0 48 48" role="img" aria-hidden="true" focusable="false">
+      <circle cx="24" cy="24" r="21" fill="currentColor" opacity=".1" />
+      <circle cx="38" cy="11" r="3" fill="#efbd4f" />
+      {kind === "diagnostic" && <><path d="M18 10h12v5l7 15a6 6 0 0 1-5.5 8h-15A6 6 0 0 1 11 30l7-15v-5Z" fill="#fff" stroke="currentColor" strokeWidth="2.4" strokeLinejoin="round" /><path d="M15 28h18" stroke="#39a77b" strokeWidth="3" strokeLinecap="round" /><circle cx="22" cy="24" r="2" fill="#efbd4f" /></>}
+      {kind === "course" && <><path d="M9 14.5c6-3 11-1.7 15 2.2 4-3.9 9-5.2 15-2.2v22c-6-3-11-1.7-15 2.2-4-3.9-9-5.2-15-2.2v-22Z" fill="#fff" stroke="currentColor" strokeWidth="2.4" strokeLinejoin="round" /><path d="M24 17v21M29 24l3 3 6-7" fill="none" stroke="#39a77b" strokeWidth="2.7" strokeLinecap="round" strokeLinejoin="round" /></>}
+      {kind === "report" && <><rect x="11" y="8" width="26" height="32" rx="5" fill="#fff" stroke="currentColor" strokeWidth="2.4" /><path d="M17 18h14M17 24h10M17 30h7" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" /><path d="m27 32 3 3 6-7" fill="none" stroke="#39a77b" strokeWidth="2.7" strokeLinecap="round" strokeLinejoin="round" /></>}
+    </svg>
+  );
 }
 const FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61590518783118";
 const ZALO_URL = "https://zalo.me/0329309293";
@@ -104,9 +120,9 @@ const elementExplorer = [
 ];
 
 const trustNotices = [
-  { icon: Compass, title: "Bài test nền tảng 15 phút đang mở", text: "Nhận chẩn đoán phần đang hổng trước khi chọn lớp." },
-  { icon: BookOpenCheck, title: "Lớp Hóa 8–9 đang nhận đăng ký", text: "Có lộ trình lấy gốc, ôn vào 10 và chuyên Hóa." },
-  { icon: Cloud, title: "Phụ huynh nhận phiếu sau mỗi buổi", text: "Theo dõi rõ nội dung học, lỗi sai và bài cần luyện." },
+  { badge: "diagnostic" as const, title: "Bài test nền tảng 15 phút đang mở", text: "Nhận chẩn đoán phần đang hổng trước khi chọn lớp." },
+  { badge: "course" as const, title: "Lớp Hóa 8–9 đang nhận đăng ký", text: "Có lộ trình lấy gốc, ôn vào 10 và chuyên Hóa." },
+  { badge: "report" as const, title: "Phụ huynh nhận phiếu sau mỗi buổi", text: "Theo dõi rõ nội dung học, lỗi sai và bài cần luyện." },
 ];
 
 const courses = [
@@ -433,6 +449,7 @@ export default function Home() {
       </header>
 
       <section className="hero" id="main-content">
+        <div className="hero-eyebrow-mobile"><span>✦</span> Không cần học chuyên, mới học tốt Hóa</div>
         <div className="hero-copy">
           <div className="eyebrow"><span>✦</span> Không cần học chuyên mới học tốt Hóa</div>
           <h1>Vững nền trước.<br /><em>Tiến xa</em> đúng sức.</h1>
@@ -474,6 +491,11 @@ export default function Home() {
             <img className="mascot-image" src={getAssetPath("/co-tram-mascot.jpg")} alt="Mascot gấu Cô Trâm Hóa Học của ChamChamEdemy" width="620" height="620" fetchPriority="high" />
             <div className="speech">À, hóa ra là vậy!</div>
           </div>
+          <div className="hero-benefit-card" aria-label="Lợi ích học tập nổi bật">
+            <div><span aria-hidden="true"><Crosshair /></span><p><strong>Học đúng trọng tâm</strong><small>Tiết kiệm thời gian</small></p></div>
+            <div><span aria-hidden="true"><TrendingUp /></span><p><strong>Lộ trình cá nhân hóa</strong><small>Phù hợp năng lực</small></p></div>
+            <div><span aria-hidden="true"><Trophy /></span><p><strong>Theo sát · Đo lường</strong><small>Tiến bộ từng ngày</small></p></div>
+          </div>
           <div className="floating-card float-top">
             <span aria-hidden="true">01</span><div><strong>Học có lộ trình</strong><small>Từ gốc đến vận dụng</small></div>
           </div>
@@ -502,7 +524,7 @@ export default function Home() {
             <h2 id="element-game-title">Chạm một nguyên tố.<br /><span>Khám phá một ứng dụng thật.</span></h2>
           </div>
           <div className="trust-notice" aria-live="polite">
-            <span className="notice-icon" aria-hidden="true"><AppIcon icon={trustNotices[noticeIndex].icon} size={22} /></span>
+            <span className={`notice-icon notice-icon-${trustNotices[noticeIndex].badge}`} aria-hidden="true"><NoticeBadge kind={trustNotices[noticeIndex].badge} /></span>
             <div><small>CẬP NHẬT TỪ CHAMCHAM</small><strong>{trustNotices[noticeIndex].title}</strong><span>{trustNotices[noticeIndex].text}</span></div>
             <div className="notice-dots" aria-hidden="true">
               {trustNotices.map((notice, index) => <i className={index === noticeIndex ? "active" : ""} key={notice.title} />)}
