@@ -1,12 +1,54 @@
 "use client";
 
 import { FormEvent, InvalidEvent, MouseEvent as ReactMouseEvent, useEffect, useRef, useState } from "react";
+import type { LucideIcon } from "lucide-react";
+import {
+  BatteryCharging,
+  Beaker,
+  Bone,
+  BookOpenCheck,
+  Cable,
+  ClipboardCheck,
+  Cloud,
+  Cog,
+  Compass,
+  Construction,
+  Cpu,
+  Dna,
+  Droplets,
+  FlaskConical,
+  GraduationCap,
+  MailCheck,
+  Medal,
+  Microscope,
+  Mountain,
+  Package,
+  Pencil,
+  PencilLine,
+  Plane,
+  Rocket,
+  Route,
+  ScanLine,
+  ShieldCheck,
+  Sprout,
+  Stethoscope,
+  Sun,
+  TestTubes,
+  TrendingUp,
+  Waves,
+  Wheat,
+  Wrench,
+  X,
+} from "lucide-react";
 import { getAssetPath } from "./basePath";
 import JsonLd from "../components/seo/JsonLd";
 import MobileMenu from "./components/MobileMenu";
 import { teacherPersonSchema } from "../lib/schema";
 import "./home-layout-fixes.css";
 
+function AppIcon({ icon: Icon, size = 22 }: { icon: LucideIcon; size?: number }) {
+  return <Icon aria-hidden="true" width={size} height={size} strokeWidth={1.9} />;
+}
 const FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61590518783118";
 const ZALO_URL = "https://zalo.me/0329309293";
 const MAP_URL = "https://maps.app.goo.gl/ujtgE2iRYuLd7j8m9";
@@ -32,45 +74,45 @@ const progressStats = [
 const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "";
 
 const reactionItems = [
-  { type: "Phản ứng hóa hợp", formula: "2H₂ + O₂ → 2H₂O", icon: "HH" },
-  { type: "Phản ứng phân hủy", formula: "CaCO₃ → CaO + CO₂", icon: "PH" },
-  { type: "Phản ứng thế", formula: "Fe + 2HCl → FeCl₂ + H₂", icon: "TH" },
-  { type: "Phản ứng trung hòa", formula: "NaOH + HCl → NaCl + H₂O", icon: "T.H" },
+  { type: "Phản ứng hóa hợp", formula: "2H₂ + O₂ → 2H₂O", icon: Droplets },
+  { type: "Phản ứng phân hủy", formula: "CaCO₃ → CaO + CO₂", icon: Cloud },
+  { type: "Phản ứng thế", formula: "Fe + 2HCl → FeCl₂ + H₂", icon: Cog },
+  { type: "Phản ứng trung hòa", formula: "NaOH + HCl → NaCl + H₂O", icon: Beaker },
 ];
 
 const elementExplorer = [
-  { number: 1, symbol: "H", name: "Hydrogen", category: "Phi kim", application: "Nhiên liệu sạch cho pin nhiên liệu và nguyên liệu sản xuất ammonia.", fact: "Là nguyên tố nhẹ nhất và phổ biến nhất trong vũ trụ.", visual: "H", visualLabel: "Nhiên liệu sạch", tone: "sky" },
-  { number: 6, symbol: "C", name: "Carbon", category: "Phi kim", application: "Than chì trong ruột bút chì, điện cực và vật liệu graphene.", fact: "Kim cương và than chì đều được tạo nên từ carbon.", visual: "C", visualLabel: "Bút chì & vật liệu", tone: "ink" },
-  { number: 7, symbol: "N", name: "Nitrogen", category: "Phi kim", application: "Bảo quản thực phẩm và sản xuất phân bón cho cây trồng.", fact: "Khoảng 78% không khí quanh ta là nitrogen.", visual: "N", visualLabel: "Nông nghiệp", tone: "sky" },
-  { number: 8, symbol: "O", name: "Oxygen", category: "Phi kim", application: "Hô hấp y tế, luyện kim và hỗ trợ quá trình đốt cháy.", fact: "Oxygen chiếm gần 21% thể tích không khí.", visual: "O", visualLabel: "Hô hấp & y tế", tone: "sky" },
-  { number: 11, symbol: "Na", name: "Sodium", category: "Kim loại kiềm", application: "Muối ăn, sản xuất thủy tinh và công nghệ pin sodium-ion.", fact: "Sodium kim loại phản ứng mạnh nên không tồn tại tự do trong tự nhiên.", visual: "Na", visualLabel: "Pin sodium-ion", tone: "gold" },
-  { number: 12, symbol: "Mg", name: "Magnesium", category: "Kim loại kiềm thổ", application: "Hợp kim nhẹ cho xe, máy bay và pháo sáng.", fact: "Magnesium cháy tạo ánh sáng trắng rất mạnh.", visual: "Mg", visualLabel: "Hợp kim nhẹ", tone: "gold" },
-  { number: 13, symbol: "Al", name: "Aluminium", category: "Kim loại", application: "Lon nước, giấy bạc, khung cửa và vật liệu hàng không.", fact: "Nhẹ, bền và có thể tái chế nhiều lần.", visual: "Al", visualLabel: "Bao bì & hàng không", tone: "mint" },
-  { number: 14, symbol: "Si", name: "Silicon", category: "Á kim", application: "Chip điện tử, tấm pin mặt trời và sản xuất thủy tinh.", fact: "Silicon là nguyên tố phổ biến thứ hai trong vỏ Trái Đất.", visual: "Si", visualLabel: "Pin mặt trời & chip", tone: "violet" },
-  { number: 17, symbol: "Cl", name: "Chlorine", category: "Halogen", application: "Khử khuẩn nước và sản xuất nhựa PVC.", fact: "Trong muối ăn, chlorine tồn tại an toàn ở dạng ion chloride.", visual: "Cl", visualLabel: "Khử khuẩn nước", tone: "violet" },
-  { number: 20, symbol: "Ca", name: "Calcium", category: "Kim loại kiềm thổ", application: "Vật liệu xây dựng; ion calcium quan trọng với xương và răng.", fact: "Đá vôi có thành phần chính là calcium carbonate.", visual: "Ca", visualLabel: "Xương & vật liệu", tone: "gold" },
-  { number: 26, symbol: "Fe", name: "Iron", category: "Kim loại chuyển tiếp", application: "Sản xuất thép cho cầu đường, nhà ở và máy móc.", fact: "Ion iron là thành phần quan trọng trong hemoglobin.", visual: "Fe", visualLabel: "Thép xây dựng", tone: "mint" },
-  { number: 29, symbol: "Cu", name: "Copper", category: "Kim loại chuyển tiếp", application: "Dây điện, động cơ và thiết bị điện tử nhờ dẫn điện tốt.", fact: "Copper có màu đỏ cam đặc trưng.", visual: "Cu", visualLabel: "Dây điện & điện tử", tone: "mint" },
-  { number: 19, symbol: "K", name: "Potassium", category: "Kim loại kiềm", application: "Thành phần chính trong phân bón kali cho cây trồng.", fact: "Potassium phản ứng mạnh với nước và cháy với ngọn lửa tím đặc trưng.", visual: "K", visualLabel: "Phân bón cây trồng", tone: "gold" },
-  { number: 16, symbol: "S", name: "Sulfur", category: "Phi kim", application: "Sản xuất axit sulfuric, diêm và lưu hóa cao su.", fact: "Sulfur có màu vàng đặc trưng, thường gặp quanh miệng núi lửa.", visual: "S", visualLabel: "Công nghiệp hóa chất", tone: "gold" },
-  { number: 15, symbol: "P", name: "Phosphorus", category: "Phi kim", application: "Sản xuất phân bón, diêm quẹt và có trong DNA, xương.", fact: "Phosphorus trắng phát quang trong bóng tối và rất độc.", visual: "P", visualLabel: "Phân bón & xương", tone: "violet" },
-  { number: 30, symbol: "Zn", name: "Zinc", category: "Kim loại chuyển tiếp", application: "Mạ kẽm chống gỉ cho thép và hợp kim đồng thau.", fact: "Cơ thể người cần một lượng nhỏ zinc để hỗ trợ hệ miễn dịch.", visual: "Zn", visualLabel: "Mạ chống gỉ", tone: "mint" },
-  { number: 24, symbol: "Cr", name: "Chromium", category: "Kim loại chuyển tiếp", application: "Mạ crôm sáng bóng và tạo độ bền cho thép không gỉ (inox).", fact: "Chromium là thành phần giúp thép không gỉ chống ăn mòn.", visual: "Cr", visualLabel: "Thép không gỉ", tone: "sky" },
-  { number: 56, symbol: "Ba", name: "Barium", category: "Kim loại kiềm thổ", application: "Barium sulfate dùng trong chụp X-quang đường tiêu hóa.", fact: "Barium kim loại độc, nhưng hợp chất barium sulfate không tan nên an toàn khi dùng y tế.", visual: "Ba", visualLabel: "Chụp X-quang", tone: "ink" },
-  { number: 25, symbol: "Mn", name: "Manganese", category: "Kim loại chuyển tiếp", application: "Hợp kim thép cường độ cao và sản xuất pin khô.", fact: "Cơ thể người cần một lượng rất nhỏ manganese mỗi ngày.", visual: "Mn", visualLabel: "Thép & pin khô", tone: "mint" },
-  { number: 35, symbol: "Br", name: "Bromine", category: "Halogen", application: "Khử trùng nước hồ bơi và sản xuất một số loại thuốc.", fact: "Bromine là phi kim duy nhất ở thể lỏng tại nhiệt độ phòng.", visual: "Br", visualLabel: "Khử trùng nước hồ bơi", tone: "violet" },
+  { number: 1, symbol: "H", name: "Hydrogen", category: "Phi kim", application: "Nhiên liệu sạch cho pin nhiên liệu và nguyên liệu sản xuất ammonia.", fact: "Là nguyên tố nhẹ nhất và phổ biến nhất trong vũ trụ.", icon: Rocket, visualLabel: "Nhiên liệu sạch", tone: "sky" },
+  { number: 6, symbol: "C", name: "Carbon", category: "Phi kim", application: "Than chì trong ruột bút chì, điện cực và vật liệu graphene.", fact: "Kim cương và than chì đều được tạo nên từ carbon.", icon: Pencil, visualLabel: "Bút chì & vật liệu", tone: "ink" },
+  { number: 7, symbol: "N", name: "Nitrogen", category: "Phi kim", application: "Bảo quản thực phẩm và sản xuất phân bón cho cây trồng.", fact: "Khoảng 78% không khí quanh ta là nitrogen.", icon: Sprout, visualLabel: "Nông nghiệp", tone: "sky" },
+  { number: 8, symbol: "O", name: "Oxygen", category: "Phi kim", application: "Hô hấp y tế, luyện kim và hỗ trợ quá trình đốt cháy.", fact: "Oxygen chiếm gần 21% thể tích không khí.", icon: Stethoscope, visualLabel: "Hô hấp & y tế", tone: "sky" },
+  { number: 11, symbol: "Na", name: "Sodium", category: "Kim loại kiềm", application: "Muối ăn, sản xuất thủy tinh và công nghệ pin sodium-ion.", fact: "Sodium kim loại phản ứng mạnh nên không tồn tại tự do trong tự nhiên.", icon: BatteryCharging, visualLabel: "Pin sodium-ion", tone: "gold" },
+  { number: 12, symbol: "Mg", name: "Magnesium", category: "Kim loại kiềm thổ", application: "Hợp kim nhẹ cho xe, máy bay và pháo sáng.", fact: "Magnesium cháy tạo ánh sáng trắng rất mạnh.", icon: Plane, visualLabel: "Hợp kim nhẹ", tone: "gold" },
+  { number: 13, symbol: "Al", name: "Aluminium", category: "Kim loại", application: "Lon nước, giấy bạc, khung cửa và vật liệu hàng không.", fact: "Nhẹ, bền và có thể tái chế nhiều lần.", icon: Package, visualLabel: "Bao bì & hàng không", tone: "mint" },
+  { number: 14, symbol: "Si", name: "Silicon", category: "Á kim", application: "Chip điện tử, tấm pin mặt trời và sản xuất thủy tinh.", fact: "Silicon là nguyên tố phổ biến thứ hai trong vỏ Trái Đất.", icon: Sun, visualLabel: "Pin mặt trời & chip", tone: "violet" },
+  { number: 17, symbol: "Cl", name: "Chlorine", category: "Halogen", application: "Khử khuẩn nước và sản xuất nhựa PVC.", fact: "Trong muối ăn, chlorine tồn tại an toàn ở dạng ion chloride.", icon: Droplets, visualLabel: "Khử khuẩn nước", tone: "violet" },
+  { number: 20, symbol: "Ca", name: "Calcium", category: "Kim loại kiềm thổ", application: "Vật liệu xây dựng; ion calcium quan trọng với xương và răng.", fact: "Đá vôi có thành phần chính là calcium carbonate.", icon: Bone, visualLabel: "Xương & vật liệu", tone: "gold" },
+  { number: 26, symbol: "Fe", name: "Iron", category: "Kim loại chuyển tiếp", application: "Sản xuất thép cho cầu đường, nhà ở và máy móc.", fact: "Ion iron là thành phần quan trọng trong hemoglobin.", icon: Construction, visualLabel: "Thép xây dựng", tone: "mint" },
+  { number: 29, symbol: "Cu", name: "Copper", category: "Kim loại chuyển tiếp", application: "Dây điện, động cơ và thiết bị điện tử nhờ dẫn điện tốt.", fact: "Copper có màu đỏ cam đặc trưng.", icon: Cable, visualLabel: "Dây điện & điện tử", tone: "mint" },
+  { number: 19, symbol: "K", name: "Potassium", category: "Kim loại kiềm", application: "Thành phần chính trong phân bón kali cho cây trồng.", fact: "Potassium phản ứng mạnh với nước và cháy với ngọn lửa tím đặc trưng.", icon: Wheat, visualLabel: "Phân bón cây trồng", tone: "gold" },
+  { number: 16, symbol: "S", name: "Sulfur", category: "Phi kim", application: "Sản xuất axit sulfuric, diêm và lưu hóa cao su.", fact: "Sulfur có màu vàng đặc trưng, thường gặp quanh miệng núi lửa.", icon: Mountain, visualLabel: "Công nghiệp hóa chất", tone: "gold" },
+  { number: 15, symbol: "P", name: "Phosphorus", category: "Phi kim", application: "Sản xuất phân bón, diêm quẹt và có trong DNA, xương.", fact: "Phosphorus trắng phát quang trong bóng tối và rất độc.", icon: Dna, visualLabel: "Phân bón & xương", tone: "violet" },
+  { number: 30, symbol: "Zn", name: "Zinc", category: "Kim loại chuyển tiếp", application: "Mạ kẽm chống gỉ cho thép và hợp kim đồng thau.", fact: "Cơ thể người cần một lượng nhỏ zinc để hỗ trợ hệ miễn dịch.", icon: ShieldCheck, visualLabel: "Mạ chống gỉ", tone: "mint" },
+  { number: 24, symbol: "Cr", name: "Chromium", category: "Kim loại chuyển tiếp", application: "Mạ crôm sáng bóng và tạo độ bền cho thép không gỉ (inox).", fact: "Chromium là thành phần giúp thép không gỉ chống ăn mòn.", icon: Wrench, visualLabel: "Thép không gỉ", tone: "sky" },
+  { number: 56, symbol: "Ba", name: "Barium", category: "Kim loại kiềm thổ", application: "Barium sulfate dùng trong chụp X-quang đường tiêu hóa.", fact: "Barium kim loại độc, nhưng hợp chất barium sulfate không tan nên an toàn khi dùng y tế.", icon: ScanLine, visualLabel: "Chụp X-quang", tone: "ink" },
+  { number: 25, symbol: "Mn", name: "Manganese", category: "Kim loại chuyển tiếp", application: "Hợp kim thép cường độ cao và sản xuất pin khô.", fact: "Cơ thể người cần một lượng rất nhỏ manganese mỗi ngày.", icon: BatteryCharging, visualLabel: "Thép & pin khô", tone: "mint" },
+  { number: 35, symbol: "Br", name: "Bromine", category: "Halogen", application: "Khử trùng nước hồ bơi và sản xuất một số loại thuốc.", fact: "Bromine là phi kim duy nhất ở thể lỏng tại nhiệt độ phòng.", icon: Waves, visualLabel: "Khử trùng nước hồ bơi", tone: "violet" },
 ];
 
 const trustNotices = [
-  { icon: "15′", title: "Bài test nền tảng 15 phút đang mở", text: "Nhận chẩn đoán phần đang hổng trước khi chọn lớp." },
-  { icon: "8–9", title: "Lớp Hóa 8–9 đang nhận đăng ký", text: "Có lộ trình lấy gốc, ôn vào 10 và chuyên Hóa." },
-  { icon: "PH", title: "Phụ huynh nhận phiếu sau mỗi buổi", text: "Theo dõi rõ nội dung học, lỗi sai và bài cần luyện." },
+  { icon: Compass, title: "Bài test nền tảng 15 phút đang mở", text: "Nhận chẩn đoán phần đang hổng trước khi chọn lớp." },
+  { icon: BookOpenCheck, title: "Lớp Hóa 8–9 đang nhận đăng ký", text: "Có lộ trình lấy gốc, ôn vào 10 và chuyên Hóa." },
+  { icon: Cloud, title: "Phụ huynh nhận phiếu sau mỗi buổi", text: "Theo dõi rõ nội dung học, lỗi sai và bài cần luyện." },
 ];
 
 const courses = [
   {
     label: "Xây nền · chuyển cấp",
-    icon: "H8",
+    icon: FlaskConical,
     title: "Hóa 8–9 & ôn thi vào 10",
     description:
       "Dành cho học sinh cần học lại từ gốc, bám chắc chương trình hoặc ôn thi vào 10/chuyên Hóa.",
@@ -79,7 +121,7 @@ const courses = [
   },
   {
     label: "Toàn diện",
-    icon: "K9",
+    icon: Microscope,
     title: "KHTN 9: Lý – Hóa – Sinh",
     description:
       "Hệ thống kiến thức trọng tâm lớp 9 bằng bài giảng ngắn, tài liệu và bài tập đi kèm.",
@@ -88,7 +130,7 @@ const courses = [
   },
   {
     label: "Chuyển cấp",
-    icon: "H10",
+    icon: TestTubes,
     title: "Lấy gốc & chinh phục Hóa 10",
     description:
       "Nối lại kiến thức THCS, làm quen cách học Hóa THPT và tránh hổng ngay từ đầu năm.",
@@ -97,7 +139,7 @@ const courses = [
   },
   {
     label: "Củng cố · luyện thi",
-    icon: "H12",
+    icon: Rocket,
     title: "Hóa 11–12 & luyện thi",
     description:
       "Học chắc kiến thức lớp 11–12, luyện bài theo chuyên đề và mục tiêu điểm số.",
@@ -446,7 +488,7 @@ export default function Home() {
         <div>
           {[...reactionItems, ...reactionItems].map((reaction, index) => (
             <span className="reaction-chip" key={`${reaction.formula}-${index}`}>
-              <b aria-hidden="true">{reaction.icon}</b>
+              <b aria-hidden="true"><AppIcon icon={reaction.icon} size={18} /></b>
               <span><small>{reaction.type}</small><strong>{reaction.formula}</strong></span>
             </span>
           ))}
@@ -460,7 +502,7 @@ export default function Home() {
             <h2 id="element-game-title">Chạm một nguyên tố.<br /><span>Khám phá một ứng dụng thật.</span></h2>
           </div>
           <div className="trust-notice" aria-live="polite">
-            <span className="notice-icon" aria-hidden="true">{trustNotices[noticeIndex].icon}</span>
+            <span className="notice-icon" aria-hidden="true"><AppIcon icon={trustNotices[noticeIndex].icon} size={22} /></span>
             <div><small>CẬP NHẬT TỪ CHAMCHAM</small><strong>{trustNotices[noticeIndex].title}</strong><span>{trustNotices[noticeIndex].text}</span></div>
             <div className="notice-dots" aria-hidden="true">
               {trustNotices.map((notice, index) => <i className={index === noticeIndex ? "active" : ""} key={notice.title} />)}
@@ -488,7 +530,7 @@ export default function Home() {
                   aria-pressed={activeElement.symbol === element.symbol}
                   aria-label={`Khám phá ${element.name}`}
                 >
-                  <small>{element.number}</small><strong>{element.symbol}</strong><span>{element.name}</span><i aria-hidden="true">✓</i>
+                  <small>{element.number}</small><strong>{element.symbol}</strong><span>{element.name}</span><span className="element-tile-icon" aria-hidden="true"><AppIcon icon={element.icon} size={15} /></span><i aria-hidden="true">✓</i>
                 </button>
               ))}
             </div>
@@ -500,15 +542,15 @@ export default function Home() {
             aria-hidden="true"
           />
           <aside className={`element-result ${activeElement.tone} ${resultOpen ? "is-open" : ""}`} aria-live="polite">
-            <button type="button" className="element-result-close" onClick={() => setResultOpen(false)} aria-label="Đóng chi tiết nguyên tố">✕</button>
+            <button type="button" className="element-result-close" onClick={() => setResultOpen(false)} aria-label="Đóng chi tiết nguyên tố"><X aria-hidden="true" width={20} height={20} /></button>
             <div className="result-top"><span>{activeElement.number}</span><small>{activeElement.category}</small></div>
             <div className="result-identity">
               <div className="result-symbol">{activeElement.symbol}</div>
-              <div className="element-illustration" aria-label={`Minh họa: ${activeElement.visualLabel}`}><span aria-hidden="true">{activeElement.visual}</span><small>{activeElement.visualLabel}</small></div>
+              <div className="element-illustration" aria-label={`Minh họa: ${activeElement.visualLabel}`}><span aria-hidden="true"><AppIcon icon={activeElement.icon} size={36} /></span><small>{activeElement.visualLabel}</small></div>
             </div>
             <h3>{activeElement.name} có mặt ở đâu?</h3>
             <p className="application-text"><span>ỨNG DỤNG THỰC TẾ</span>{activeElement.application}</p>
-            <div className="fact-card"><span>💡</span><p><strong>Em có biết?</strong>{activeElement.fact}</p></div>
+            <div className="fact-card"><span aria-hidden="true"><Beaker width={20} height={20} /></span><p><strong>Em có biết?</strong>{activeElement.fact}</p></div>
             <small className="game-hint">Chọn một ô khác để tiếp tục khám phá →</small>
           </aside>
         </div>
@@ -548,17 +590,17 @@ export default function Home() {
         </div>
 
         <div className="learning-path" data-reveal aria-label="Lộ trình học bốn bước">
-          <article className="stair-step stair-step-1"><b>01</b><em aria-hidden="true">KT</em><div><span>CHẨN ĐOÁN</span><strong>Tìm đúng phần kiến thức đang hổng</strong></div></article>
-          <article className="stair-step stair-step-2"><b>02</b><em aria-hidden="true">LT</em><div><span>XÂY LỘ TRÌNH</span><strong>Học từ nền tảng đến vận dụng</strong></div></article>
-          <article className="stair-step stair-step-3"><b>03</b><em aria-hidden="true">LS</em><div><span>LUYỆN & SỬA</span><strong>Tự làm bài và sửa lỗi ngay</strong></div></article>
-          <article className="stair-step stair-step-4"><b>04</b><em aria-hidden="true">PT</em><div><span>PHÁT TRIỂN</span><strong>Chọn phổ thông, nâng cao hoặc ôn thi vào 10</strong></div></article>
+          <article className="stair-step stair-step-1"><b>01</b><em aria-hidden="true"><ClipboardCheck /></em><div><span>CHẨN ĐOÁN</span><strong>Tìm đúng phần kiến thức đang hổng</strong></div></article>
+          <article className="stair-step stair-step-2"><b>02</b><em aria-hidden="true"><Route /></em><div><span>XÂY LỘ TRÌNH</span><strong>Học từ nền tảng đến vận dụng</strong></div></article>
+          <article className="stair-step stair-step-3"><b>03</b><em aria-hidden="true"><PencilLine /></em><div><span>LUYỆN & SỬA</span><strong>Tự làm bài và sửa lỗi ngay</strong></div></article>
+          <article className="stair-step stair-step-4"><b>04</b><em aria-hidden="true"><TrendingUp /></em><div><span>PHÁT TRIỂN</span><strong>Chọn phổ thông, nâng cao hoặc ôn thi vào 10</strong></div></article>
         </div>
 
         <div className="course-grid">
           {courses.map((course, index) => (
             <article className={`course-card course-card-${index + 1}`} key={course.title} data-reveal>
               <div className="course-topline">
-                <span className="course-icon" aria-hidden="true">{course.icon}</span>
+                <span className="course-icon" aria-hidden="true"><AppIcon icon={course.icon} size={24} /></span>
                 <span className="course-label">{course.label}</span>
               </div>
               <h3>{course.title}</h3>
@@ -595,9 +637,9 @@ export default function Home() {
           <p className="teacher-lead">Giáo viên Hóa học với hơn 4 năm kinh nghiệm giảng dạy THCS–THPT; thế mạnh là giải bài theo từng bước logic, dạy học liên môn KHTN và phối hợp cùng phụ huynh trong suốt tiến trình học.</p>
 
           <div className="credential-grid">
-            <article><span aria-hidden="true">ĐH</span><div><small>ĐÀO TẠO CHUYÊN MÔN</small><strong>Sư phạm Hóa học</strong><p>Đại học Đồng Nai · Tốt nghiệp loại Khá</p></div></article>
-            <article><span aria-hidden="true">KHTN</span><div><small>CHỨNG CHỈ LIÊN MÔN</small><strong>Khoa học tự nhiên</strong><p>Đại học Thủ đô Hà Nội · <strong className="credential-highlight">Loại Xuất sắc</strong></p></div></article>
-            <article><span aria-hidden="true">STEM</span><div><small>PHƯƠNG PHÁP GIẢNG DẠY</small><strong>STEM & công nghệ</strong><p>Học liệu số, AI, Robotics và bài học nhập vai</p></div></article>
+            <article><span aria-hidden="true"><GraduationCap /></span><div><small>ĐÀO TẠO CHUYÊN MÔN</small><strong>Sư phạm Hóa học</strong><p>Đại học Đồng Nai · Tốt nghiệp loại Khá</p></div></article>
+            <article><span aria-hidden="true"><Medal /></span><div><small>CHỨNG CHỈ LIÊN MÔN</small><strong>Khoa học tự nhiên</strong><p>Đại học Thủ đô Hà Nội · <strong className="credential-highlight">Loại Xuất sắc</strong></p></div></article>
+            <article><span aria-hidden="true"><Cpu /></span><div><small>PHƯƠNG PHÁP GIẢNG DẠY</small><strong>STEM & công nghệ</strong><p>Học liệu số, AI, Robotics và bài học nhập vai</p></div></article>
           </div>
 
           <div className="career-line"><span>2022–2023 · THCS Tân Bửu</span><i>→</i><span>2023–2024 · VStarSchool</span><i>→</i><span>2024–2026 · KDI Education</span></div>

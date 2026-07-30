@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Be_Vietnam_Pro, Caveat, Quicksand } from "next/font/google";
 import { getAssetPath } from "./basePath";
 import JsonLd from "../components/seo/JsonLd";
@@ -32,6 +32,12 @@ const HOME_TITLE = "Học Hóa mất gốc Quận 9 & Online | ChamChamEdemy - C
 const HOME_DESCRIPTION =
   "ChamChamEdemy cùng Cô Trâm dạy Hóa THCS–THPT cho học sinh mất gốc: học trực tiếp tại Quận 9, TP. Thủ Đức hoặc online toàn quốc, gia sư 1:1 và lớp nhóm nhỏ.";
 const SHARE_IMAGE = getAssetPath("/co-tram-mascot.jpg");
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
