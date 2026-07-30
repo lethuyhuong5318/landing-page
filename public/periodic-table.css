@@ -47,16 +47,16 @@
 .periodic-grid .pel .m{max-width:100%;margin-top:3px;overflow:hidden;font-size:5.5px;line-height:1;white-space:nowrap;text-overflow:ellipsis}
 .periodic-grid .pel.is-common{border-color:rgba(255,200,61,.85);box-shadow:inset 0 0 0 1px rgba(255,200,61,.28)}
 .periodic-grid .pel:not(.is-common){cursor:default}
-.periodic-grid .cat-alkali{background:#ffd9d9}
-.periodic-grid .cat-alkaline{background:#ffe7dc}
-.periodic-grid .cat-transition{background:#d9ecff}
-.periodic-grid .cat-post{background:#dff1ec}
-.periodic-grid .cat-metalloid{background:#fff3b8}
-.periodic-grid .cat-nonmetal{background:#e4f3ff}
-.periodic-grid .cat-halogen{background:#fff7a8}
-.periodic-grid .cat-noble{background:#fffbd0}
-.periodic-grid .cat-lanthanide{background:#dff7df}
-.periodic-grid .cat-actinide{background:#c9f3d3}
+.periodic-grid .cat-alkali{background:#ffc6c6}
+.periodic-grid .cat-alkaline{background:#ffd6ad}
+.periodic-grid .cat-transition{background:#c7ddff}
+.periodic-grid .cat-post{background:#bfeee6}
+.periodic-grid .cat-metalloid{background:#d9c8ff}
+.periodic-grid .cat-nonmetal{background:#c9f1cf}
+.periodic-grid .cat-halogen{background:#fff0a6}
+.periodic-grid .cat-noble{background:#ffd0e8}
+.periodic-grid .cat-lanthanide{background:#e3f5b5}
+.periodic-grid .cat-actinide{background:#ffcabd}
 .periodic-legend{display:flex;flex-wrap:wrap;gap:7px 12px;margin-top:12px;color:#60758a;font-size:9px;font-weight:700}
 .periodic-legend span{display:flex;align-items:center;gap:4px}
 .periodic-legend i{width:10px;height:10px;border:1px solid rgba(11,47,91,.15);border-radius:3px}
