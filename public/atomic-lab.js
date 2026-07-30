@@ -1,20 +1,162 @@
-(() => {
+﻿(() => {
   let activeLab = null;
-  const fit = canvas => { const d=Math.min(devicePixelRatio||1,2),r=canvas.getBoundingClientRect(),w=Math.max(260,Math.round(r.width)),h=Math.max(180,Math.round(r.height)); canvas.width=w*d;canvas.height=h*d;const ctx=canvas.getContext('2d');ctx.setTransform(d,0,0,d,0,0);return{ctx,w,h}; };
-  const seed=(i,n,r)=>{const a=i*2.399963,s=Math.sqrt((i+.5)/Math.max(n,1))*r;return{x:Math.cos(a)*s,y:Math.sin(a)*s,type:i%2}};
-  window.destroyAtomicLab=()=>{if(!activeLab)return;cancelAnimationFrame(activeLab.frame);activeLab.observer?.disconnect();activeLab.abort.abort();activeLab=null};
-  window.createAtomicLab=({z,symbol,shells})=>{
-    window.destroyAtomicLab();const host=document.getElementById('atomicLabHost');if(!host)return;
-    host.innerHTML=`<section class="atomic-lab" aria-label="Mô hình nguyên tử tương tác của ${symbol}"><div class="atomic-lab-head"><div><b>Mô hình nguyên tử tương tác</b><small>Kéo để xoay và quan sát các lớp electron</small></div><span class="atomic-lab-shells">${shells.join(' – ')}</span></div><div class="atomic-lab-stage"><canvas id="atomicLabCanvas" role="img" aria-label="Mô hình nguyên tử ${symbol} có ${z} electron"></canvas><span class="atomic-lab-tip">Kéo ngang/dọc để xoay</span></div><div class="atomic-lab-controls"><button type="button" data-atom="toggle">Tạm dừng</button><button type="button" data-atom="reset">Đặt lại góc nhìn</button></div></section>`;
-    const canvas=host.querySelector('canvas'),toggle=host.querySelector('[data-atom="toggle"]'),reset=host.querySelector('[data-atom="reset"]'),abort=new AbortController();
-    const state={canvas,toggle,abort,frame:0,observer:null,paused:matchMedia('(prefers-reduced-motion: reduce)').matches,yaw:.3,tilt:.34,drag:false,px:0,py:0,size:fit(canvas)};activeLab=state;
-    if(state.paused)toggle.textContent='Tiếp tục';
-    const particles=Array.from({length:Math.min(Math.max(z*2,2),52)},(_,i)=>seed(i,Math.min(Math.max(z*2,2),52),18+Math.min(z,60)*.12));
-    const draw=()=>{if(activeLab!==state)return;if(!state.paused&&!state.drag)state.yaw+=.004;const{ctx,w,h}=state.size,cx=w/2,cy=h/2,maxR=Math.min(w*.4,h*.42);ctx.clearRect(0,0,w,h);const glow=ctx.createRadialGradient(cx,cy,2,cx,cy,maxR);glow.addColorStop(0,'rgba(255,200,61,.12)');glow.addColorStop(1,'rgba(23,90,135,0)');ctx.fillStyle=glow;ctx.fillRect(0,0,w,h);
-      shells.forEach((count,si)=>{const r=38+si*((maxR-38)/Math.max(shells.length-1,1)),sq=.38+Math.abs(Math.cos(state.tilt+si*.38))*.45,rot=state.yaw*(si%2?-.55:.7)+si*.34;ctx.save();ctx.translate(cx,cy);ctx.rotate(rot);ctx.strokeStyle='rgba(177,224,248,.38)';ctx.lineWidth=1.2;ctx.setLineDash([3,4]);ctx.beginPath();ctx.ellipse(0,0,r,r*sq,0,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);for(let i=0;i<count;i++){const a=i/count*Math.PI*2+state.yaw*(1.2-si*.08),x=Math.cos(a)*r,y=Math.sin(a)*r*sq,d=(Math.sin(a)+1)/2;ctx.beginPath();ctx.fillStyle=d>.5?'#ffd34f':'#84cfff';ctx.shadowColor=ctx.fillStyle;ctx.shadowBlur=7;ctx.arc(x,y,2.7+d*1.8,0,Math.PI*2);ctx.fill()}ctx.restore()});
-      ctx.save();ctx.translate(cx,cy);ctx.rotate(state.yaw*.18);particles.forEach((p,i)=>{const pulse=1+Math.sin(state.yaw*2+i)*.04;ctx.beginPath();ctx.fillStyle=p.type?'#71b9ee':'#ff6f75';ctx.shadowColor=ctx.fillStyle;ctx.shadowBlur=5;ctx.arc(p.x*pulse,p.y*pulse,4.6,0,Math.PI*2);ctx.fill()});ctx.restore();ctx.shadowBlur=0;ctx.fillStyle='#fff';ctx.font="800 12px 'Be Vietnam Pro',sans-serif";ctx.textAlign='center';ctx.fillText(symbol,cx,cy+4);state.frame=requestAnimationFrame(draw)};
-    const sig={signal:abort.signal};canvas.addEventListener('pointerdown',e=>{state.drag=true;state.px=e.clientX;state.py=e.clientY;canvas.classList.add('is-dragging');canvas.setPointerCapture?.(e.pointerId)},sig);canvas.addEventListener('pointermove',e=>{if(!state.drag)return;state.yaw+=(e.clientX-state.px)*.012;state.tilt=Math.max(-1.2,Math.min(1.2,state.tilt+(e.clientY-state.py)*.008));state.px=e.clientX;state.py=e.clientY},sig);['pointerup','pointercancel'].forEach(type=>canvas.addEventListener(type,()=>{state.drag=false;canvas.classList.remove('is-dragging')},sig));toggle.addEventListener('click',()=>{state.paused=!state.paused;toggle.textContent=state.paused?'Tiếp tục':'Tạm dừng'},sig);reset.addEventListener('click',()=>{state.yaw=.3;state.tilt=.34},sig);state.observer=new ResizeObserver(()=>state.size=fit(canvas));state.observer.observe(canvas);draw();
+
+  function disposeObject(root) {
+    root?.traverse?.(object => {
+      object.geometry?.dispose?.();
+      if (Array.isArray(object.material)) object.material.forEach(material => material.dispose?.());
+      else object.material?.dispose?.();
+    });
+  }
+
+  window.destroyAtomicLab = () => {
+    if (!activeLab) return;
+    cancelAnimationFrame(activeLab.frame);
+    activeLab.observer?.disconnect();
+    activeLab.abort.abort();
+    disposeObject(activeLab.scene);
+    activeLab.renderer?.dispose?.();
+    activeLab.renderer?.forceContextLoss?.();
+    activeLab = null;
   };
-  document.addEventListener('keydown',event=>{if(event.key==='Escape')window.destroyAtomicLab?.()});
-  document.addEventListener('click',event=>{if(event.target.closest?.('.em-close')||event.target.id==='elModalOverlay')window.destroyAtomicLab?.()});
+
+  function fibonacciPosition(index, total, radius) {
+    if (total === 1) return new THREE.Vector3(0, 0, 0);
+    const y = 1 - (index / (total - 1)) * 2;
+    const ring = Math.sqrt(Math.max(0, 1 - y * y));
+    const angle = index * Math.PI * (3 - Math.sqrt(5));
+    const layer = .72 + ((index * 37) % 23) / 82;
+    return new THREE.Vector3(Math.cos(angle) * ring, y, Math.sin(angle) * ring).multiplyScalar(radius * layer);
+  }
+
+  window.createAtomicLab = ({ z, symbol, shells }) => {
+    window.destroyAtomicLab();
+    const host = document.getElementById('atomicLabHost');
+    if (!host) return;
+    if (!window.THREE) {
+      host.innerHTML = '<p class="atomic-lab-fallback">Không thể khởi tạo mô hình 3D trên trình duyệt này.</p>';
+      return;
+    }
+
+    host.innerHTML = `<section class="atomic-lab" aria-label="Mô hình 3D của nguyên tử ${symbol}">
+      <div class="atomic-lab-head"><div><b>Mô hình nguyên tử 3D</b><small>Kéo để xoay · electron chuyển động trên từng lớp</small></div><span class="atomic-lab-shells">${shells.join(' – ')}</span></div>
+      <div class="atomic-lab-stage"><canvas id="atomicLabCanvas" role="img" aria-label="Mô hình 3D nguyên tử ${symbol}, số hiệu nguyên tử ${z}"></canvas><span class="atomic-lab-tip">Kéo để xoay mô hình</span></div>
+      <div class="atomic-lab-toolbar"><div class="atomic-lab-legend"><span><i class="proton"></i>Proton</span><span><i class="neutron"></i>Neutron</span><span><i class="electron"></i>Electron</span></div><div class="atomic-lab-controls"><button type="button" data-atom="toggle">Tạm dừng</button><button type="button" data-atom="reset">Đặt lại</button></div></div>
+    </section>`;
+
+    const canvas = host.querySelector('#atomicLabCanvas');
+    const toggle = host.querySelector('[data-atom="toggle"]');
+    const reset = host.querySelector('[data-atom="reset"]');
+    const abort = new AbortController();
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+    } catch (error) {
+      host.innerHTML = '<p class="atomic-lab-fallback">Thiết bị chưa hỗ trợ WebGL để hiển thị mô hình 3D.</p>';
+      return;
+    }
+
+    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.7));
+    renderer.setClearColor(0x000000, 0);
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(38, 1, .1, 100);
+    const atom = new THREE.Group();
+    scene.add(atom);
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x8da3b5, 1.35));
+    const keyLight = new THREE.DirectionalLight(0xffffff, 1.55); keyLight.position.set(5, 7, 9); scene.add(keyLight);
+    const rimLight = new THREE.DirectionalLight(0x65baff, .85); rimLight.position.set(-7, -2, 5); scene.add(rimLight);
+
+    const protonMaterial = new THREE.MeshPhongMaterial({ color: 0xf23838, shininess: 105, specular: 0xffffff });
+    const neutronMaterial = new THREE.MeshPhongMaterial({ color: 0x65aee9, shininess: 90, specular: 0xdff4ff });
+    const electronMaterial = new THREE.MeshPhongMaterial({ color: 0x123fd0, emissive: 0x06165e, shininess: 120, specular: 0xffffff });
+    const orbitMaterial = new THREE.MeshBasicMaterial({ color: 0xf4ad19, transparent: true, opacity: .93 });
+    const particleGeometry = new THREE.SphereGeometry(.34, 24, 18);
+    const electronGeometry = new THREE.SphereGeometry(.22, 22, 16);
+
+    const approximateNeutrons = z === 1 ? 0 : Math.max(z, Math.round(z * .34));
+    const actualNucleons = z + approximateNeutrons;
+    const shownNucleons = Math.min(actualNucleons, 82);
+    const nucleusRadius = shownNucleons === 1 ? 0 : Math.max(.45, Math.cbrt(shownNucleons) * .31);
+    const nucleus = new THREE.Group();
+    for (let i = 0; i < shownNucleons; i++) {
+      const protonLimit = Math.round(shownNucleons * z / actualNucleons);
+      const mesh = new THREE.Mesh(particleGeometry, i < protonLimit ? protonMaterial : neutronMaterial);
+      mesh.position.copy(fibonacciPosition(i, shownNucleons, nucleusRadius));
+      nucleus.add(mesh);
+    }
+    atom.add(nucleus);
+    const coreLight = new THREE.PointLight(0xff6969, .8, 7); atom.add(coreLight);
+
+    const electrons = [];
+    const maxOrbit = 2.15 + Math.max(0, shells.length - 1) * 1.05;
+    shells.forEach((count, shellIndex) => {
+      const radius = 2.15 + shellIndex * 1.05;
+      const plane = new THREE.Group();
+      plane.rotation.x = .73 + shellIndex * .08;
+      plane.rotation.z = shellIndex * .34;
+      atom.add(plane);
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(radius, .025, 8, 112), orbitMaterial.clone());
+      plane.add(ring);
+      for (let index = 0; index < count; index++) {
+        const electron = new THREE.Mesh(electronGeometry, electronMaterial);
+        const angle = index / count * Math.PI * 2;
+        electron.position.set(Math.cos(angle) * radius, Math.sin(angle) * radius, 0);
+        plane.add(electron);
+        electrons.push({ mesh: electron, radius, angle, speed: .012 - shellIndex * .0008, plane });
+      }
+    });
+
+    camera.position.set(0, .25, Math.max(8.2, maxOrbit * 2.18));
+    camera.lookAt(0, 0, 0);
+    atom.rotation.set(.08, -.2, 0);
+
+    const state = { scene, renderer, camera, atom, electrons, canvas, abort, observer: null, frame: 0, paused: reduced, drag: false, x: 0, y: 0 };
+    activeLab = state;
+    if (reduced) toggle.textContent = 'Tiếp tục';
+
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      const width = Math.max(260, Math.round(rect.width));
+      const height = Math.max(190, Math.round(rect.height));
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    };
+
+    const animate = () => {
+      if (activeLab !== state) return;
+      if (!state.paused) {
+        electrons.forEach(item => {
+          item.angle += item.speed;
+          item.mesh.position.set(Math.cos(item.angle) * item.radius, Math.sin(item.angle) * item.radius, 0);
+        });
+        if (!state.drag) atom.rotation.y += .0022;
+        nucleus.rotation.y -= .0014;
+      }
+      renderer.render(scene, camera);
+      state.frame = requestAnimationFrame(animate);
+    };
+
+    const signal = { signal: abort.signal };
+    canvas.addEventListener('pointerdown', event => {
+      state.drag = true; state.x = event.clientX; state.y = event.clientY;
+      canvas.classList.add('is-dragging'); canvas.setPointerCapture?.(event.pointerId);
+    }, signal);
+    canvas.addEventListener('pointermove', event => {
+      if (!state.drag) return;
+      atom.rotation.y += (event.clientX - state.x) * .012;
+      atom.rotation.x = Math.max(-1.1, Math.min(1.1, atom.rotation.x + (event.clientY - state.y) * .009));
+      state.x = event.clientX; state.y = event.clientY;
+    }, signal);
+    const endDrag = () => { state.drag = false; canvas.classList.remove('is-dragging'); };
+    canvas.addEventListener('pointerup', endDrag, signal);
+    canvas.addEventListener('pointercancel', endDrag, signal);
+    toggle.addEventListener('click', () => { state.paused = !state.paused; toggle.textContent = state.paused ? 'Tiếp tục' : 'Tạm dừng'; }, signal);
+    reset.addEventListener('click', () => { atom.rotation.set(.08, -.2, 0); camera.position.set(0, .25, Math.max(8.2, maxOrbit * 2.18)); camera.lookAt(0, 0, 0); }, signal);
+    state.observer = new ResizeObserver(resize); state.observer.observe(canvas); resize(); animate();
+  };
+
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') window.destroyAtomicLab?.(); });
+  document.addEventListener('click', event => { if (event.target.closest?.('.em-close') || event.target.id === 'elModalOverlay') window.destroyAtomicLab?.(); });
 })();
