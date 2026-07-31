@@ -799,22 +799,18 @@
     <div class="card">
       <div class="card-head"><h2>Biến đổi vật lí và biến đổi hóa học</h2></div>
       <div class="grid2">
-        <div class="formula-box" style="text-align:left;">
-          <b>Biến đổi vật lí</b><br><span style="font-weight:400;">Không tạo chất mới, chỉ đổi trạng thái/hình dạng/kích thước.</span>
-        </div>
-        <div class="formula-box" style="text-align:left;">
-          <b>Biến đổi hóa học (phản ứng)</b><br><span style="font-weight:400;">Có chất mới tạo thành.</span>
-        </div>
-      </div>
-      <p class="note" style="margin-top:8px;">Dấu hiệu thường gặp: xuất hiện khí, xuất hiện kết tủa, đổi màu, phát sáng/tỏa hoặc thu nhiệt. Một dấu hiệu riêng lẻ chưa chắc đủ để kết luận — cần dựa vào việc có chất mới hình thành hay không.</p>
-    </div>
-
-    <div class="grid2">
       <div class="card">
         <div class="card-head"><h2>Định luật bảo toàn khối lượng</h2></div>
-        <div class="formula-box">$$m_{PU} = m_{SP}$$</div>
-        <p class="note" style="text-align:center; margin-top:-4px;">(PU: các chất phản ứng — SP: các sản phẩm)</p>
-        <p class="note" style="margin-top:8px;">Trong phản ứng, nguyên tử không tự sinh ra hay mất đi — chỉ sắp xếp lại. VD: 2H₂ + O₂ → 2H₂O.</p>
+        <div class="formula-box mass-law-equation">
+          $$\mathrm{A+B\longrightarrow C+D}$$
+          $$m_A+m_B=m_C+m_D$$
+        </div>
+        <div class="reaction-sides" aria-label="Phân biệt chất phản ứng và sản phẩm">
+          <div class="reaction-side"><b>A + B</b><small>Các chất phản ứng</small></div>
+          <span class="reaction-arrow" aria-hidden="true">→</span>
+          <div class="reaction-side"><b>C + D</b><small>Các sản phẩm</small></div>
+        </div>
+        <p class="note" style="margin-top:8px;">Trong một phản ứng hóa học, tổng khối lượng các chất phản ứng bằng tổng khối lượng các sản phẩm. Nguyên tử không tự sinh ra hay mất đi mà chỉ sắp xếp lại.</p>
         <div class="life-box">
           <svg class="life-icon" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" style="fill:var(--navy-900)"/><g stroke="var(--yellow-500)" stroke-width="2.5" stroke-linecap="round"><line x1="32" y1="14" x2="32" y2="24"/><line x1="32" y1="40" x2="32" y2="50"/><line x1="14" y1="32" x2="24" y2="32"/><line x1="40" y1="32" x2="50" y2="32"/><line x1="20" y1="20" x2="27" y2="27"/><line x1="37" y1="37" x2="44" y2="44"/><line x1="44" y1="20" x2="37" y2="27"/><line x1="27" y1="37" x2="20" y2="44"/></g><circle cx="32" cy="32" r="4" style="fill:var(--sky-300)"/></svg>
           <div class="life-txt">
@@ -824,18 +820,21 @@
         </div>
       </div>
       <div class="card">
-        <div class="card-head"><h2>Quy trình cân bằng PTHH</h2></div>
-        <ul style="padding-left:16px; font-size:12.8px; line-height:1.7;">
-          <li>1. Viết sơ đồ phản ứng.</li>
-          <li>2. Đếm số nguyên tử mỗi nguyên tố.</li>
-          <li>3. Đặt hệ số thích hợp.</li>
-          <li>4. Rút gọn hệ số về số nguyên tối giản.</li>
-          <li>5. Kiểm tra lại.</li>
-        </ul>
-        <p class="note"><b>Lưu ý:</b> chỉ được đổi hệ số trước công thức, không tự ý sửa chỉ số trong công thức hóa học.</p>
+        <div class="card-head"><h2>Quy tắc cân bằng PTHH</h2></div>
+        <div class="balance-rule-card">
+          <h3>Thứ tự cân bằng dễ nhớ</h3>
+          <div class="balance-odd-rule"><b>Khi số nguyên tử O bị lẻ: 1, 3, 5, ...</b><br>Nếu O không nằm trong cùng một nhóm nguyên tử ở cả hai vế, hãy đặt hệ số <b>2</b> trước công thức hóa học chứa số O lẻ rồi tiếp tục cân bằng.</div>
+          <ol class="balance-order">
+            <li><b>Kim loại</b><small>Cân bằng trước</small></li>
+            <li><b>Nhóm nguyên tử</b><small><span class="polyatomic-list">SO<sub>4</sub>, CO<sub>3</sub>, NO<sub>3</sub>, PO<sub>4</sub></span><span class="polyatomic-kind">(phi kim)</span></small></li>
+            <li><b>Phi kim</b><small>Trừ H và O</small></li>
+            <li><b>Hydrogen</b><small>Cân bằng H</small></li>
+            <li><b>Oxygen</b><small>Cân bằng O cuối cùng</small></li>
+          </ol>
+          <p class="balance-memory"><b>Mẹo nhớ:</b> Kim loại trước → nhóm nguyên tử sau → phi kim (khác H và O) → H → O. Chỉ được thay đổi hệ số trước công thức, không sửa chỉ số trong công thức hóa học.</p>
+        </div>
       </div>
     </div>
-
     <div class="card">
       <div class="card-head"><h2>Máy luyện cân bằng phương trình nhanh</h2></div>
       <select id="pthhPick" onchange="renderPTHH()"></select>
