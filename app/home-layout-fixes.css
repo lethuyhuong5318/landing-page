@@ -41,3 +41,30 @@
   .element-illustration{min-width:136px;grid-template-columns:52px minmax(0,1fr)}
   .element-illustration>span{width:52px;height:52px;border-radius:0}
 }
+/* Emoji illustrations prevent cropped image edges while keeping applications
+   recognizable at a glance. */
+.element-tile > .element-tile-photo.element-tile-emoji{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  border:0;
+  background:rgba(255,255,255,.76);
+  font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
+  font-size:20px;
+  line-height:1;
+  box-shadow:0 3px 9px rgba(10,44,65,.16);
+}
+.element-illustration > .element-illustration-emoji{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:visible;
+  border:0;
+  border-radius:18px;
+  background:rgba(255,255,255,.76);
+  font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
+  font-size:38px;
+  line-height:1;
+  box-shadow:0 8px 22px rgba(10,44,65,.13);
+}

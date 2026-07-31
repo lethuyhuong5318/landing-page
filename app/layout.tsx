@@ -77,11 +77,14 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: getAssetPath("/favicon.png"), type: "image/png" },
-      { url: getAssetPath("/favicon.ico") },
+      { url: getAssetPath("/favicon.ico"), type: "image/x-icon", sizes: "16x16 32x32 48x48" },
+      { url: getAssetPath("/favicon-48x48.png"), type: "image/png", sizes: "48x48" },
+      { url: getAssetPath("/favicon.png"), type: "image/png", sizes: "512x512" },
     ],
-    shortcut: getAssetPath("/favicon.png"),
-    apple: getAssetPath("/favicon.png"),
+    shortcut: getAssetPath("/favicon.ico"),
+    apple: [
+      { url: getAssetPath("/apple-touch-icon.png"), type: "image/png", sizes: "180x180" },
+    ],
   },
 };
 

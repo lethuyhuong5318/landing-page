@@ -119,6 +119,12 @@ const elementExplorer = [
   { number: 35, symbol: "Br", name: "Bromine", category: "Halogen", application: "Khử trùng nước hồ bơi và sản xuất một số loại thuốc.", fact: "Bromine là phi kim duy nhất ở thể lỏng tại nhiệt độ phòng.", icon: Waves, visualLabel: "Khử trùng nước hồ bơi", tone: "violet", image: getAssetPath("/element-visuals/br.webp") },
 ];
 
+const elementEmoji: Record<string, string> = {
+  H: "🌱", C: "✏️", N: "🌾", O: "🫁", Na: "🔋",
+  Mg: "✈️", Al: "🥫", Si: "💻", Cl: "💧", Ca: "🦴",
+  Fe: "🏗️", Cu: "🔌", K: "🌿", S: "🌋", P: "🧬",
+  Zn: "🛡️", Cr: "🔧", Ba: "🩻", Mn: "🔋", Br: "🏊",
+};
 const trustNotices = [
   { badge: "diagnostic" as const, title: "Bài test nền tảng 15 phút đang mở", text: "Nhận chẩn đoán phần đang hổng trước khi chọn lớp." },
   { badge: "course" as const, title: "Lớp Hóa 8–9 đang nhận đăng ký", text: "Có lộ trình lấy gốc, ôn vào 10 và chuyên Hóa." },
@@ -553,7 +559,7 @@ export default function Home() {
                   aria-label={`Khám phá ${element.name}`}
                 >
                   <small>{element.number}</small><strong>{element.symbol}</strong><span>{element.name}</span>
-                  <span className="element-tile-photo" aria-hidden="true"><img src={element.image} alt="" loading="lazy" /></span><i aria-hidden="true">✓</i>
+                  <span className="element-tile-photo element-tile-emoji" aria-hidden="true">{elementEmoji[element.symbol]}</span><i aria-hidden="true">✓</i>
                 </button>
               ))}
             </div>
@@ -569,7 +575,7 @@ export default function Home() {
             <div className="result-top"><span>{activeElement.number}</span><small>{activeElement.category}</small></div>
             <div className="result-identity">
               <div className="result-symbol">{activeElement.symbol}</div>
-              <div className="element-illustration" aria-label={`Minh họa ${activeElement.visualLabel}`}><span><img src={activeElement.image} alt={`Minh họa ${activeElement.visualLabel}`} /></span><small>{activeElement.visualLabel}</small></div>
+              <div className="element-illustration" aria-label={`Minh họa ${activeElement.visualLabel}`}><span className="element-illustration-emoji" aria-hidden="true">{elementEmoji[activeElement.symbol]}</span><small>{activeElement.visualLabel}</small></div>
             </div>
             <h3>{activeElement.name} có mặt ở đâu?</h3>
             <p className="application-text"><span>ỨNG DỤNG THỰC TẾ</span>{activeElement.application}</p>

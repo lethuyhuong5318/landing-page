@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="./favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" sizes="48x48" href="./favicon-48x48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
 <title>ChamChamEdemy • Lấy gốc Hóa THCS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&family=Baloo+2:wght@500;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
@@ -516,6 +519,8 @@
 <link rel="stylesheet" href="./periodic-table-enhancements.css">
 <link rel="stylesheet" href="./virtual-lab.css">
 <link rel="stylesheet" href="./atomic-lab.css">
+<link rel="stylesheet" href="./chem-miner-3d.css">
+<link rel="stylesheet" href="./displacement-lab-3d.css">
 <link rel="stylesheet" href="./everyday-chemistry.css">
 <link rel="stylesheet" href="./mobile-lesson-responsive.css">
 </head>
@@ -743,16 +748,16 @@
     </div>
 
         <div class="card chem-miner-card">
-      <div class="chem-miner-head"><div><span class="chem-miner-kicker">Game đào tinh thể</span><h2>Chem Miner — Mỏ hóa trị</h2><p class="chem-miner-tagline">Thả móc đúng lúc để thu tinh thể có hóa trị theo yêu cầu.</p></div><span class="chem-miner-save" id="minerBest">Kỷ lục: 0 điểm</span></div>
+      <div class="chem-miner-head"><div><span class="chem-miner-kicker">Game học tập Three.js</span><h2>Đào Hóa Trị</h2><p class="chem-miner-tagline">Điều khiển móc câu, thu thập khoáng vật và ghi nhớ hóa trị qua từng màn.</p></div><span class="chem-miner-save" id="minerBest">Kỷ lục: 0 điểm</span></div>
       <div class="chem-miner-shell">
-        <div class="chem-miner-toolbar"><label><span>Chế độ</span><select id="minerMode"><option value="practice">Luyện tập</option><option value="challenge">Thử thách 60 giây</option></select></label><label><span>Màn chơi</span><select id="minerLevel"><option value="1">1 — Kim loại hóa trị I</option><option value="2">2 — Hóa trị II</option><option value="3">3 — Hóa trị III</option><option value="4">4 — Nhiều hóa trị</option><option value="5">5 — Phi kim</option><option value="boss">Boss tổng hợp</option></select></label><button class="chem-miner-start" id="minerStart" type="button">Bắt đầu màn</button></div>
-        <div class="chem-miner-hud"><div class="miner-stat"><small>Điểm</small><b id="minerScore">0</b></div><div class="miner-stat"><small>Thời gian</small><b id="minerTime">∞</b></div><div class="miner-stat"><small>Trái tim</small><b class="miner-hearts" id="minerLives">♥ ♥ ♥</b></div><div class="miner-stat"><small>Combo</small><b id="minerCombo">x0</b></div><div class="miner-stat miner-target"><small>Mục tiêu</small><b id="minerTarget">Hóa trị I</b></div></div>
-        <div class="chem-miner-stage" id="minerStage"><canvas id="chemMinerCanvas" width="760" height="400" aria-label="Game đào tinh thể hóa trị"></canvas><div class="miner-canvas-label">Chạm màn hình hoặc nhấn Space để thả móc</div><div class="miner-overlay" id="minerIntro"><div class="miner-dialog"><h3>Đào đúng hóa trị</h3><p>Móc đúng tinh thể theo mục tiêu. Sai sẽ mất một trái tim.</p><div class="miner-how"><div><b>1. Quan sát</b><span>Đọc hóa trị mục tiêu</span></div><div><b>2. Canh móc</b><span>Chờ móc hướng đúng</span></div><div><b>3. Thu thập</b><span>Chạm để thả móc</span></div></div><button class="miner-primary" id="minerIntroStart" type="button">Bắt đầu chơi</button></div></div><div class="miner-overlay" id="minerResult" hidden><div class="miner-dialog" id="minerResultBody"></div></div></div>
-        <div class="miner-toast" id="minerToast" aria-live="polite">Chọn chế độ và màn chơi để bắt đầu.</div>
+        <div class="chem-miner-toolbar"><label><span>Chế độ</span><select id="minerMode"><option value="practice">Luyện tập</option><option value="challenge">Thử thách 60 giây</option></select></label><label><span>Cấp độ</span><select id="minerLevel"><option value="1">1 — Hóa trị I</option><option value="2">2 — Hóa trị II</option><option value="3">3 — Hóa trị III và IV</option><option value="4">4 — Nhóm nguyên tử</option><option value="boss">5 — Thử thách tổng hợp</option></select></label><button class="chem-miner-start" id="minerStart" type="button">Bắt đầu màn</button></div>
+        <div class="chem-miner-hud"><div class="miner-stat"><small>Điểm</small><b id="minerScore">0</b></div><div class="miner-stat"><small>Thời gian</small><b id="minerTime">∞</b></div><div class="miner-stat"><small>Lượt</small><b class="miner-hearts" id="minerLives">● ● ●</b></div><div class="miner-stat miner-streak"><small>Chuỗi đúng</small><b id="minerCombo">x0</b></div><button class="miner-hud-button" id="minerPause" type="button" aria-label="Tạm dừng" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg></button><button class="miner-hud-button" id="minerSound" type="button" aria-label="Tắt âm thanh" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M5 9v6h4l5 4V5L9 9H5Zm12 1a3 3 0 0 1 0 4m2-7a7 7 0 0 1 0 10"/></svg></button></div>
+        <div class="miner-question"><div><small>Yêu cầu màn chơi</small><strong id="minerQuestionText">Đào nguyên tố có hóa trị I</strong></div><span class="miner-question-progress" id="minerProgress">Đã tìm 0/10 đáp án đúng</span><span id="minerTarget" hidden>Hóa trị I</span></div>
+        <div class="chem-miner-stage" id="minerStage"><canvas id="chemMinerCanvas" width="760" height="400" aria-label="Game Three.js Đào Hóa Trị"></canvas><div class="miner-canvas-label">Chạm vùng chơi hoặc nhấn Space để thả móc</div><div class="miner-combo-badge" id="minerComboBadge">COMBO x3</div><div class="miner-mobile-controls"><button class="miner-control" type="button" data-aim="-1" aria-label="Hướng móc sang trái">TRÁI</button><button class="miner-control drop" type="button" data-action="drop">THẢ MÓC</button><button class="miner-control" type="button" data-aim="1" aria-label="Hướng móc sang phải">PHẢI</button></div><div class="miner-overlay" id="minerIntro"><div class="miner-dialog"><div class="miner-start-brand"><img src="./co-tram-mascot.jpg" alt="Mascot gấu ChamChamEdemy đội mũ thợ mỏ"><div><small>ChamChamEdemy</small><h3>Đào Hóa Trị</h3></div></div><p>Canh hướng móc và thu đúng khoáng vật có hóa trị theo yêu cầu.</p><div class="miner-how"><div><b>1. Quan sát</b><span>Đọc mục tiêu hóa trị</span></div><div><b>2. Canh móc</b><span>Chờ hoặc chỉnh hướng</span></div><div><b>3. Thu thập</b><span>Chạm để thả móc</span></div></div><div class="miner-dialog-actions"><button class="miner-primary" id="minerIntroStart" type="button">Bắt đầu</button><button class="miner-secondary" id="minerHowButton" type="button">Cách chơi</button><button class="miner-secondary" id="minerTableButton" type="button">Bảng hóa trị</button><button class="miner-secondary" id="minerIntroSound" type="button"><span id="minerSoundText">Âm thanh bật</span></button></div></div></div><div class="miner-overlay" id="minerResult" hidden><div class="miner-dialog" id="minerResultBody"></div></div></div>
+        <div class="miner-toast" id="minerToast" aria-live="polite">Chọn chế độ và cấp độ để bắt đầu.</div>
         <div class="miner-powerups"><button class="miner-power" type="button" data-power="time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>+8 giây</button><button class="miner-power" type="button" data-power="magnet"><svg viewBox="0 0 24 24"><path d="M6 3v9a6 6 0 0 0 12 0V3M6 8h5m2 0h5"/></svg>Nam châm</button><button class="miner-power" type="button" data-power="scope"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>Kính soi</button><button class="miner-power" type="button" data-power="bomb"><svg viewBox="0 0 24 24"><circle cx="11" cy="13" r="7"/><path d="m16 8 3-3m-1 0h3v3"/></svg>Lọc tinh thể</button></div>
       </div>
-    </div>
-<div class="card">
+    </div><div class="card">
       <div class="card-head"><h2>Bảng hóa trị đầy đủ</h2></div>
       <table class="tt">
         <tr><th>Hóa trị</th><th>Kim loại</th><th>Phi kim</th><th>Nhóm nguyên tử</th></tr>
@@ -838,7 +843,7 @@
       <p class="note" style="margin-top:6px;">Chọn một phản ứng để xem cách đếm nguyên tử và hệ số đã cân bằng.</p>
     </div>
 
-        <div class="card cc-vlab-card"><div class="cc-vlab-head"><div><div class="card-head"><h2>Phòng thí nghiệm ảo</h2></div><p>Kéo miếng kim loại vào cốc, điều chỉnh nước và nhiệt độ để quan sát hiện tượng, rồi đối chiếu phương trình hóa học.</p></div><span class="cc-vlab-badge"><svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v5l-5 9a3 3 0 0 0 2.6 4.5h8.8A3 3 0 0 0 19 17l-5-9V3M7.5 15h9"/></svg>Mô phỏng tương tác</span></div><div class="cc-vlab-shell"><div class="cc-vlab-tools"><label class="cc-vlab-field"><span>Chọn mẫu kim loại</span><select id="ccVlabElement"><option value="Na">Na — Natri</option><option value="K">K — Kali</option><option value="Ca">Ca — Calcium</option><option value="Mg">Mg — Magnesium</option><option value="Zn">Zn — Kẽm</option><option value="Fe">Fe — Sắt</option><option value="Al">Al — Nhôm</option><option value="Cu">Cu — Đồng</option></select></label><button class="cc-vlab-btn primary" id="ccVlabAdd" type="button">Thêm nước</button><button class="cc-vlab-btn" id="ccVlabClear" type="button">Đổ hết nước</button><button class="cc-vlab-btn heat" id="ccVlabHeatBtn" type="button" aria-pressed="false"><span>Bật đèn</span></button><button class="cc-vlab-btn" id="ccVlabReset" type="button">Làm lại</button></div><div class="cc-vlab-stage"><canvas id="ccVlabCanvas" width="960" height="370" aria-label="Mô phỏng cốc nước, mẫu kim loại, đèn đốt và nhiệt kế"></canvas><div class="cc-vlab-hint">Kéo mẫu kim loại vào trong cốc nước</div><div class="cc-vlab-tempbox"><b id="ccVlabTemp">24°C</b><small>NHIỆT ĐỘ</small></div></div><div class="cc-vlab-status" aria-live="polite"><div><strong>Quan sát</strong><span id="ccVlabObserve">Kéo mẫu kim loại vào cốc nước để bắt đầu.</span></div><div class="cc-vlab-equation"><strong>Phương trình</strong><span id="ccVlabEquation">Chưa có phản ứng.</span></div></div><div class="cc-vlab-bottom"><div class="cc-vlab-power"><label for="ccVlabHeat"><span>Công suất đèn đốt</span><output id="ccVlabHeatOut">45%</output></label><input id="ccVlabHeat" type="range" min="0" max="100" value="45"></div><div class="cc-vlab-safe"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3ZM12 9v5m0 3h.01"/></svg><span><b>An toàn:</b> đây là mô phỏng học tập. Không tự thử phản ứng kim loại kiềm với nước ngoài phòng thí nghiệm.</span></div></div></div></div>
+        <div class="card cc-vlab-card"><div class="cc-vlab-head"><div><div class="card-head"><h2>Phòng thí nghiệm ảo</h2></div><p>Kéo miếng kim loại vào cốc, điều chỉnh nước và nhiệt độ để quan sát hiện tượng, rồi đối chiếu phương trình hóa học.</p></div><span class="cc-vlab-badge"><svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v5l-5 9a3 3 0 0 0 2.6 4.5h8.8A3 3 0 0 0 19 17l-5-9V3M7.5 15h9"/></svg>Mô phỏng tương tác</span></div><div class="cc-vlab-shell"><div class="cc-vlab-tools"><label class="cc-vlab-field"><span>Chọn mẫu kim loại</span><select id="ccVlabElement"><option value="Na">Na — Natri</option><option value="K">K — Kali</option><option value="Ca">Ca — Calcium</option><option value="Mg">Mg — Magnesium</option><option value="Zn">Zn — Kẽm</option><option value="Fe">Fe — Sắt</option><option value="Al">Al — Nhôm</option><option value="Cu">Cu — Đồng</option></select></label><button class="cc-vlab-btn primary" id="ccVlabAdd" type="button">Thêm nước</button><button class="cc-vlab-btn" id="ccVlabClear" type="button">Đổ hết nước</button><button class="cc-vlab-btn heat" id="ccVlabHeatBtn" type="button" aria-pressed="false"><span>Bật bếp</span></button><button class="cc-vlab-btn" id="ccVlabReset" type="button">Làm lại</button></div><div class="cc-vlab-stage"><canvas id="ccVlabCanvas" width="960" height="370" aria-label="Mô phỏng cốc nước, mẫu kim loại, bếp đốt và nhiệt kế"></canvas><div class="cc-vlab-hint">Kéo mẫu kim loại vào trong cốc nước</div><div class="cc-vlab-tempbox"><b id="ccVlabTemp">24°C</b><small>NHIỆT ĐỘ</small></div></div><div class="cc-vlab-status" aria-live="polite"><div><strong>Quan sát</strong><span id="ccVlabObserve">Kéo mẫu kim loại vào cốc nước để bắt đầu.</span></div><div class="cc-vlab-equation"><strong>Phương trình</strong><span id="ccVlabEquation">Chưa có phản ứng.</span></div></div><div class="cc-vlab-bottom"><div class="cc-vlab-power"><label for="ccVlabHeat"><span>Công suất bếp</span><output id="ccVlabHeatOut">45%</output></label><input id="ccVlabHeat" type="range" min="0" max="100" value="45"></div><div class="cc-vlab-safe"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3ZM12 9v5m0 3h.01"/></svg><span><b>An toàn:</b> đây là mô phỏng học tập. Không tự thử phản ứng kim loại kiềm với nước ngoài phòng thí nghiệm.</span></div></div></div></div>
 <div class="card">
       <div class="card-head"><h2>Tính theo phương trình hóa học — quy trình chuẩn</h2></div>
       <ul style="padding-left:16px; font-size:12.8px; line-height:1.7;">
@@ -942,8 +947,14 @@
           </select>
         </div>
       </div>
-      <div class="disp-row">
-        <svg class="disp-svg" id="dispSvg" viewBox="0 0 100 110">
+      <div class="disp-row disp-row-3d">
+        <div class="disp-lab3d">
+          <canvas id="disp3dCanvas" role="img" aria-label="Mô hình 3D phản ứng kim loại với dung dịch muối"></canvas>
+          <span class="disp-3d-badge">Mô phỏng Three.js 3D</span>
+          <div class="disp-3d-legend"><span><i class="ion"></i>Ion trong dung dịch</span><span><i class="deposit"></i>Kim loại bám</span></div>
+          <span class="disp-3d-hint">Kéo để xoay và quan sát mô hình</span>
+        </div>
+        <svg class="disp-svg disp-legacy-svg" id="dispSvg" viewBox="0 0 100 110" aria-hidden="true">
           <path d="M28 8 H72 V22 L84 96 A9 9 0 0 1 75 107 H25 A9 9 0 0 1 16 96 L28 22 Z" fill="rgba(255,255,255,0.35)" stroke="var(--navy-700)" stroke-width="3"/>
           <clipPath id="dispClip"><path d="M28 8 H72 V22 L84 96 A9 9 0 0 1 75 107 H25 A9 9 0 0 1 16 96 L28 22 Z"/></clipPath>
           <rect id="dispLiquid" x="14" y="40" width="76" height="70" fill="#B9D6EA" clip-path="url(#dispClip)" style="transition:fill .5s;"/>
@@ -1539,87 +1550,8 @@ function nextCard(){ fcIndex = (fcIndex+1)%elements.length; showCard(); }
 function prevCard(){ fcIndex = (fcIndex-1+elements.length)%elements.length; showCard(); }
 showCard();
 
-/* ---------------- CHEM MINER CANVAS GAME ---------------- */
-const minerCanvas=document.getElementById('chemMinerCanvas');
-const minerCtx=minerCanvas.getContext('2d');
-const minerData=[
-  {sym:'Li',val:'I',name:'Lithium',tip:'Li thuộc nhóm IA nên thường có hóa trị I.'},{sym:'Na',val:'I',name:'Sodium',tip:'Na thuộc nhóm IA nên luôn có hóa trị I.'},{sym:'K',val:'I',name:'Potassium',tip:'K thuộc nhóm IA nên luôn có hóa trị I.'},{sym:'Ag',val:'I',name:'Silver',tip:'Ag thường gặp với hóa trị I.'},{sym:'Cl',val:'I',name:'Chlorine',tip:'Cl thường gặp hóa trị I trong chloride.'},
-  {sym:'Mg',val:'II',name:'Magnesium',tip:'Mg thuộc nhóm IIA nên luôn có hóa trị II.'},{sym:'Ca',val:'II',name:'Calcium',tip:'Ca thuộc nhóm IIA nên thường có hóa trị II.'},{sym:'Ba',val:'II',name:'Barium',tip:'Ba thuộc nhóm IIA nên thường có hóa trị II.'},{sym:'Zn',val:'II',name:'Zinc',tip:'Zn thường gặp với hóa trị II.'},{sym:'O',val:'II',name:'Oxygen',tip:'Oxygen thường có hóa trị II.'},{sym:'Cu',val:'II',name:'Copper',tip:'Cu có thể mang hóa trị I hoặc II.'},{sym:'Fe',val:'II',name:'Iron',tip:'Fe có hai hóa trị thường gặp: II và III.'},
-  {sym:'Al',val:'III',name:'Aluminium',tip:'Al thuộc nhóm IIIA nên thường có hóa trị III.'},{sym:'Fe',val:'III',name:'Iron',tip:'Fe có hai hóa trị thường gặp: II và III.'},{sym:'Cr',val:'III',name:'Chromium',tip:'Cr thường gặp hóa trị II, III và VI.'},
-  {sym:'Cu',val:'I',name:'Copper',tip:'Cu có thể mang hóa trị I hoặc II.'},{sym:'Sn',val:'II',name:'Tin',tip:'Sn thường gặp hóa trị II và IV.'},{sym:'Sn',val:'IV',name:'Tin',tip:'Sn thường gặp hóa trị II và IV.'},{sym:'Pb',val:'II',name:'Lead',tip:'Pb thường gặp hóa trị II và IV.'},{sym:'Pb',val:'IV',name:'Lead',tip:'Pb thường gặp hóa trị II và IV.'},
-  {sym:'S',val:'II',name:'Sulfur',tip:'S có thể có hóa trị II, IV hoặc VI.'},{sym:'S',val:'IV',name:'Sulfur',tip:'S có thể có hóa trị II, IV hoặc VI.'},{sym:'S',val:'VI',name:'Sulfur',tip:'S có thể có hóa trị II, IV hoặc VI.'},{sym:'N',val:'III',name:'Nitrogen',tip:'N là phi kim có nhiều hóa trị, thường gặp III và V.'},{sym:'N',val:'V',name:'Nitrogen',tip:'N là phi kim có nhiều hóa trị, thường gặp III và V.'},{sym:'P',val:'III',name:'Phosphorus',tip:'P thường gặp hóa trị III và V.'},{sym:'P',val:'V',name:'Phosphorus',tip:'P thường gặp hóa trị III và V.'}
-];
-const minerLevels={
-  '1':{title:'Kim loại hóa trị I',target:'I',pool:['Li:I','Na:I','K:I','Ag:I','Mg:II','Al:III','Fe:III']},
-  '2':{title:'Hóa trị II',target:'II',pool:['Mg:II','Ca:II','Ba:II','Zn:II','Cu:II','Fe:II','Na:I','Al:III']},
-  '3':{title:'Hóa trị III',target:'III',pool:['Al:III','Fe:III','Cr:III','Na:I','Mg:II','Zn:II']},
-  '4':{title:'Nguyên tố nhiều hóa trị',target:null,pool:['Fe:II','Fe:III','Cu:I','Cu:II','Sn:II','Sn:IV','Pb:II','Pb:IV']},
-  '5':{title:'Phi kim',target:null,pool:['Cl:I','O:II','S:II','S:IV','S:VI','N:III','N:V','P:III','P:V']},
-  boss:{title:'Boss tổng hợp',target:null,pool:[]}
-};
-const minerColors={I:['#ffd1e8','#e95599'],II:['#cce4ff','#3783d4'],III:['#ddd0ff','#7954c5'],IV:['#ffd7b5','#e77f28'],V:['#ccf1d4','#2c9b62'],VI:['#fff0a8','#d69a00']};
-let minerState={running:false,mode:'practice',level:'1',target:'I',score:0,lives:3,combo:0,maxCombo:0,attempts:0,correct:0,time:60,items:[],particles:[],wrong:new Map(),used:new Map(),hook:{angle:0,dir:1,length:48,status:'swing',caught:null},last:0,timerCarry:0,power:{time:1,magnet:1,scope:1,bomb:1},highlightUntil:0};
-const minerByKey=key=>minerData.find(e=>`${e.sym}:${e.val}`===key);
-const minerShuffle=a=>a.slice().sort(()=>Math.random()-.5);
-function minerSetToast(text,type=''){
-  const toast=document.getElementById('minerToast');toast.textContent=text;toast.className=`miner-toast ${type}`.trim();
-}
-function minerTargetFor(level){
-  if(level.target)return level.target;
-  const vals=[...new Set(minerActivePool(level).map(e=>e.val))];return vals[Math.floor(Math.random()*vals.length)];
-}
-function minerActivePool(level){return level.pool.length?level.pool.map(minerByKey).filter(Boolean):minerData.slice()}
-function minerSpawn(){
-  const level=minerLevels[minerState.level],pool=minerActivePool(level),correct=pool.filter(e=>e.val===minerState.target),wrong=pool.filter(e=>e.val!==minerState.target);
-  let picks=minerShuffle([...minerShuffle(correct).slice(0,3),...minerShuffle(wrong).slice(0,6)]);
-  while(picks.length<8)picks.push(pool[Math.floor(Math.random()*pool.length)]);
-  const slots=[[95,150],[210,128],[335,172],[455,130],[615,160],[145,285],[285,260],[430,292],[590,275]];
-  minerState.items=picks.slice(0,9).map((data,i)=>({data,x:slots[i][0],y:slots[i][1],r:27+Math.random()*5,hit:false,highlight:false,drift:minerState.level==='boss'?(Math.random()>.5?1:-1)*(10+Math.random()*12):0}));
-}
-function minerUpdateHud(){
-  document.getElementById('minerScore').textContent=minerState.score;document.getElementById('minerTime').textContent=minerState.mode==='practice'?'∞':Math.max(0,Math.ceil(minerState.time))+'s';document.getElementById('minerLives').textContent='♥ '.repeat(minerState.lives).trim()||'—';document.getElementById('minerCombo').textContent='x'+minerState.combo;document.getElementById('minerTarget').textContent='Hóa trị '+minerState.target;
-}
-function minerReset(){
-  const levelKey=document.getElementById('minerLevel').value;minerState.running=true;minerState.mode=document.getElementById('minerMode').value;minerState.level=levelKey;minerState.target=minerTargetFor(minerLevels[levelKey]);minerState.score=0;minerState.lives=3;minerState.combo=0;minerState.maxCombo=0;minerState.attempts=0;minerState.correct=0;minerState.time=60;minerState.wrong=new Map();minerState.used=new Map();minerState.hook={angle:0,dir:1,length:48,status:'swing',caught:null};minerState.last=performance.now();minerState.timerCarry=0;minerState.power={time:1,magnet:1,scope:1,bomb:1};minerState.particles=[];minerSpawn();minerUpdateHud();document.querySelectorAll('.miner-power').forEach(b=>b.disabled=false);document.getElementById('minerIntro').hidden=true;document.getElementById('minerResult').hidden=true;minerSetToast(`Màn ${levelKey==='boss'?'Boss':levelKey}: tìm tinh thể hóa trị ${minerState.target}.`);soundClick();
-}
-function minerLaunch(){if(minerState.running&&minerState.hook.status==='swing')minerState.hook.status='extend'}
-function minerCatch(item){minerState.hook.caught=item;item.hit=true;minerState.hook.status='retract'}
-function minerResolve(item){
-  const e=item.data,correct=e.val===minerState.target;minerState.attempts++;minerState.used.set(`${e.sym}:${e.val}`,e);if(correct){minerState.correct++;minerState.combo++;minerState.maxCombo=Math.max(minerState.maxCombo,minerState.combo);let gain=20;if(minerState.combo>0&&minerState.combo%3===0)gain+=50;minerState.score+=gain;minerBurst(item.x,item.y,minerColors[e.val][1]);let badge=minerState.combo>=10?'MASTER OF VALENCE':minerState.combo>=5?'SUPER CHEMIST':minerState.combo>=3?`COMBO x${minerState.combo}`:'';minerSetToast(`Chính xác! ${e.sym} có hóa trị ${e.val}. +${gain} điểm${badge?' · '+badge:''}`,badge?'combo':'good');soundCorrect();awardXP(minerState.combo>=3?6:3);if(minerState.combo%5===0)confettiBurst()}else{minerState.score=Math.max(0,minerState.score-10);minerState.lives--;minerState.combo=0;minerState.wrong.set(`${e.sym}:${e.val}`,e);minerSetToast(`Chưa đúng: ${e.sym} có hóa trị ${e.val}. ${e.tip}`,'bad');soundWrong();const stage=document.getElementById('minerStage');stage.classList.remove('shake');void stage.offsetWidth;stage.classList.add('shake')}
-  minerUpdateHud();minerState.target=minerTargetFor(minerLevels[minerState.level]);minerSpawn();minerUpdateHud();if(minerState.lives<=0)minerFinish('Hết 3 trái tim');else if(minerState.correct>=10)minerFinish('Hoàn thành mục tiêu 10 tinh thể');
-}
-function minerBurst(x,y,color){for(let i=0;i<18;i++)minerState.particles.push({x,y,vx:(Math.random()-.5)*150,vy:(Math.random()-.8)*150,life:1,color})}
-function minerFinish(reason){
-  minerState.running=false;const acc=minerState.attempts?Math.round(minerState.correct/minerState.attempts*100):0;const stars=acc>=90?3:acc>=70?2:1;let bonus=acc===100?100:0;if(bonus)minerState.score+=bonus;const best=Math.max(Number(localStorage.getItem('chemMinerBest')||0),minerState.score);localStorage.setItem('chemMinerBest',String(best));const stats={plays:Number(localStorage.getItem('chemMinerPlays')||0)+1,wrong:[...minerState.wrong.keys()]};localStorage.setItem('chemMinerPlays',String(stats.plays));localStorage.setItem('chemMinerWeak',JSON.stringify(stats.wrong));document.getElementById('minerBest').textContent=`Kỷ lục: ${best} điểm`;const review=[...minerState.wrong.values()].slice(0,3);const learned=[...minerState.used.values()].slice(0,4);const reviewHtml=review.length?`<b>Nên luyện riêng:</b> ${review.map(e=>`${e.sym} (${e.val})`).join(', ')}.<br>${review[0].tip}`:`<b>Hôm nay em đã nhớ tốt:</b> ${learned.map(e=>`${e.sym} (${e.val})`).join(', ')||'các hóa trị trong màn này'}.`;document.getElementById('minerResultBody').innerHTML=`<h3>${acc===100?'Xuất sắc!':acc<60?'Không sao, mình luyện thêm nhé!':'Hoàn thành màn chơi!'}</h3><p>${reason}${bonus?' · Perfect Level +100 điểm':''}</p><div class="miner-stars">${'★'.repeat(stars)}${'☆'.repeat(3-stars)}</div><div class="miner-results"><div><b>${minerState.score}</b><span>Điểm</span></div><div><b>${acc}%</b><span>Chính xác</span></div><div><b>${minerState.maxCombo}</b><span>Combo lớn nhất</span></div><div><b>${minerState.mode==='practice'?'∞':Math.max(0,Math.ceil(minerState.time))+'s'}</b><span>Thời gian còn lại</span></div></div><div class="miner-review">${reviewHtml}</div><button class="miner-primary" type="button" onclick="minerReset()">Chơi lại màn này</button>`;document.getElementById('minerResult').hidden=false;if(acc>=90)confettiBurst()
-}
-function minerUsePower(type,button){
-  if(!minerState.running||!minerState.power[type])return;minerState.power[type]=0;button.disabled=true;
-  if(type==='time'){minerState.time+=8;minerSetToast('Đồng hồ hóa học: cộng thêm 8 giây.','good')}
-  if(type==='scope'){minerState.highlightUntil=performance.now()+4500;minerSetToast('Kính soi đang làm sáng các tinh thể đúng.','good')}
-  if(type==='bomb'){minerState.items=minerState.items.filter(i=>i.data.val===minerState.target);minerSetToast('Bom hóa học đã loại các tinh thể sai.','good')}
-  if(type==='magnet'){const item=minerState.items.find(i=>i.data.val===minerState.target);if(item){minerCatch(item);minerSetToast('Nam châm đang hút một tinh thể đúng.','good')}}minerUpdateHud();soundClick()
-}
-function minerDrawCrystal(ctx,item,t){
-  const {data,x,y,r}=item,colors=minerColors[data.val]||minerColors.I,glow=performance.now()<minerState.highlightUntil&&data.val===minerState.target;ctx.save();ctx.translate(x,y);if(glow){ctx.shadowColor='#fff06a';ctx.shadowBlur=22}const g=ctx.createLinearGradient(-r,-r,r,r);g.addColorStop(0,colors[0]);g.addColorStop(1,colors[1]);ctx.fillStyle=g;ctx.strokeStyle='rgba(255,255,255,.8)';ctx.lineWidth=2;ctx.beginPath();for(let i=0;i<8;i++){const a=Math.PI/4*i-Math.PI/2,rr=i%2?r*.88:r;const px=Math.cos(a)*rr,py=Math.sin(a)*rr;i?ctx.lineTo(px,py):ctx.moveTo(px,py)}ctx.closePath();ctx.fill();ctx.stroke();ctx.fillStyle='#0b2f5b';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='800 19px Be Vietnam Pro';ctx.fillText(data.sym,0,-3);ctx.font='800 9px Be Vietnam Pro';ctx.fillText(data.val,0,15);ctx.restore()
-}
-function minerDraw(t){
-  const c=minerCtx,w=minerCanvas.width,h=minerCanvas.height;c.clearRect(0,0,w,h);const sky=c.createLinearGradient(0,0,0,h);sky.addColorStop(0,'#bfe6ff');sky.addColorStop(.28,'#e8f6ff');sky.addColorStop(.285,'#8b684a');sky.addColorStop(1,'#243744');c.fillStyle=sky;c.fillRect(0,0,w,h);c.fillStyle='#6c4c38';for(let i=0;i<12;i++){c.beginPath();c.arc((i*83+30)%w,135+(i%4)*78,38+i%3*9,0,Math.PI*2);c.fill()}c.fillStyle='#173142';c.fillRect(0,115,w,h-115);c.globalAlpha=.18;c.fillStyle='#fff';for(let i=0;i<20;i++){c.beginPath();c.arc((i*97)%w,145+(i*53)%(h-150),3,0,Math.PI*2);c.fill()}c.globalAlpha=1;minerState.items.forEach(item=>minerDrawCrystal(c,item,t));
-  const pivot={x:w/2,y:38},hook=minerState.hook,ex=pivot.x+Math.sin(hook.angle)*hook.length,ey=pivot.y+Math.cos(hook.angle)*hook.length;c.strokeStyle='#f5dba3';c.lineWidth=4;c.beginPath();c.moveTo(pivot.x,pivot.y);c.lineTo(ex,ey);c.stroke();c.fillStyle='#dce8ee';c.strokeStyle='#173142';c.lineWidth=3;c.beginPath();c.arc(ex,ey,8,0,Math.PI*2);c.fill();c.stroke();c.beginPath();c.arc(ex-5,ey+7,9,.2,2.2);c.stroke();c.fillStyle='#143c61';c.fillRect(pivot.x-46,10,92,27);c.fillStyle='#fff';c.textAlign='center';c.font='800 11px Be Vietnam Pro';c.fillText('CHAM MINER',pivot.x,28);
-  minerState.particles.forEach(p=>{c.globalAlpha=Math.max(0,p.life);c.fillStyle=p.color;c.beginPath();c.arc(p.x,p.y,3,0,Math.PI*2);c.fill()});c.globalAlpha=1
-}
-function minerTick(t){
-  const dt=Math.min(.035,(t-(minerState.last||t))/1000);minerState.last=t;const h=minerState.hook;if(minerState.running){if(h.status==='swing'){h.angle+=h.dir*dt*1.25;if(Math.abs(h.angle)>.98){h.angle=Math.sign(h.angle)*.98;h.dir*=-1}}else if(h.status==='extend'){h.length+=dt*310;const ex=380+Math.sin(h.angle)*h.length,ey=38+Math.cos(h.angle)*h.length;const hit=minerState.items.find(i=>!i.hit&&Math.hypot(i.x-ex,i.y-ey)<i.r+9);if(hit)minerCatch(hit);else if(h.length>410)h.status='retract'}else if(h.status==='retract'){h.length-=dt*370;if(h.caught){h.caught.x=380+Math.sin(h.angle)*h.length;h.caught.y=38+Math.cos(h.angle)*h.length}if(h.length<=48){h.length=48;const caught=h.caught;h.caught=null;h.status='swing';if(caught)minerResolve(caught)}}minerState.items.forEach(i=>{if(i.drift&&!i.hit){i.x+=i.drift*dt;if(i.x<40||i.x>720)i.drift*=-1}});if(minerState.mode==='challenge'){minerState.time-=dt;if(minerState.time<=0)minerFinish('Hết 60 giây');minerUpdateHud()}}
-  minerState.particles.forEach(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=150*dt;p.life-=dt*1.6});minerState.particles=minerState.particles.filter(p=>p.life>0);minerDraw(t);requestAnimationFrame(minerTick)
-}
-window.chemMinerPause=()=>{
-  if(!minerState.running)return;
-  minerState.running=false;
-  minerState.particles=[];
-  minerState.hook.status='swing';
-  minerState.hook.length=48;
-  minerState.hook.caught=null;
-  minerSetToast('Màn chơi đã tạm dừng khi chuyển sang mục khác. Bấm “Bắt đầu màn” để chơi lại.');
-};document.getElementById('minerStart').addEventListener('click',minerReset);document.getElementById('minerIntroStart').addEventListener('click',minerReset);minerCanvas.addEventListener('pointerdown',minerLaunch);document.querySelectorAll('.miner-power').forEach(b=>b.addEventListener('click',()=>minerUsePower(b.dataset.power,b)));document.addEventListener('keydown',e=>{if(e.code==='Space'&&document.getElementById('p-valence').classList.contains('active')&&!/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();minerLaunch()}});document.getElementById('minerBest').textContent=`Kỷ lục: ${Number(localStorage.getItem('chemMinerBest')||0)} điểm`;minerState.target='I';minerSpawn();minerUpdateHud();requestAnimationFrame(minerTick);/* ---------------- PERIODIC MINI ---------------- */
+/* Chem Miner 3D is loaded from modular files below. */
+/* ---------------- PERIODIC MINI ---------------- */
 const commonEls = [
   {z:1,sym:'H',name:'Hydrogen',mass:1,val:'I',apps:'Nhiên liệu tên lửa, sản xuất amoniac (phân bón).'},
   {z:6,sym:'C',name:'Carbon',mass:12,val:'II, IV',apps:'Kim cương, than chì, thành phần cốt lõi của mọi hợp chất hữu cơ.'},
@@ -2183,9 +2115,12 @@ tex(document.body);
 </script>
 <script src="./periodic-table.js"></script>
 <script src="./three.min.js"></script>
+<script src="./chem-miner-data.js"></script>
+<script src="./chem-miner-3d.js"></script>
 <script src="./atomic-lab.js"></script>
 <script src="./periodic-table-enhancements.js"></script>
 <script src="./virtual-lab.js"></script>
+<script src="./displacement-lab-3d.js"></script>
 <script>
 (function(){
   const body=document.body,toggle=document.querySelector('.cc-menu-toggle'),backdrop=document.querySelector('.cc-mobile-backdrop'),drawer=document.querySelector('.cc-mobile-drawer'),close=document.querySelector('.cc-drawer-close');
