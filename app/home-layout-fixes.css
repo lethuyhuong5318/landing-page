@@ -1,45 +1,60 @@
-/* Lưới khám phá 20 nguyên tố: 5 cột x 4 hàng trên desktop và tablet. */
-.element-grid{
-  grid-template-columns:repeat(5,minmax(0,1fr));
-  gap:10px;
+/* Responsive Element Grid: Desktop, Tablet, Mobile optimized */
+.element-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
 }
-.element-tile{
-  min-height:105px;
-}
-
-@media(max-width:980px){
-  .element-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
-}
-@media(max-width:620px){
-  .element-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
-  .element-tile{min-height:90px}
-}
-@media(max-width:430px){
-  .element-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.element-tile {
+  min-height: 120px;
 }
 
-/* Responsive element photography: compact circles, no overlap. */
-@media(max-width:980px){
-  .element-tile>.element-tile-photo{width:31px;height:31px;right:5px;bottom:5px}
-  .element-tile>span{padding-right:34px}
+/* Tablet: 5 → 4 columns */
+@media (max-width: 1024px) {
+  .element-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 11px; }
+  .element-tile { min-height: 115px; }
+  .element-tile > strong { font-size: 28px; }
+  .element-tile > .element-tile-photo { width: 35px; height: 35px; right: 8px; bottom: 8px; }
+  .element-tile > span { padding-right: 40px; font-size: 8px; }
 }
-@media(max-width:620px){
-  .element-tile>.element-tile-photo{width:29px;height:29px;padding:1px}
-  .element-tile>strong{font-size:22px}
-  .element-tile>span{padding-right:31px;font-size:8px}
-  .result-identity{align-items:center;flex-direction:row;gap:10px}
-  .result-symbol{flex:1;min-width:0}
-  .element-illustration{width:auto;min-width:142px;padding:0;grid-template-columns:54px minmax(0,1fr);gap:7px}
-  .element-illustration>span{width:54px;height:54px;border-radius:0}
-  .element-illustration>small{font-size:9px}
+
+/* Small Tablet: 4 → 3 columns */
+@media (max-width: 768px) {
+  .element-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .element-tile { min-height: 110px; padding: 12px; }
+  .element-tile > strong { font-size: 26px; }
+  .element-tile > .element-tile-photo { width: 32px; height: 32px; right: 7px; bottom: 7px; }
+  .element-tile > span { padding-right: 36px; font-size: 7.5px; }
+  .element-tile > i { width: 20px; height: 20px; right: 7px; top: 7px; font-size: 10px; }
 }
-@media(max-width:430px){
-  .element-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .element-tile{min-height:88px}
-  .element-tile>.element-tile-photo{width:32px;height:32px}
-  .result-identity{align-items:center;flex-direction:row}
-  .element-illustration{min-width:136px;grid-template-columns:52px minmax(0,1fr)}
-  .element-illustration>span{width:52px;height:52px;border-radius:0}
+
+/* Mobile Large: 3 → 2 columns */
+@media (max-width: 600px) {
+  .element-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+  .element-tile { min-height: 105px; padding: 12px; }
+  .element-tile > small { font-size: 7px; }
+  .element-tile > strong { font-size: 24px; margin-top: 4px; }
+  .element-tile > .element-tile-photo { width: 30px; height: 30px; right: 6px; bottom: 6px; padding: 2px; }
+  .element-tile > span { padding-right: 34px; font-size: 7.5px; }
+  .element-tile > i { width: 19px; height: 19px; right: 6px; top: 6px; font-size: 9px; }
+  .result-identity { align-items: center; flex-direction: row; gap: 12px; }
+  .result-symbol { flex: 1; min-width: 0; font-size: 56px; }
+  .element-illustration { width: auto; min-width: 140px; padding: 0; grid-template-columns: 56px minmax(0, 1fr); gap: 8px; }
+  .element-illustration > span { width: 56px; height: 56px; border-radius: 0; }
+  .element-illustration > small { font-size: 8.5px; }
+}
+
+/* Mobile Small */
+@media (max-width: 480px) {
+  .element-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .element-tile { min-height: 100px; padding: 10px; }
+  .element-tile > small { font-size: 6.5px; }
+  .element-tile > strong { font-size: 22px; margin-top: 3px; }
+  .element-tile > .element-tile-photo { width: 28px; height: 28px; right: 5px; bottom: 5px; }
+  .element-tile > span { padding-right: 32px; font-size: 7px; }
+  .element-tile > i { width: 18px; height: 18px; right: 5px; top: 5px; font-size: 8px; }
+  .result-symbol { font-size: 48px; }
+  .element-illustration { min-width: 130px; grid-template-columns: 48px minmax(0, 1fr); }
+  .element-illustration > span { width: 48px; height: 48px; }
+  .element-illustration > small { font-size: 8px; }
 }
 /* Emoji illustrations prevent cropped image edges while keeping applications
    recognizable at a glance. */
