@@ -28,9 +28,9 @@ const caveat = Caveat({
   display: "swap",
 });
 
-const HOME_TITLE = "Học Hóa mất gốc Quận 9 & Online | ChamChamEdemy - Cô Trâm";
+const HOME_TITLE = "Học Hóa Quận 9, Thủ Đức & Online | Cô Trâm";
 const HOME_DESCRIPTION =
-  "ChamChamEdemy cùng Cô Trâm dạy Hóa THCS–THPT cho học sinh mất gốc: học trực tiếp tại Quận 9, TP. Thủ Đức hoặc online toàn quốc, gia sư 1:1 và lớp nhóm nhỏ.";
+  "ChamChamEdemy cùng Cô Trâm dạy Hóa THCS–THPT cho học sinh mất gốc: học trực tiếp Quận 9/Thủ Đức hoặc online toàn quốc.";
 const SHARE_IMAGE = getAssetPath("/co-tram-mascot.jpg");
 
 export const viewport: Viewport = {

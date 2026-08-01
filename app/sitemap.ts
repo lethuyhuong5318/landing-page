@@ -3,7 +3,7 @@ import { SITE_URL } from "../lib/seo";
 
 export const dynamic = "force-static";
 
-const posts = [
+const blogPosts = [
   "/blog/mat-goc-hoa-nen-bat-dau-tu-dau",
   "/blog/bai-kiem-tra-chan-doan-mat-goc-hoa",
   "/blog/checklist-kien-thuc-hoa-thcs",
@@ -15,21 +15,41 @@ const posts = [
   "/blog/lo-trinh-lay-goc-hoa-thcs-vao-10",
 ];
 
-// next.config.mjs bật trailingSlash: true nên URL thật luôn có dấu "/" cuối (trừ trang chủ).
 function withTrailingSlash(path: string): string {
   return `${SITE_URL}${path}/`;
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
-    { url: SITE_URL, changeFrequency: "weekly", priority: 1 },
-    { url: withTrailingSlash("/feedback"), changeFrequency: "monthly", priority: 0.8 },
-    { url: withTrailingSlash("/blog"), changeFrequency: "weekly", priority: 0.9 },
-    { url: `${SITE_URL}/lay-goc-hoa.html`, changeFrequency: "monthly", priority: 0.9 },
-    ...posts.map((path) => ({
+    {
+      url: SITE_URL,
+      changeFrequency: "monthly",
+      priority: 1.0,
+      lastModified: new Date("2026-07-31"),
+    },
+    {
+      url: withTrailingSlash("/blog"),
+      changeFrequency: "weekly",
+      priority: 0.9,
+      lastModified: new Date("2026-07-30"),
+    },
+    {
+      url: withTrailingSlash("/feedback"),
+      changeFrequency: "monthly",
+      priority: 0.7,
+      lastModified: new Date("2026-07-28"),
+    },
+    {
+      url: `${SITE_URL}/lay-goc-hoa.html`,
+      changeFrequency: "monthly",
+      priority: 0.8,
+      lastModified: new Date("2026-07-25"),
+    },
+    ...blogPosts.map((path) => ({
       url: withTrailingSlash(path),
       changeFrequency: "monthly" as const,
       priority: 0.8,
+      lastModified: new Date("2026-07-20"),
     })),
   ];
 }
