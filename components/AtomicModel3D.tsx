@@ -94,7 +94,7 @@ export default function AtomicModel3D({ element, isVisible }: AtomicModelProps) 
         nucleus.rotation.x = rotationX;
         nucleus.rotation.y = rotationY;
 
-        scene.children.forEach((child) => {
+        scene.children.forEach((child: any) => {
           if (child !== nucleus) {
             child.rotation.x = rotationX;
             child.rotation.y = rotationY;

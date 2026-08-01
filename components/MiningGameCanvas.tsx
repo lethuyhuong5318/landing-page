@@ -181,7 +181,7 @@ export default function MiningGameCanvas({ width = 600, height = 400, difficulty
 
     return () => {
       canvas.removeEventListener("mousemove", handleMouseMove);
-      canvas.removeEventListener("click", HandleMouseClick);
+      canvas.removeEventListener("click", handleMouseClick);
       cancelAnimationFrame(animationId);
     };
   }, [width, height]);
