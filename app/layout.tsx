@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Be_Vietnam_Pro, Caveat, Quicksand } from "next/font/google";
 import { getAssetPath } from "./basePath";
 import JsonLd from "../components/seo/JsonLd";
+import Analytics from "../components/Analytics";
 import { organizationSchema, websiteSchema } from "../lib/schema";
 import { SITE_NAME, SITE_URL } from "../lib/seo";
 import "./globals.css";
@@ -95,6 +96,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi">
+      <head>
+        <Analytics />
+      </head>
       <body
         className={`${beVietnamPro.variable} ${quicksand.variable} ${caveat.variable} antialiased`}
       >
