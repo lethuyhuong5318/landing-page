@@ -27,11 +27,63 @@
     const cx=82,cy=82,maxR=72,step=Math.min(13,maxR/Math.max(shells.length,1));let svg='<svg viewBox="0 0 164 164" role="img" aria-label="Mô hình các lớp electron"><circle cx="82" cy="82" r="7" fill="var(--navy-900)"/>';
     shells.forEach((count,i)=>{const r=16+i*step;svg+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--sky-300)" stroke-width="1.2" stroke-dasharray="2.5,2.5"/>`;const shown=Math.min(count,18);for(let e=0;e<shown;e++){const angle=2*Math.PI*e/shown-Math.PI/2;svg+=`<circle cx="${(cx+r*Math.cos(angle)).toFixed(1)}" cy="${(cy+r*Math.sin(angle)).toFixed(1)}" r="2.7" fill="var(--yellow-500)" stroke="var(--navy-900)" stroke-width=".6"/>`}});return svg+"</svg>"
   };
+  const ensureAtomicModal=()=>{
+    let overlay=document.getElementById("atomicLabOverlay");
+    if(overlay) return overlay;
+    overlay=document.createElement("div");
+    overlay.id="atomicLabOverlay";
+    overlay.className="atomic-lab-modal";
+    overlay.setAttribute("aria-hidden","true");
+    overlay.innerHTML=`<div class="atomic-lab-modal-sheet" role="dialog" aria-modal="true" aria-labelledby="atomicLabModalTitle">
+      <header><div><span>TRỰC QUAN TƯƠNG TÁC</span><h2 id="atomicLabModalTitle">Mô hình nguyên tử 3D</h2><p>Kéo để xoay mô hình và quan sát các lớp electron.</p></div><button class="atomic-lab-modal-close" type="button" aria-label="Đóng mô hình 3D"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></header>
+      <div id="atomicLabHost"></div>
+    </div>`;
+    document.body.appendChild(overlay);
+    const close=()=>{overlay.classList.remove("open");overlay.setAttribute("aria-hidden","true");document.body.classList.remove("atomic-modal-open");window.destroyAtomicLab?.();overlay.returnFocus?.focus?.();};
+    overlay.querySelector(".atomic-lab-modal-close").addEventListener("click",close);
+    overlay.addEventListener("click",event=>{if(event.target===overlay)close()});
+    overlay.closeAtomicLab=close;
+    return overlay;
+  };
+  const openAtomicModal=(z,sym,shells)=>{
+    const overlay=ensureAtomicModal();
+    overlay.returnFocus=document.activeElement;
+    overlay.classList.add("open");
+    overlay.setAttribute("aria-hidden","false");
+    document.body.classList.add("atomic-modal-open");
+    requestAnimationFrame(()=>window.createAtomicLab?.({z,symbol:sym,shells}));
+    overlay.querySelector(".atomic-lab-modal-close").focus();
+  };
+  document.addEventListener("keydown",event=>{if(event.key==="Escape")document.getElementById("atomicLabOverlay")?.closeAtomicLab?.()});
   const showModal=(z,sym,name,cat)=>{
     const shells=shellCounts(z),mass=masses[z-1]??null,massNumber=mass===null?"—":Math.round(mass),neutrons=mass===null?"—":Math.max(0,massNumber-z);
-    document.getElementById("elModalBox").innerHTML=`<div class="el-modal-head"><span class="em-z">Kí hiệu hạt nhân</span><button class="em-close" onclick="closeElModal()" aria-label="Đóng">✕</button><figure class="wiki-element-media" id="wikiElementMedia" hidden><img id="wikiElementImage" alt="" loading="lazy"><a id="wikiElementLink" class="wiki-image-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Xem nguồn ảnh"><span class="sr-only">Nguồn ảnh</span></a></figure><div class="nuclear-symbol" aria-label="Số khối ${massNumber}, số hiệu nguyên tử ${z}, nguyên tố ${sym}"><span class="nuclear-numbers"><sup>${massNumber}</sup><sub>${z}</sub></span><span class="nuclear-element">${sym}</span></div><div class="em-name">${name}</div><span class="periodic-modal-category">${labels[cat]||cat}</span></div><div class="el-modal-body"><div class="em-row"><span>Số khối gần đúng</span><b>A = ${massNumber}</b></div><div class="em-row"><span>Khối lượng mol</span><b>${mass??"—"} g/mol</b></div><div class="em-row"><span>Hóa trị / trạng thái thường gặp</span><b>${valenceFor(cat,z)}</b></div><div class="atomic-models-row"><section class="atomic-model-2d" aria-label="Mô hình nguyên tử 2D"><b>Mô hình 2D</b><div class="periodic-shell-diagram">${shellSvg(shells)}</div></section><div id="atomicLabHost"></div></div><p class="periodic-shell-note">Phân bố electron theo lớp: ${shells.join(" – ")}. Với nguyên tử trung hòa: số proton = số electron = ${z}; số neutron gần đúng = A − Z = ${neutrons}.</p><p class="periodic-app-note"><b>Ứng dụng và đặc điểm:</b> ${applicationFor(cat,z)}</p></div>`;
+    document.getElementById("elModalBox").innerHTML=`<div class="el-modal-head">
+      <span class="em-eyebrow">NGUYÊN TỐ HÓA HỌC</span>
+      <button class="em-close" onclick="closeElModal()" aria-label="Đóng card nguyên tố"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+      <figure class="wiki-element-media" id="wikiElementMedia" hidden><img id="wikiElementImage" alt="" loading="lazy"><a id="wikiElementLink" class="wiki-image-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Xem hình minh họa nguyên tố"><span class="sr-only">Hình minh họa nguyên tố</span></a></figure>
+      <div class="element-identity">
+        <span class="element-number">Số hiệu ${z}</span>
+        <div class="nuclear-symbol" aria-label="Số khối ${massNumber}, số hiệu nguyên tử ${z}, nguyên tố ${sym}"><span class="nuclear-numbers"><sup>${massNumber}</sup><sub>${z}</sub></span><span class="nuclear-element">${sym}</span></div>
+        <div><div class="em-name">${name}</div><span class="periodic-modal-category">${labels[cat]||cat}</span></div>
+      </div>
+    </div>
+    <div class="el-modal-body">
+      <section class="element-facts" aria-label="Thông tin cơ bản">
+        <div><span>Số khối gần đúng</span><b>${massNumber}</b></div>
+        <div><span>Khối lượng mol</span><b>${mass??"—"} <small>g/mol</small></b></div>
+        <div><span>Hóa trị thường gặp</span><b>${valenceFor(cat,z)}</b></div>
+        <div><span>Electron theo lớp</span><b>${shells.join(" – ")}</b></div>
+      </section>
+      <section class="atomic-model-2d element-bohr-card" aria-label="Mô hình nguyên tử 2D">
+        <div class="element-section-title"><div><span>MÔ HÌNH MẶC ĐỊNH</span><b>Mô hình nguyên tử 2D</b></div><small>Bohr</small></div>
+        <div class="periodic-shell-diagram">${shellSvg(shells)}</div>
+        <p>Nguyên tử trung hòa có <b>${z} proton</b>, <b>${z} electron</b> và khoảng <b>${neutrons} neutron</b>.</p>
+      </section>
+      <button class="open-atomic-3d" id="openAtomic3D" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Zm0 0v9m8-4.5-8 4.5m-8-4.5 8 4.5m0 9v-9"/></svg><span><b>Xem mô hình 3D</b><small>Mở không gian xoay tương tác</small></span><i aria-hidden="true">→</i></button>
+      <aside class="periodic-app-note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6m-5 3h4M8.5 14.5A6 6 0 1 1 15.5 14.5c-.9.7-1.5 1.6-1.5 2.5h-4c0-.9-.6-1.8-1.5-2.5Z"/></svg><p><b>Ứng dụng ví dụ điển hình</b><span>${applicationFor(cat,z)}</span></p></aside>
+    </div>`;
     document.getElementById("elModalOverlay").classList.add("open");
-    if(typeof window.createAtomicLab==="function") window.createAtomicLab({z,symbol:sym,shells});
+    document.getElementById("openAtomic3D").addEventListener("click",()=>openAtomicModal(z,sym,shells));
     if(typeof loadElementWikiImage==="function") loadElementWikiImage(name,sym);
     if(typeof soundClick==="function") soundClick();
   };  const cells=[...grid.querySelectorAll(".pel")].filter(cell=>cell.querySelector(".z"));
