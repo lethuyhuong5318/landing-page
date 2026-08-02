@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { Object3D } from "three";
 
 interface ChemistrySimulation3DProps {
   width?: number;
@@ -209,7 +210,7 @@ export default function ChemistrySimulation3D({
       time += 0.01;
 
       // Animate ions
-      ionsGroup.children.forEach((ion, i) => {
+      ionsGroup.children.forEach((ion: Object3D, i: number) => {
         const pos = ionPositions[i];
         if (pos) {
           ion.position.x += pos.vel[0];
