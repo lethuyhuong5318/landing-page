@@ -121,7 +121,7 @@
     deposits.add(particle);
   }
 
-  const state = { progress: 0, target: 0, reacting: false, yaw: -.32, pitch: 0, drag: false, x: 0, y: 0, resizeObserver: null, frameId: null };
+  const state = { progress: 0, target: 0, reacting: false, yaw: -.32, pitch: 0, drag: false, x: 0, y: 0, resizeObserver: null, frameId: null, abort: new AbortController() };
 
   function selection() {
     const metal = metalSelect.value;
@@ -189,7 +189,7 @@
   canvas.addEventListener('pointerdown', event => {
     state.drag = true; state.x = event.clientX; state.y = event.clientY;
     canvas.classList.add('is-dragging'); canvas.setPointerCapture?.(event.pointerId);
-  });
+  }, { signal: state.abort.signal });
   canvas.addEventListener('pointermove', event => {
     if (!state.drag) return;
     lab.rotation.y += (event.clientX - state.x) * .011;
@@ -197,8 +197,8 @@
     state.x = event.clientX; state.y = event.clientY;
   });
   const endDrag = () => { state.drag = false; canvas.classList.remove('is-dragging'); };
-  canvas.addEventListener('pointerup', endDrag);
-  canvas.addEventListener('pointercancel', endDrag);
+  canvas.addEventListener('pointerup', endDrag, { signal: state.abort.signal });
+  canvas.addEventListener('pointercancel', endDrag, { signal: state.abort.signal });
 
   const originalRender = window.renderDisplacement;
   const originalPlay = window.playDisplacement;
@@ -224,3 +224,4 @@
   resize();
   animate();
 })();
+

@@ -1,4 +1,4 @@
-(() => {
+﻿(() => {
   const data = window.ChemMinerData;
   const canvas = document.getElementById('chemMinerCanvas');
   if (!data || !canvas || !window.THREE) return;
@@ -27,7 +27,7 @@
   try {
     renderer = new THREE.WebGLRenderer({ canvas, antialias: !lowPower, alpha: false, powerPreference: 'high-performance' });
   } catch {
-    ui.stage.innerHTML = '<p class="note">Thiết bị chưa hỗ trợ WebGL để chạy game 3D.</p>';
+    ui.stage.innerHTML = '<p class="note">Thiáº¿t bá»‹ chÆ°a há»— trá»£ WebGL Ä‘á»ƒ cháº¡y game 3D.</p>';
     return;
   }
   renderer.setPixelRatio(Math.min(devicePixelRatio || 1, lowPower ? 1.35 : 1.7));
@@ -77,7 +77,7 @@
     world.add(rock);
   }
 
-  const dustCount = lowPower || reduced ? 34 : 80;
+  const dustCount = lowPower || reduced ? 20 : 50;
   const dustPositions = new Float32Array(dustCount * 3);
   for (let i = 0; i < dustCount; i++) {
     dustPositions[i * 3] = -8 + Math.random() * 16;
@@ -131,7 +131,7 @@
     x.font = `900 ${item.sym.length > 2 ? 58 : 72}px "Be Vietnam Pro",sans-serif`;
     x.fillText(item.sym, 160, 67);
     x.font = '900 30px "Be Vietnam Pro",sans-serif';
-    x.fillStyle = '#fff7bc'; x.fillText(`Hóa trị ${item.val}`, 160, 123);
+    x.fillStyle = '#fff7bc'; x.fillText(`HÃ³a trá»‹ ${item.val}`, 160, 123);
     x.font = '700 20px "Be Vietnam Pro",sans-serif';
     x.fillStyle = '#e6f3ff'; x.fillText(item.name, 160, 157);
     const texture = new THREE.CanvasTexture(c);
@@ -207,16 +207,16 @@
 
   function updateQuestion() {
     const level = data.levels[state.level];
-    ui.target.textContent = `Hóa trị ${state.target}`;
-    const subject = level.groupsOnly ? 'nhóm nguyên tử' : 'nguyên tố hoặc nhóm';
-    $('minerQuestionText').textContent = `Đào ${subject} có hóa trị ${state.target}`;
-    ui.progress.textContent = `Đã tìm ${state.correct}/10 đáp án đúng`;
+    ui.target.textContent = `HÃ³a trá»‹ ${state.target}`;
+    const subject = level.groupsOnly ? 'nhÃ³m nguyÃªn tá»­' : 'nguyÃªn tá»‘ hoáº·c nhÃ³m';
+    $('minerQuestionText').textContent = `ÄÃ o ${subject} cÃ³ hÃ³a trá»‹ ${state.target}`;
+    ui.progress.textContent = `ÄÃ£ tÃ¬m ${state.correct}/10 Ä‘Ã¡p Ã¡n Ä‘Ãºng`;
   }
 
   function updateHud() {
     ui.score.textContent = state.score;
-    ui.time.textContent = state.mode === 'practice' ? '∞' : `${Math.max(0, Math.ceil(state.time))}s`;
-    ui.lives.textContent = '● '.repeat(state.lives).trim() || '—';
+    ui.time.textContent = state.mode === 'practice' ? 'âˆž' : `${Math.max(0, Math.ceil(state.time))}s`;
+    ui.lives.textContent = 'â— '.repeat(state.lives).trim() || 'â€”';
     ui.streak.textContent = `x${state.streak}`;
     updateQuestion();
   }
@@ -240,9 +240,9 @@
     state.wrong = new Map(); state.used = new Map(); state.hook = { angle: 0, direction: 1, length: .85, status: 'swing', caught: null };
     state.last = performance.now(); state.particles = [];
     ui.intro.hidden = true; ui.result.hidden = true; ui.pause.setAttribute('aria-pressed', 'false');
-    ui.pause.setAttribute('aria-label', 'Tạm dừng'); spawn(); updateHud();
+    ui.pause.setAttribute('aria-label', 'Táº¡m dá»«ng'); spawn(); updateHud();
     document.querySelectorAll('.miner-power').forEach(button => button.disabled = false);
-    toast(`Màn ${data.levels[state.level].title}: hãy tìm hóa trị ${state.target}.`);
+    toast(`MÃ n ${data.levels[state.level].title}: hÃ£y tÃ¬m hÃ³a trá»‹ ${state.target}.`);
     playFeedback('click');
   }
 
@@ -274,7 +274,7 @@
   }
 
   function burst(position, color) {
-    const count = lowPower || reduced ? 10 : 22;
+    const count = lowPower || reduced ? 8 : 16;
     for (let i = 0; i < count; i++) {
       const mesh = new THREE.Mesh(new THREE.IcosahedronGeometry(.055, 0), new THREE.MeshBasicMaterial({ color }));
       mesh.position.copy(position); scene.add(mesh);
@@ -290,19 +290,19 @@
       state.correct++; state.streak++; state.maxStreak = Math.max(state.maxStreak, state.streak);
       let gain = 20; if (state.streak > 0 && state.streak % 3 === 0) gain += 50;
       state.score += gain; floatingScore(gain); burst(group.position, mineralColor(item).light);
-      toast(`Chính xác! ${item.sym} có hóa trị ${item.val}. +${gain} điểm`, state.streak >= 3 ? 'combo' : 'good');
+      toast(`ChÃ­nh xÃ¡c! ${item.sym} cÃ³ hÃ³a trá»‹ ${item.val}. +${gain} Ä‘iá»ƒm`, state.streak >= 3 ? 'combo' : 'good');
       if (state.streak >= 3) comboBadge();
       playFeedback('good'); window.awardXP?.(state.streak >= 3 ? 6 : 3);
       if (state.streak % 5 === 0) window.confettiBurst?.();
     } else {
       state.score = Math.max(0, state.score - 10); state.lives--; state.streak = 0;
       state.wrong.set(`${item.sym}:${item.val}`, item);
-      toast(`Chưa đúng, ${item.sym} có hóa trị ${item.val}. ${item.tip}`, 'bad');
+      toast(`ChÆ°a Ä‘Ãºng, ${item.sym} cÃ³ hÃ³a trá»‹ ${item.val}. ${item.tip}`, 'bad');
       playFeedback('bad'); ui.stage.classList.remove('shake'); void ui.stage.offsetWidth; ui.stage.classList.add('shake');
     }
     state.target = chooseTarget(data.levels[state.level]); updateHud();
-    if (state.lives <= 0) finish('Em đã dùng hết 3 lượt thử.');
-    else if (state.correct >= 10) finish('Em đã hoàn thành mục tiêu 10 tinh thể.');
+    if (state.lives <= 0) finish('Em Ä‘Ã£ dÃ¹ng háº¿t 3 lÆ°á»£t thá»­.');
+    else if (state.correct >= 10) finish('Em Ä‘Ã£ hoÃ n thÃ nh má»¥c tiÃªu 10 tinh thá»ƒ.');
     else spawn();
   }
 
@@ -316,11 +316,11 @@
     progress[state.level] = Math.max(progress[state.level] || 0, stars);
     localStorage.setItem('chemMinerProgress', JSON.stringify(progress));
     localStorage.setItem('chemMinerWeak', JSON.stringify([...state.wrong.keys()]));
-    ui.best.textContent = `Kỷ lục: ${best} điểm`;
+    ui.best.textContent = `Ká»· lá»¥c: ${best} Ä‘iá»ƒm`;
     const review = [...state.wrong.values()].slice(0, 4);
-    const goodMessage = data.levels[state.level].groupsOnly ? 'Em đã nhớ tốt các nhóm nguyên tử trong màn này.' : `Em đã nhớ tốt các chất có hóa trị ${state.target}.`;
-    const reviewText = review.length ? `Hãy ôn thêm ${review.map(item => `${item.sym} (${item.val})`).join(', ')}.` : goodMessage;
-    ui.resultBody.innerHTML = `<h3>${accuracy >= 90 ? 'Xuất sắc!' : accuracy < 60 ? 'Mình luyện thêm nhé!' : 'Hoàn thành màn chơi!'}</h3><p>${reason}</p><div class="miner-stars">${'★'.repeat(stars)}${'☆'.repeat(3 - stars)}</div><div class="miner-results"><div><b>${state.score}</b><span>Điểm</span></div><div><b>${state.correct}</b><span>Đúng</span></div><div><b>${state.attempts - state.correct}</b><span>Sai</span></div><div><b>${accuracy}%</b><span>Chính xác</span></div><div><b>${state.maxStreak}</b><span>Chuỗi tốt nhất</span></div></div><div class="miner-review"><b>Nhận xét:</b> ${reviewText}</div><div class="miner-result-buttons"><button class="miner-primary" type="button" data-result="replay">Chơi lại</button><button class="miner-secondary" type="button" data-result="next">Màn tiếp theo</button><button class="miner-secondary" type="button" data-result="review">Ôn bảng hóa trị</button></div>`;
+    const goodMessage = data.levels[state.level].groupsOnly ? 'Em Ä‘Ã£ nhá»› tá»‘t cÃ¡c nhÃ³m nguyÃªn tá»­ trong mÃ n nÃ y.' : `Em Ä‘Ã£ nhá»› tá»‘t cÃ¡c cháº¥t cÃ³ hÃ³a trá»‹ ${state.target}.`;
+    const reviewText = review.length ? `HÃ£y Ã´n thÃªm ${review.map(item => `${item.sym} (${item.val})`).join(', ')}.` : goodMessage;
+    ui.resultBody.innerHTML = `<h3>${accuracy >= 90 ? 'Xuáº¥t sáº¯c!' : accuracy < 60 ? 'MÃ¬nh luyá»‡n thÃªm nhÃ©!' : 'HoÃ n thÃ nh mÃ n chÆ¡i!'}</h3><p>${reason}</p><div class="miner-stars">${'â˜…'.repeat(stars)}${'â˜†'.repeat(3 - stars)}</div><div class="miner-results"><div><b>${state.score}</b><span>Äiá»ƒm</span></div><div><b>${state.correct}</b><span>ÄÃºng</span></div><div><b>${state.attempts - state.correct}</b><span>Sai</span></div><div><b>${accuracy}%</b><span>ChÃ­nh xÃ¡c</span></div><div><b>${state.maxStreak}</b><span>Chuá»—i tá»‘t nháº¥t</span></div></div><div class="miner-review"><b>Nháº­n xÃ©t:</b> ${reviewText}</div><div class="miner-result-buttons"><button class="miner-primary" type="button" data-result="replay">ChÆ¡i láº¡i</button><button class="miner-secondary" type="button" data-result="next">MÃ n tiáº¿p theo</button><button class="miner-secondary" type="button" data-result="review">Ã”n báº£ng hÃ³a trá»‹</button></div>`;
     ui.result.hidden = false;
     ui.resultBody.querySelector('[data-result="replay"]').onclick = reset;
     ui.resultBody.querySelector('[data-result="next"]').onclick = () => {
@@ -337,37 +337,37 @@
     if (!state.running) return;
     state.paused = !state.paused;
     ui.pause.setAttribute('aria-pressed', String(state.paused));
-    ui.pause.setAttribute('aria-label', state.paused ? 'Tiếp tục' : 'Tạm dừng');
-    toast(state.paused ? 'Đã tạm dừng.' : 'Tiếp tục đào hóa trị.', state.paused ? '' : 'good');
+    ui.pause.setAttribute('aria-label', state.paused ? 'Tiáº¿p tá»¥c' : 'Táº¡m dá»«ng');
+    toast(state.paused ? 'ÄÃ£ táº¡m dá»«ng.' : 'Tiáº¿p tá»¥c Ä‘Ã o hÃ³a trá»‹.', state.paused ? '' : 'good');
   }
 
   function toggleSound() {
     state.sound = !state.sound;
     ui.sound.setAttribute('aria-pressed', String(!state.sound));
-    ui.sound.setAttribute('aria-label', state.sound ? 'Tắt âm thanh' : 'Bật âm thanh');
-    $('minerSoundText').textContent = state.sound ? 'Âm thanh bật' : 'Âm thanh tắt';
+    ui.sound.setAttribute('aria-label', state.sound ? 'Táº¯t Ã¢m thanh' : 'Báº­t Ã¢m thanh');
+    $('minerSoundText').textContent = state.sound ? 'Ã‚m thanh báº­t' : 'Ã‚m thanh táº¯t';
     if (state.sound) playFeedback('click');
   }
 
   function usePower(type, button) {
     if (!state.running || state.paused || button.disabled) return;
     button.disabled = true;
-    if (type === 'time') { state.time += 8; toast('Cộng thêm 8 giây.', 'good'); }
+    if (type === 'time') { state.time += 8; toast('Cá»™ng thÃªm 8 giÃ¢y.', 'good'); }
     if (type === 'scope') {
       state.minerals.filter(group => group.userData.item.val === state.target).forEach(group => {
         group.userData.mesh.material.emissive.setHex(0xffe56d); group.userData.mesh.material.emissiveIntensity = .65;
         setTimeout(() => { if (group.userData?.mesh) group.userData.mesh.material.emissiveIntensity = .08; }, 4300);
       });
-      toast('Các tinh thể đúng đang phát sáng.', 'good');
+      toast('CÃ¡c tinh thá»ƒ Ä‘Ãºng Ä‘ang phÃ¡t sÃ¡ng.', 'good');
     }
     if (type === 'bomb') {
       state.minerals.filter(group => group.userData.item.val !== state.target).forEach(group => { group.visible = false; group.userData.hit = true; });
-      toast('Đã lọc bớt tinh thể gây nhiễu.', 'good');
+      toast('ÄÃ£ lá»c bá»›t tinh thá»ƒ gÃ¢y nhiá»…u.', 'good');
     }
     if (type === 'magnet') {
       const group = state.minerals.find(candidate => candidate.userData.item.val === state.target && !candidate.userData.hit);
       if (group) catchMineral(group);
-      toast('Nam châm đang hút một đáp án đúng.', 'good');
+      toast('Nam chÃ¢m Ä‘ang hÃºt má»™t Ä‘Ã¡p Ã¡n Ä‘Ãºng.', 'good');
     }
     playFeedback('click');
   }
@@ -432,7 +432,7 @@
         }
         if (state.mode === 'challenge') {
           state.time -= dt;
-          if (state.time <= 0) finish('Hết 60 giây.');
+          if (state.time <= 0) finish('Háº¿t 60 giÃ¢y.');
           updateHud();
         }
       }
@@ -454,7 +454,7 @@
       updateRope(endpoint());
       renderer.render(scene, camera);
     }
-    requestAnimationFrame(tick);
+    state.frameId = state.frameId = requestAnimationFrame(tick);
   }
 
   $('minerStart').addEventListener('click', reset);
@@ -463,7 +463,7 @@
   document.querySelectorAll('.miner-power').forEach(button => button.addEventListener('click', () => usePower(button.dataset.power, button)));
   ui.pause.addEventListener('click', togglePause);
   ui.sound.addEventListener('click', toggleSound);
-  $('minerHowButton').addEventListener('click', () => toast('Canh hướng móc, rồi chạm vùng chơi hoặc nút THẢ MÓC. Đào đúng hóa trị được yêu cầu.', 'good'));
+  $('minerHowButton').addEventListener('click', () => toast('Canh hÆ°á»›ng mÃ³c, rá»“i cháº¡m vÃ¹ng chÆ¡i hoáº·c nÃºt THáº¢ MÃ“C. ÄÃ o Ä‘Ãºng hÃ³a trá»‹ Ä‘Æ°á»£c yÃªu cáº§u.', 'good'));
   $('minerTableButton').addEventListener('click', () => {
     ui.intro.hidden = true; document.querySelector('#p-valence .tt')?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
   });
@@ -486,10 +486,31 @@
     if (event.code === 'KeyP') togglePause();
   });
   document.addEventListener('visibilitychange', () => { state.hidden = document.hidden; state.last = performance.now(); });
+  window.destroyChemMiner = () => {
+    if (state.frameId) cancelAnimationFrame(state.frameId);
+    state.resizeObserver?.disconnect();
+    state.minerals.forEach(group => {
+      group.traverse(object => {
+        object.geometry?.dispose?.();
+        if (object.material?.map) object.material.map.dispose();
+        object.material?.dispose?.();
+      });
+      scene.remove(group);
+    });
+    state.particles.forEach(particle => {
+      particle.mesh.geometry.dispose();
+      particle.mesh.material.dispose();
+      scene.remove(particle.mesh);
+    });
+    renderer?.dispose?.();
+    renderer?.forceContextLoss?.();
+  };
   window.chemMinerPause = () => {
     if (state.running && !state.paused) togglePause();
   };
-  new ResizeObserver(() => { resize(); if (!state.running) spawn(); }).observe(canvas);
-  ui.best.textContent = `Kỷ lục: ${Number(localStorage.getItem('chemMinerBest') || 0)} điểm`;
-  resize(); state.target = 'I'; spawn(); updateHud(); updateRope(endpoint()); requestAnimationFrame(tick);
+  state.resizeObserver = new ResizeObserver(() => { resize(); if (!state.running) spawn(); }); state.resizeObserver.observe(canvas);
+  ui.best.textContent = `Ká»· lá»¥c: ${Number(localStorage.getItem('chemMinerBest') || 0)} Ä‘iá»ƒm`;
+  resize(); state.target = 'I'; spawn(); updateHud(); updateRope(endpoint()); state.frameId = state.frameId = requestAnimationFrame(tick);
 })();
+
+
