@@ -1,0 +1,35 @@
+/* ============================================================
+   ANIMATED SECTION
+   Reveal animation with opacity and translation
+   ============================================================ */
+
+.section {
+  opacity: 0;
+  transform: translateY(18px);
+  filter: blur(4px);
+  transition: opacity var(--duration-slower) var(--ease-out),
+              transform var(--duration-slower) var(--ease-out),
+              filter var(--duration-slower) var(--ease-out);
+  will-change: opacity, transform, filter;
+}
+
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+    transition: none;
+  }
+
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}

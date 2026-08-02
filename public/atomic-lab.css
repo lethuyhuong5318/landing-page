@@ -1,9 +1,39 @@
-.atomic-models-row{display:grid;grid-template-columns:minmax(130px,.72fr) minmax(0,1.28fr);align-items:stretch;gap:10px;margin:12px 0 8px}.atomic-model-2d{min-width:0;padding:10px;border:1px solid #cbd9e5;border-radius:16px;background:linear-gradient(145deg,#fff,#eef5fa);color:var(--navy-900);text-align:center;box-shadow:0 8px 24px rgba(15,50,78,.08)}.atomic-model-2d>b{display:block;font-size:10px}.atomic-model-2d .periodic-shell-diagram{display:grid;place-items:center;margin:5px 0 0}.atomic-model-2d .periodic-shell-diagram svg{width:min(100%,164px);height:auto;aspect-ratio:1}.atomic-lab{height:100%;margin:0;padding:10px;border:1px solid #cbd9e5;border-radius:16px;background:linear-gradient(145deg,#f7f9fc,#dfe9f2);color:var(--navy-900);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 8px 24px rgba(15,50,78,.1)}
-.atomic-lab-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}.atomic-lab-head div{min-width:0}.atomic-lab-head b,.atomic-lab-head small{display:block}.atomic-lab-head b{font-size:11px}.atomic-lab-head small{margin-top:2px;color:#5f7689;font-size:8px;line-height:1.35}.atomic-lab-shells{flex:none;padding:5px 8px;border:1px solid #c8d7e2;border-radius:999px;background:rgba(255,255,255,.82);color:var(--navy-700);font-size:8px;font-weight:900}
-.atomic-lab-stage{position:relative;min-height:250px;border:1px solid #c6d5e0;border-radius:13px;overflow:hidden;background:radial-gradient(circle at 50% 45%,#ffffff 0,#edf3f8 46%,#cfdae4 100%);box-shadow:inset 0 0 36px rgba(45,80,107,.13)}#atomicLabCanvas{width:100%;height:250px;display:block;touch-action:none;cursor:grab}#atomicLabCanvas.is-dragging{cursor:grabbing}.atomic-lab-tip{position:absolute;left:8px;bottom:8px;padding:5px 8px;border:1px solid rgba(34,76,107,.12);border-radius:8px;background:rgba(255,255,255,.82);color:#385b72;font-size:7px;font-weight:800;pointer-events:none;backdrop-filter:blur(5px)}
-.atomic-lab-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px}.atomic-lab-legend{display:flex;flex-wrap:wrap;gap:7px;color:#526d80;font-size:7px;font-weight:800}.atomic-lab-legend span{display:flex;align-items:center;gap:4px}.atomic-lab-legend i{width:8px;height:8px;border-radius:50%;box-shadow:inset 0 1px 2px rgba(255,255,255,.8)}.atomic-lab-legend .proton{background:#f23838}.atomic-lab-legend .neutron{background:#65aee9}.atomic-lab-legend .electron{background:#123fd0}
-.atomic-lab-controls{display:flex;justify-content:flex-end;gap:6px}.atomic-lab-controls button{min-height:36px;padding:0 11px;border:1px solid #c7d6e1;border-radius:9px;background:#fff;color:var(--navy-900);font:800 8px 'Be Vietnam Pro',sans-serif;cursor:pointer;box-shadow:0 3px 9px rgba(20,56,82,.08)}.atomic-lab-controls button:hover{border-color:#78b7e5;background:#f4faff}.atomic-lab-controls button:focus-visible{outline:3px solid var(--yellow-500);outline-offset:2px}.atomic-lab-fallback{margin:12px 0;padding:14px;border-radius:12px;background:#edf5fb;color:var(--navy-800);font-size:10px;text-align:center}
-.periodic-search{display:grid;grid-template-columns:1fr auto;gap:7px;margin:0 0 10px}.periodic-search label{position:relative;margin:0}.periodic-search input{width:100%;min-height:42px;padding:9px 38px 9px 12px;border:1.5px solid var(--navy-100);border-radius:12px;background:#fff;color:var(--navy-900);font:700 11px 'Be Vietnam Pro',sans-serif}.periodic-search input:focus{border-color:var(--navy-700);outline:3px solid rgba(40,120,200,.15)}.periodic-search-key{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:8px;font-weight:800}.periodic-search button{min-height:42px;padding:0 12px;border:1px solid var(--navy-100);border-radius:12px;background:#fff;color:var(--navy-800);font:800 9px 'Be Vietnam Pro',sans-serif;cursor:pointer}.periodic-grid .pel.search-dim{opacity:.12;filter:grayscale(.7)}.periodic-grid .pel.search-match{opacity:1!important;filter:none!important;box-shadow:0 0 0 2px var(--yellow-500),0 5px 12px rgba(11,47,91,.18)}
+﻿.atomic-models-row{display:grid;grid-template-columns:minmax(130px,.72fr) minmax(0,1.28fr);align-items:stretch;gap:10px;margin:12px 0 8px}
+.atomic-model-2d{min-width:0;padding:10px;border:1px solid #cbd9e5;border-radius:16px;background:linear-gradient(145deg,#fff,#eef5fa);color:var(--navy-900);text-align:center;box-shadow:0 8px 24px rgba(15,50,78,.08)}
+.atomic-model-2d>b{display:block;font-size:10px}
+.atomic-model-2d .periodic-shell-diagram{display:grid;place-items:center;margin:5px 0 0}
+.atomic-model-2d .periodic-shell-diagram svg{width:min(100%,164px);height:auto;aspect-ratio:1}
+.atomic-lab{height:100%;margin:0;padding:10px;border:1px solid #cbd9e5;border-radius:16px;background:linear-gradient(145deg,#f7f9fc,#dfe9f2);color:var(--navy-900);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 8px 24px rgba(15,50,78,.1);overflow:hidden;max-width:100%}
+.atomic-lab-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+.atomic-lab-head div{min-width:0}
+.atomic-lab-head b,.atomic-lab-head small{display:block}
+.atomic-lab-head b{font-size:11px}
+.atomic-lab-head small{margin-top:2px;color:#5f7689;font-size:8px;line-height:1.35}
+.atomic-lab-shells{flex:none;padding:5px 8px;border:1px solid #c8d7e2;border-radius:999px;background:rgba(255,255,255,.82);color:var(--navy-700);font-size:8px;font-weight:900}
+.atomic-lab-stage{position:relative;min-height:250px;border:1px solid #c6d5e0;border-radius:13px;overflow:hidden;background:radial-gradient(circle at 50% 45%,#ffffff 0,#edf3f8 46%,#cfdae4 100%);box-shadow:inset 0 0 36px rgba(45,80,107,.13)}
+#atomicLabCanvas{width:100%;height:250px;display:block;touch-action:none;cursor:grab}
+#atomicLabCanvas.is-dragging{cursor:grabbing}
+.atomic-lab-tip{position:absolute;left:8px;bottom:8px;padding:5px 8px;border:1px solid rgba(34,76,107,.12);border-radius:8px;background:rgba(255,255,255,.82);color:#385b72;font-size:7px;font-weight:800;pointer-events:none;backdrop-filter:blur(5px)}
+.atomic-lab-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px}
+.atomic-lab-legend{display:flex;flex-wrap:wrap;gap:7px;color:#526d80;font-size:7px;font-weight:800}
+.atomic-lab-legend span{display:flex;align-items:center;gap:4px}
+.atomic-lab-legend i{width:8px;height:8px;border-radius:50%;box-shadow:inset 0 1px 2px rgba(255,255,255,.8)}
+.atomic-lab-legend .proton{background:#f23838}
+.atomic-lab-legend .neutron{background:#65aee9}
+.atomic-lab-legend .electron{background:#123fd0}
+.atomic-lab-controls{display:flex;justify-content:flex-end;gap:6px}
+.atomic-lab-controls button{min-height:36px;padding:0 11px;border:1px solid #c7d6e1;border-radius:9px;background:#fff;color:var(--navy-900);font:800 8px 'Be Vietnam Pro',sans-serif;cursor:pointer;box-shadow:0 3px 9px rgba(20,56,82,.08)}
+.atomic-lab-controls button:hover{border-color:#78b7e5;background:#f4faff}
+.atomic-lab-controls button:focus-visible{outline:3px solid var(--yellow-500);outline-offset:2px}
+.atomic-lab-fallback{margin:12px 0;padding:14px;border-radius:12px;background:#edf5fb;color:var(--navy-800);font-size:10px;text-align:center}
+.periodic-search{display:grid;grid-template-columns:1fr auto;gap:7px;margin:0 0 10px}
+.periodic-search label{position:relative;margin:0}
+.periodic-search input{width:100%;min-height:42px;padding:9px 38px 9px 12px;border:1.5px solid var(--navy-100);border-radius:12px;background:#fff;color:var(--navy-900);font:700 11px 'Be Vietnam Pro',sans-serif}
+.periodic-search input:focus{border-color:var(--navy-700);outline:3px solid rgba(40,120,200,.15)}
+.periodic-search-key{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:8px;font-weight:800}
+.periodic-search button{min-height:42px;padding:0 12px;border:1px solid var(--navy-100);border-radius:12px;background:#fff;color:var(--navy-800);font:800 9px 'Be Vietnam Pro',sans-serif;cursor:pointer}
+.periodic-grid .pel.search-dim{opacity:.12;filter:grayscale(.7)}
+.periodic-grid .pel.search-match{opacity:1!important;filter:none!important;box-shadow:0 0 0 2px var(--yellow-500),0 5px 12px rgba(11,47,91,.18)}
 @media(max-width:560px){.atomic-models-row{grid-template-columns:minmax(92px,.72fr) minmax(0,1.28fr);gap:6px;margin:9px 0 6px}.atomic-model-2d,.atomic-lab{padding:6px;border-radius:12px}.atomic-model-2d>b{font-size:8px}.atomic-lab-stage,#atomicLabCanvas{height:170px;min-height:170px}.atomic-lab-head{align-items:flex-start}.atomic-lab-head b{font-size:9px}.atomic-lab-head small,.atomic-lab-shells,.atomic-lab-tip,.atomic-lab-legend{display:none}.atomic-lab-toolbar{display:block}.atomic-lab-controls{width:100%;margin-top:5px}.atomic-lab-controls button{min-height:40px;padding:0 5px;flex:1;font-size:7px}.periodic-search{grid-template-columns:1fr}.periodic-search button{display:none}}
 @media(max-width:370px){.atomic-models-row{grid-template-columns:minmax(82px,.68fr) minmax(0,1.32fr)}.atomic-lab-stage,#atomicLabCanvas{height:150px;min-height:150px}.atomic-lab-head small{display:none}}
 @media(prefers-reduced-motion:reduce){.atomic-lab-controls button{transition:none}}
@@ -30,31 +60,57 @@
 .el-modal-head .em-close:focus-visible,.atomic-lab-modal-close:focus-visible,.open-atomic-3d:focus-visible{outline:3px solid #ffd46d;outline-offset:3px}
 .element-identity{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:end;gap:5px 13px;position:relative;z-index:2}
 .element-number{grid-column:1/-1;width:max-content;padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.13);font-size:8px;font-weight:800}
-.element-identity .nuclear-symbol{margin:0}.element-identity .nuclear-element{font-size:58px}.element-identity .nuclear-numbers{font-size:12px}
-.el-modal-head .em-name{margin:0 0 5px;color:#fff;font-size:18px;line-height:1.2}.periodic-modal-category{margin:0;background:rgba(255,255,255,.14);font-size:8px}
+.element-identity .nuclear-symbol{margin:0}
+.element-identity .nuclear-element{font-size:58px}
+.element-identity .nuclear-numbers{font-size:12px}
+.el-modal-head .em-name{margin:0 0 5px;color:#fff;font-size:18px;line-height:1.2}
+.periodic-modal-category{margin:0;background:rgba(255,255,255,.14);font-size:8px}
 .wiki-element-media{width:74px;height:74px;right:54px;top:68%;border:2px solid rgba(255,255,255,.8);box-shadow:0 8px 22px rgba(4,27,50,.28)}
 .wiki-element-media img{transform:scale(1.08)}
 .el-modal-body{padding:18px 20px 22px}
 .element-facts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
 .element-facts>div{min-width:0;padding:11px 12px;border:1px solid #d7e5ef;border-radius:14px;background:#fff;box-shadow:0 3px 10px rgba(18,72,107,.05)}
-.element-facts span,.element-facts b{display:block}.element-facts span{color:#6b8191;font-size:8px;font-weight:700}.element-facts b{margin-top:4px;color:#103d68;font-size:13px;overflow-wrap:anywhere}.element-facts b small{font-size:8px;font-weight:700;color:#718795}
+.element-facts span,.element-facts b{display:block}
+.element-facts span{color:#6b8191;font-size:8px;font-weight:700}
+.element-facts b{margin-top:4px;color:#103d68;font-size:13px;overflow-wrap:anywhere}
+.element-facts b small{font-size:8px;font-weight:700;color:#718795}
 .atomic-model-2d.element-bohr-card{padding:14px 16px;border:1px solid #d4e4ef;border-radius:18px;background:linear-gradient(145deg,#fff,#eef7fd);box-shadow:none}
 .element-section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left}
-.element-section-title span,.element-section-title b{display:block}.element-section-title span{color:#2b82bd;font-size:7px;font-weight:900;letter-spacing:.1em}.element-section-title b{margin-top:3px;color:#103d68;font-size:13px}
+.element-section-title span,.element-section-title b{display:block}
+.element-section-title span{color:#2b82bd;font-size:7px;font-weight:900;letter-spacing:.1em}
+.element-section-title b{margin-top:3px;color:#103d68;font-size:13px}
 .element-section-title>small{padding:5px 9px;border-radius:999px;background:#dcefff;color:#1765a8;font-size:8px;font-weight:900}
-.element-bohr-card .periodic-shell-diagram{margin:7px 0 3px}.element-bohr-card .periodic-shell-diagram svg{width:min(100%,218px);height:auto}
+.element-bohr-card .periodic-shell-diagram{margin:7px 0 3px}
+.element-bohr-card .periodic-shell-diagram svg{width:min(100%,218px);height:auto}
 .element-bohr-card>p{margin:4px auto 0;max-width:390px;color:#5c7385;font-size:9px;line-height:1.55;text-align:center}
 .open-atomic-3d{width:100%;min-height:58px;margin-top:10px;padding:8px 13px;display:grid;grid-template-columns:38px 1fr auto;align-items:center;gap:10px;border:0;border-radius:15px;background:linear-gradient(135deg,#145d9b,#267fc1);color:#fff;text-align:left;cursor:pointer;box-shadow:0 8px 20px rgba(22,101,166,.2);transition:transform .18s,box-shadow .18s}
-.open-atomic-3d:hover{transform:translateY(-1px);box-shadow:0 11px 24px rgba(22,101,166,.26)}.open-atomic-3d>svg{width:24px;height:24px;margin:auto;fill:none;stroke:#ffd46d;stroke-width:1.8;stroke-linejoin:round}
-.open-atomic-3d span b,.open-atomic-3d span small{display:block}.open-atomic-3d span b{font-size:11px}.open-atomic-3d span small{margin-top:2px;color:#d9efff;font-size:8px}.open-atomic-3d>i{font-style:normal;font-size:18px}
+.open-atomic-3d:hover{transform:translateY(-1px);box-shadow:0 11px 24px rgba(22,101,166,.26)}
+.open-atomic-3d>svg{width:24px;height:24px;margin:auto;fill:none;stroke:#ffd46d;stroke-width:1.8;stroke-linejoin:round}
+.open-atomic-3d span b,.open-atomic-3d span small{display:block}
+.open-atomic-3d span b{font-size:11px}
+.open-atomic-3d span small{margin-top:2px;color:#d9efff;font-size:8px}
+.open-atomic-3d>i{font-style:normal;font-size:18px}
 .periodic-app-note{margin:10px 0 0;padding:12px;display:flex;align-items:flex-start;gap:10px;border:1px solid #f1dda0;border-radius:14px;background:#fff8dc;font-size:inherit;box-shadow:none}
-.periodic-app-note>svg{width:22px;height:22px;flex:none;fill:none;stroke:#d79700;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.periodic-app-note p{margin:0}.periodic-app-note b,.periodic-app-note span{display:block}.periodic-app-note b{color:#7e5700;font-size:9px}.periodic-app-note span{margin-top:4px;color:#475d6c;font-size:9px;line-height:1.55}
+.periodic-app-note>svg{width:22px;height:22px;flex:none;fill:none;stroke:#d79700;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.periodic-app-note p{margin:0}
+.periodic-app-note b,.periodic-app-note span{display:block}
+.periodic-app-note b{color:#7e5700;font-size:9px}
+.periodic-app-note span{margin-top:4px;color:#475d6c;font-size:9px;line-height:1.55}
 .atomic-lab-modal{position:fixed;inset:0;z-index:10020;padding:20px;display:flex;align-items:center;justify-content:center;background:rgba(5,27,46,.68);backdrop-filter:blur(10px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s,visibility .2s}
 .atomic-lab-modal.open{opacity:1;visibility:visible;pointer-events:auto}
 body.atomic-modal-open{overflow:hidden}
 .atomic-lab-modal-sheet{width:min(760px,100%);max-height:calc(100dvh - 40px);padding:16px;border:1px solid rgba(255,255,255,.8);border-radius:24px;background:#f4f8fb;box-shadow:0 28px 80px rgba(0,20,40,.42);overflow:auto}
-.atomic-lab-modal-sheet>header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:4px 4px 14px}.atomic-lab-modal-sheet>header span{color:#267fc1;font-size:8px;font-weight:900;letter-spacing:.13em}.atomic-lab-modal-sheet>header h2{margin:3px 0 0;color:#103d68;font-size:20px}.atomic-lab-modal-sheet>header p{margin:4px 0 0;color:#657b8b;font-size:9px}.atomic-lab-modal-close{flex:none;background:#164d7b;border-color:#164d7b}
-.atomic-lab-modal .atomic-lab{height:auto;padding:12px;border:0;background:transparent;box-shadow:none}.atomic-lab-modal .atomic-lab-head{display:none}.atomic-lab-modal .atomic-lab-stage{min-height:420px;border-radius:18px}.atomic-lab-modal #atomicLabCanvas{height:420px}.atomic-lab-modal .atomic-lab-tip{font-size:9px}.atomic-lab-modal .atomic-lab-controls button{min-height:44px;font-size:9px}
+.atomic-lab-modal-sheet>header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:4px 4px 14px}
+.atomic-lab-modal-sheet>header span{color:#267fc1;font-size:8px;font-weight:900;letter-spacing:.13em}
+.atomic-lab-modal-sheet>header h2{margin:3px 0 0;color:#103d68;font-size:20px}
+.atomic-lab-modal-sheet>header p{margin:4px 0 0;color:#657b8b;font-size:9px}
+.atomic-lab-modal-close{flex:none;background:#164d7b;border-color:#164d7b}
+.atomic-lab-modal .atomic-lab{height:auto;padding:12px;border:0;background:transparent;box-shadow:none}
+.atomic-lab-modal .atomic-lab-head{display:none}
+.atomic-lab-modal .atomic-lab-stage{min-height:420px;border-radius:18px}
+.atomic-lab-modal #atomicLabCanvas{height:420px}
+.atomic-lab-modal .atomic-lab-tip{font-size:9px}
+.atomic-lab-modal .atomic-lab-controls button{min-height:44px;font-size:9px}
 @media(max-width:560px){
   #elModalOverlay{padding:8px}.el-modal-box{width:100%;max-height:calc(100dvh - 16px);border-radius:20px}.el-modal-head{min-height:128px;padding:18px 105px 17px 17px}.el-modal-head .em-eyebrow{margin-bottom:9px}.el-modal-head .em-close{top:10px;right:10px}.element-identity{gap:4px 9px}.element-identity .nuclear-element{font-size:50px}.el-modal-head .em-name{font-size:15px}.wiki-element-media{width:62px;height:62px;right:45px;top:70%}.el-modal-body{padding:13px}.element-facts{gap:6px}.element-facts>div{padding:9px}.element-facts b{font-size:11px}.atomic-model-2d.element-bohr-card{padding:11px}.element-bohr-card .periodic-shell-diagram svg{width:min(100%,184px)}
   .atomic-lab-modal{padding:0;align-items:flex-end}.atomic-lab-modal-sheet{width:100%;height:min(88dvh,720px);max-height:88dvh;padding:12px;border-radius:24px 24px 0 0}.atomic-lab-modal-sheet>header{padding:3px 2px 11px}.atomic-lab-modal-sheet>header h2{font-size:17px}.atomic-lab-modal-sheet>header p{font-size:8px}.atomic-lab-modal .atomic-lab{padding:4px}.atomic-lab-modal .atomic-lab-stage,.atomic-lab-modal #atomicLabCanvas{height:min(55dvh,440px);min-height:300px}.atomic-lab-modal .atomic-lab-toolbar{display:flex}.atomic-lab-modal .atomic-lab-legend{display:flex}.atomic-lab-modal .atomic-lab-controls{width:auto;margin:0}

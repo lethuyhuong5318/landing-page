@@ -1,0 +1,203 @@
+/* ============================================================
+   CHAMCHAMEDEMY DESIGN TOKENS
+   Central design system for learning platform
+   ============================================================ */
+
+:root {
+  /* ========== COLOR PALETTE ========== */
+  /* Primary brand colors */
+  --primary: #0F4C81;
+  --primary-hover: #0B3B65;
+  --primary-active: #082A48;
+
+  /* Secondary & accent */
+  --secondary: #22A6A1;
+  --accent: #F6B73C;
+  --accent-light: #FFE699;
+
+  /* Semantic colors */
+  --success: #159A64;
+  --danger: #C94A4A;
+  --warning: #E89B3C;
+  --info: #0B9BD0;
+
+  /* Neutral scale */
+  --background: #F7FAFC;
+  --surface: #FFFFFF;
+  --surface-variant: #F2F5F8;
+  --border: #D9E4EC;
+  --divider: #E8EEF4;
+  --overlay: rgba(15, 76, 129, 0.35);
+
+  /* Text colors */
+  --text-primary: #102A43;
+  --text-secondary: #627D98;
+  --text-tertiary: #89A0B3;
+  --text-inverse: #FFFFFF;
+
+  /* ========== TYPOGRAPHY ========== */
+  --font-family-base: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-family-heading: 'Baloo 2', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-family-cursive: 'Patrick Hand', cursive;
+
+  /* Font weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* Font sizes */
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 15px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 28px;
+  --font-size-5xl: 32px;
+
+  /* Line heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.65;
+  --line-height-loose: 1.75;
+
+  /* Letter spacing */
+  --letter-spacing-tight: -0.5px;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.5px;
+  --letter-spacing-wider: 1px;
+  --letter-spacing-widest: 2.5px;
+
+  /* ========== SPACING ========== */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+  --spacing-2xl: 24px;
+  --spacing-3xl: 32px;
+  --spacing-4xl: 40px;
+  --spacing-5xl: 48px;
+  --spacing-6xl: 64px;
+  --spacing-7xl: 80px;
+
+  /* ========== BORDER RADIUS ========== */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* ========== SHADOWS ========== */
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px rgba(15, 76, 129, 0.05);
+  --shadow-sm: 0 2px 4px rgba(15, 76, 129, 0.08);
+  --shadow-base: 0 4px 8px rgba(15, 76, 129, 0.10), 0 1px 2px rgba(15, 76, 129, 0.06);
+  --shadow-md: 0 6px 16px rgba(15, 76, 129, 0.12), 0 2px 4px rgba(15, 76, 129, 0.08);
+  --shadow-lg: 0 8px 24px rgba(15, 76, 129, 0.14), 0 2px 6px rgba(15, 76, 129, 0.10);
+  --shadow-xl: 0 12px 32px rgba(15, 76, 129, 0.16), 0 3px 8px rgba(15, 76, 129, 0.12);
+  --shadow-2xl: 0 16px 40px rgba(15, 76, 129, 0.18), 0 4px 12px rgba(15, 76, 129, 0.14);
+
+  /* ========== ANIMATION ========== */
+  /* Durations */
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --duration-normal: 240ms;
+  --duration-slow: 320ms;
+  --duration-slower: 480ms;
+  --duration-slowest: 640ms;
+
+  /* Easing functions */
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* ========== BACKDROP & EFFECTS ========== */
+  --backdrop-blur-xs: 2px;
+  --backdrop-blur-sm: 4px;
+  --backdrop-blur-md: 6px;
+  --backdrop-blur-lg: 8px;
+  --backdrop-blur-xl: 12px;
+
+  /* ========== LAYOUT ========== */
+  --container-max-width: 1180px;
+  --container-padding-desktop: 24px;
+  --container-padding-mobile: 16px;
+
+  --sidebar-width: 270px;
+  --main-content-max-width: 820px;
+
+  /* ========== Z-INDEX SCALE ========== */
+  --z-dropdown: 100;
+  --z-sticky: 20;
+  --z-modal: 200;
+  --z-overlay: 150;
+  --z-tooltip: 300;
+  --z-notification: 250;
+
+  /* ========== BREAKPOINTS (min-width) ========== */
+  --breakpoint-xs: 320px;
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
+
+/* ========== DARK MODE OVERRIDES ========== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0A1628;
+    --surface: #0F1B2E;
+    --surface-variant: #142844;
+    --border: #1A3A52;
+    --divider: #1E4A66;
+
+    --text-primary: #E8F1F8;
+    --text-secondary: #A7BDD4;
+    --text-tertiary: #7A98B2;
+  }
+}
+
+/* ========== REDUCED MOTION ========== */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-normal: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 0ms;
+    --duration-slowest: 0ms;
+
+    --ease-standard: linear;
+    --ease-emphasized: linear;
+    --ease-bounce: linear;
+  }
+}
+
+/* ========== LOW CONTRAST MODE ========== */
+@media (prefers-contrast: more) {
+  :root {
+    --primary: #0A3A66;
+    --text-primary: #050F1A;
+    --border: #546E7F;
+  }
+}
+
+/* ========== SYSTEM PREFERENCES ========== */
+@media (prefers-reduced-data: reduce) {
+  :root {
+    --backdrop-blur-lg: var(--backdrop-blur-sm);
+    --backdrop-blur-xl: var(--backdrop-blur-md);
+    --shadow-lg: 0 4px 12px rgba(15, 76, 129, 0.10);
+    --shadow-xl: 0 6px 16px rgba(15, 76, 129, 0.12);
+  }
+}

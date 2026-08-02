@@ -1,4 +1,4 @@
-(() => {
+﻿(() => {
   const canvas = document.getElementById('disp3dCanvas');
   const metalSelect = document.getElementById('dispMetal');
   const saltSelect = document.getElementById('dispSalt');
@@ -121,7 +121,7 @@
     deposits.add(particle);
   }
 
-  const state = { progress: 0, target: 0, reacting: false, yaw: -.32, pitch: 0, drag: false, x: 0, y: 0 };
+  const state = { progress: 0, target: 0, reacting: false, yaw: -.32, pitch: 0, drag: false, x: 0, y: 0, resizeObserver: null, frameId: null };
 
   function selection() {
     const metal = metalSelect.value;
@@ -183,7 +183,7 @@
       particle.rotation.y += .008;
     });
     renderer.render(scene, camera);
-    requestAnimationFrame(animate);
+    state.frameId = requestAnimationFrame(animate);
   }
 
   canvas.addEventListener('pointerdown', event => {
@@ -211,7 +211,15 @@
     play();
   };
 
-  new ResizeObserver(resize).observe(canvas);
+  window.destroyDisplacementLab = () => {
+    state.resizeObserver?.disconnect?.();
+    if (state.frameId) cancelAnimationFrame(state.frameId);
+    renderer?.dispose?.();
+    renderer?.forceContextLoss?.();
+  };
+
+  state.resizeObserver = new ResizeObserver(resize);
+  state.resizeObserver.observe(canvas);
   setSelection(true);
   resize();
   animate();

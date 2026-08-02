@@ -1,0 +1,278 @@
+/* ============================================================
+   LEARNING HEADER COMPONENT STYLES
+   Sticky header for learning pages - desktop & mobile responsive
+   ============================================================ */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  height: 72px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(var(--backdrop-blur-md));
+  -webkit-backdrop-filter: blur(var(--backdrop-blur-md));
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--container-padding-mobile);
+  gap: var(--spacing-lg);
+  will-change: transform;
+
+  @supports not (backdrop-filter: blur(1px)) {
+    background: rgba(255, 255, 255, 0.95);
+  }
+}
+
+@media (min-width: 768px) {
+  .header {
+    padding: 0 var(--container-padding-desktop);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* ========== BRAND SECTION ========== */
+.brandSection {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex: 1;
+  min-width: 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--primary);
+  flex-shrink: 0;
+  text-decoration: none;
+  transition: all var(--duration-fast) var(--ease-out);
+  outline-offset: 2px;
+}
+
+.logo:hover {
+  background: var(--primary-hover);
+  transform: scale(1.05);
+}
+
+.logo:focus-visible {
+  outline: 3px solid var(--accent);
+}
+
+.logo img {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
+.titleSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.courseTitle {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.progressBadge {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-secondary);
+  background: var(--surface-variant);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  width: fit-content;
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+/* ========== DESKTOP BUTTONS ========== */
+.desktopButtons {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-shrink: 0;
+
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
+
+.headerButton {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--duration-fast) var(--ease-out);
+  flex-shrink: 0;
+  outline-offset: 2px;
+
+  &:hover {
+    background: var(--surface-variant);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+
+  &:active {
+    transform: scale(0.96);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--accent);
+  }
+
+  &.active {
+    background: var(--primary);
+    color: var(--text-inverse);
+    border-color: var(--primary);
+  }
+
+  svg {
+    display: block;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
+
+/* ========== MOBILE MENU TOGGLE ========== */
+.mobileMenuToggle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  outline-offset: 2px;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+
+  span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 1px;
+    transition: all var(--duration-normal) var(--ease-out);
+  }
+
+  &[aria-expanded="true"] {
+    span:nth-child(1) {
+      transform: rotate(45deg) translateY(8px);
+    }
+
+    span:nth-child(2) {
+      opacity: 0;
+    }
+
+    span:nth-child(3) {
+      transform: rotate(-45deg) translateY(-8px);
+    }
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--accent);
+  }
+}
+
+/* ========== MOBILE MENU ========== */
+.mobileMenu {
+  position: absolute;
+  top: 72px;
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  animation: slideDown var(--duration-normal) var(--ease-out);
+  z-index: 100;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobileMenu {
+    animation: none;
+  }
+}
+
+.mobileMenuButton {
+  width: 100%;
+  padding: var(--spacing-lg);
+  border: none;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--duration-fast) var(--ease-out);
+  text-decoration: none;
+  display: block;
+  outline-offset: -1px;
+
+  &:hover {
+    background: var(--surface-variant);
+    color: var(--primary);
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: -3px;
+  }
+
+  &[aria-pressed="true"] {
+    background: var(--primary);
+    color: var(--text-inverse);
+  }
+}
