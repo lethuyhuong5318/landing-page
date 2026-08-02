@@ -33,7 +33,8 @@ const absoluteAssets = html => html
   .replaceAll('href="./', 'href="/')
   .replaceAll('src="./', 'src="/')
   .replaceAll('href="../', 'href="/')
-  .replaceAll('src="../', 'src="/');
+  .replaceAll('src="../', 'src="/')
+  .replaceAll('href="/lay-goc-hoa.html"', 'href="/lay-goc-hoa/');
 
 let shared = source
   .replace(/<style>[\s\S]*?<\/style>/i, '<link rel="stylesheet" href="/assets/css/lay-goc-hoa.css">')
@@ -76,7 +77,7 @@ function addSeo(html, lesson, index) {
     .replace(/<body>/i, `<body data-cluster-lesson="${lesson.id}">`)
     .replace('<div class="wrap">', `<div class="wrap">${lessonNav(index)}`)
     .replace(/<h1>[\s\S]*?<\/h1>/i, `<p class="cluster-original-title">Lấy gốc Hóa học THCS</p>`)
-    .replace('</body>', `<script>document.addEventListener("DOMContentLoaded",()=>{selectTab("${lesson.id}");document.querySelectorAll(".panel").forEach(p=>{if(p.id!=="${lesson.id}")p.setAttribute("hidden","")});});</script></body>`);
+    .replace('</body>', `<script src="/assets/js/chemistry-lesson-progress.js"></script><script>document.addEventListener("DOMContentLoaded",()=>{selectTab("${lesson.id}");document.querySelectorAll(".panel").forEach(p=>{if(p.id!=="${lesson.id}")p.setAttribute("hidden","")});});</script></body>`);
 }
 
 const clusterCss = `
@@ -85,6 +86,8 @@ const clusterCss = `
 .cluster-lesson-header{margin-bottom:14px;padding:20px 22px;border-radius:22px;background:linear-gradient(135deg,#0d3c66,#176cae);color:#fff}.cluster-home-link{display:inline-flex;min-height:44px;align-items:center;color:#fff;text-decoration:none;font-weight:700}.cluster-kicker{display:block;margin-top:6px;color:#ffd46d;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.cluster-lesson-header h1{margin:8px 0 6px;font-size:clamp(24px,4vw,38px);line-height:1.18}.cluster-lesson-header p{max-width:760px;margin:0;color:#e8f5ff;line-height:1.65}.cluster-original-title{font-size:clamp(25px,4vw,40px);font-weight:800;line-height:1.1;margin:0}
 .cluster-lesson-nav{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;margin:14px 0}.cluster-lesson-nav a{min-height:48px;padding:10px 13px;display:flex;align-items:center;justify-content:center;border:1px solid #cfe1ed;border-radius:14px;background:#fff;color:#123f67;font-size:11px;font-weight:800;text-align:center;text-decoration:none}.cluster-lesson-nav a:last-child{background:#eaf6ff}
 .cluster-related{margin:18px 0;padding:18px;border-radius:20px;background:#eff7fc}.cluster-related h2{margin:0 0 12px;color:#103d68;font-size:18px}.cluster-related>div{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.cluster-related a{padding:14px;border-radius:14px;background:#fff;color:#173f60;font-size:12px;font-weight:800;text-decoration:none}.cluster-related a span{display:block;margin-top:8px;color:#267fc1;font-size:10px}
+body[data-cluster-lesson] .panel{display:none!important}
+body[data-cluster-lesson="p-basics"] #p-basics,body[data-cluster-lesson="p-formula"] #p-formula,body[data-cluster-lesson="p-valence"] #p-valence,body[data-cluster-lesson="p-table"] #p-table,body[data-cluster-lesson="p-reaction"] #p-reaction,body[data-cluster-lesson="p-rules"] #p-rules,body[data-cluster-lesson="p-series"] #p-series,body[data-cluster-lesson="p-organic"] #p-organic,body[data-cluster-lesson="p-iupac"] #p-iupac,body[data-cluster-lesson="p-mass"] #p-mass,body[data-cluster-lesson="p-quiz"] #p-quiz{display:block!important}
 body[data-cluster-lesson] .tabs-wrap{display:none}body[data-cluster-lesson] .hero{margin-top:0}
 @media(max-width:680px){.cluster-lesson-nav{grid-template-columns:1fr 1fr}.cluster-lesson-nav a:nth-child(2){grid-column:1/-1;grid-row:2}.cluster-related>div{grid-template-columns:1fr}.cluster-lesson-header{padding:17px}.cluster-breadcrumb{margin-top:8px}}
 `;
