@@ -53,7 +53,7 @@
     try {
       renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
     } catch (error) {
-      host.innerHTML = '<p class="atomic-lab-fallback">Thiết bị chưa hỗ trợ WebGL để hiển thị mô hình 3D.</p>';
+      host.innerHTML = <p class="atomic-lab-fallback">Thiết bị chưa hỗ trợ WebGL để hiển thị mô hình 3D.<br><button onclick="location.reload()" style="margin-top:8px; padding:8px 12px; background:#267fc1; color:#fff; border:none; border-radius:6px; cursor:pointer;">Thử lại</button></p>;
       return;
     }
 
@@ -139,6 +139,14 @@
     };
 
     const signal = { signal: abort.signal };
+    canvas.addEventListener('webglcontextlost', (event) => {
+      event.preventDefault();
+      console.warn('WebGL context lost - attempting to restore');
+    }, { signal: abort.signal });
+    
+    canvas.addEventListener('webglcontextrestored', () => {
+      console.log('WebGL context restored');
+    }, { signal: abort.signal });
     canvas.addEventListener('pointerdown', event => {
       state.drag = true; state.x = event.clientX; state.y = event.clientY;
       canvas.classList.add('is-dragging'); canvas.setPointerCapture?.(event.pointerId);
@@ -160,3 +168,4 @@
   document.addEventListener('keydown', event => { if (event.key === 'Escape') window.destroyAtomicLab?.(); });
   document.addEventListener('click', event => { if (event.target.closest?.('.em-close') || event.target.id === 'elModalOverlay') window.destroyAtomicLab?.(); });
 })();
+

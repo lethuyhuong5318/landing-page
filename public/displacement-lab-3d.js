@@ -18,6 +18,14 @@
     return;
   }
   renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.65));
+  canvas.addEventListener('webglcontextlost', (event) => {
+    event.preventDefault();
+    state.drag = false;
+    console.warn('WebGL context lost in displacement-lab');
+  });
+  canvas.addEventListener('webglcontextrestored', () => {
+    console.log('WebGL context restored in displacement-lab');
+  }, { signal: state.abort.signal });
   renderer.setClearColor(0x000000, 0);
 
   const scene = new THREE.Scene();
@@ -179,8 +187,7 @@
     deposits.children.forEach(particle => {
       const reveal = state.reacting ? Math.max(0, Math.min(1, (state.progress - .5 - particle.userData.delay * .35) * 7)) : 0;
       particle.scale.setScalar(reveal);
-      particle.rotation.x += .006;
-      particle.rotation.y += .008;
+      if (!reduced) { particle.rotation.x += .006; particle.rotation.y += .008; }
     });
     renderer.render(scene, camera);
     state.frameId = requestAnimationFrame(animate);
@@ -224,4 +231,6 @@
   resize();
   animate();
 })();
+
+
 

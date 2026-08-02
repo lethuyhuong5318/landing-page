@@ -31,6 +31,15 @@
     return;
   }
   renderer.setPixelRatio(Math.min(devicePixelRatio || 1, lowPower ? 1.35 : 1.7));
+  canvas.addEventListener('webglcontextlost', (event) => {
+    event.preventDefault();
+    state.paused = true;
+    console.warn('WebGL context lost in chem-miner');
+  });
+  canvas.addEventListener('webglcontextrestored', () => {
+    state.paused = false;
+    console.log('WebGL context restored in chem-miner');
+  });
   renderer.setClearColor(0x102a3a, 1);
   const scene = new THREE.Scene();
   scene.fog = new THREE.Fog(0x122f3e, 9, 24);
@@ -201,7 +210,7 @@
     const distractors = shuffle(pool.filter(item => item.val !== state.target)).slice(0, 6);
     let picks = shuffle([...correct, ...distractors]);
     while (picks.length < Math.min(9, pool.length + 2)) picks.push(pool[Math.floor(Math.random() * pool.length)]);
-    const visiblePicks = picks.slice(0, state.bounds.halfWidth < 5 ? 8 : 9);
+    const visiblePicks = picks.slice(0, state.bounds.halfWidth < 3.5 ? 6 : state.bounds.halfWidth < 4.5 ? 7 : state.bounds.halfWidth < 6 ? 8 : 9);
     state.minerals = visiblePicks.map((item, index) => createMineral(item, index, visiblePicks.length));
   }
 
@@ -457,25 +466,25 @@
     state.frameId = state.frameId = requestAnimationFrame(tick);
   }
 
-  $('minerStart').addEventListener('click', reset);
-  $('minerIntroStart').addEventListener('click', reset);
-  canvas.addEventListener('pointerdown', launch);
-  document.querySelectorAll('.miner-power').forEach(button => button.addEventListener('click', () => usePower(button.dataset.power, button)));
-  ui.pause.addEventListener('click', togglePause);
-  ui.sound.addEventListener('click', toggleSound);
+  $('minerStart').addEventListener('click', reset, { signal: state.abort.signal });
+  $('minerIntroStart').addEventListener('click', reset, { signal: state.abort.signal });
+  canvas.addEventListener('pointerdown', launch, { signal: state.abort.signal });
+  document.querySelectorAll('.miner-power').forEach(button => button.addEventListener('click', () => usePower(button.dataset.power, button), { signal: state.abort.signal }));
+  ui.pause.addEventListener('click', togglePause, { signal: state.abort.signal });
+  ui.sound.addEventListener('click', toggleSound, { signal: state.abort.signal });
   $('minerHowButton').addEventListener('click', () => toast('Canh hÆ°á»›ng mÃ³c, rá»“i cháº¡m vÃ¹ng chÆ¡i hoáº·c nÃºt THáº¢ MÃ“C. ÄÃ o Ä‘Ãºng hÃ³a trá»‹ Ä‘Æ°á»£c yÃªu cáº§u.', 'good'));
   $('minerTableButton').addEventListener('click', () => {
     ui.intro.hidden = true; document.querySelector('#p-valence .tt')?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
   });
-  $('minerIntroSound').addEventListener('click', toggleSound);
+  $('minerIntroSound').addEventListener('click', toggleSound, { signal: state.abort.signal });
   document.querySelectorAll('.miner-control').forEach(button => {
     const direction = Number(button.dataset.aim || 0);
-    if (button.dataset.action === 'drop') button.addEventListener('click', launch);
+    if (button.dataset.action === 'drop') button.addEventListener('click', launch, { signal: state.abort.signal });
     else {
       const set = value => { state.aim = value; state.hook.direction = value || state.hook.direction; };
-      button.addEventListener('pointerdown', () => set(direction));
-      button.addEventListener('pointerup', () => set(0));
-      button.addEventListener('pointercancel', () => set(0));
+      button.addEventListener('pointerdown', () => set(direction), { signal: state.abort.signal });
+      button.addEventListener('pointerup', () => set(0), { signal: state.abort.signal });
+      button.addEventListener('pointercancel', () => set(0), { signal: state.abort.signal });
     }
   });
   document.addEventListener('keydown', event => {
@@ -485,8 +494,9 @@
     if (event.code === 'ArrowRight') state.hook.direction = 1;
     if (event.code === 'KeyP') togglePause();
   });
-  document.addEventListener('visibilitychange', () => { state.hidden = document.hidden; state.last = performance.now(); });
+  document.addEventListener('visibilitychange', () => { state.hidden = document.hidden; state.last = performance.now(); }, { signal: state.abort.signal });
   window.destroyChemMiner = () => {
+    state.abort.abort();
     if (state.frameId) cancelAnimationFrame(state.frameId);
     state.resizeObserver?.disconnect();
     state.minerals.forEach(group => {
@@ -512,5 +522,8 @@
   ui.best.textContent = `Ká»· lá»¥c: ${Number(localStorage.getItem('chemMinerBest') || 0)} Ä‘iá»ƒm`;
   resize(); state.target = 'I'; spawn(); updateHud(); updateRope(endpoint()); state.frameId = state.frameId = requestAnimationFrame(tick);
 })();
+
+
+
 
 
