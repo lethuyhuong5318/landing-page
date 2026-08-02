@@ -871,6 +871,7 @@ export default function Home() {
           </a>
           <nav className="footer-nav" aria-label="Liên kết cuối trang"><a href={getAssetPath("/#khoa-hoc")}>Khóa học</a><a href={getAssetPath("/#giang-vien")}>Giảng viên</a><a href={getAssetPath("/feedback")}>Feedback</a><a href={getAssetPath("/blog")}>Blog</a><a href={getAssetPath("/#dang-ky")}>Đăng ký</a></nav>
           <p className="footer-address">9/5A Đường Số 1, Thành phố Thủ Đức, TP. Hồ Chí Minh · Học trực tiếp tại Quận 9 & học online toàn quốc</p>
+          <p className="footer-developer">Phát triển bởi <strong>Thehuntech</strong> — Giải pháp số cho doanh nghiệp · <a href="tel:0354375305">0354 375 305</a></p>
           <div className="footer-social" aria-label="Kết nối với ChamChamEdemy">
             <a href={MAP_URL} target="_blank" rel="noreferrer" aria-label="Địa chỉ ChamChamEdemy trên Google Maps"><span>⌖</span>Địa chỉ</a>
             <a href={YOUTUBE_URL} target="_blank" rel="noreferrer" aria-label="YouTube ChamChamEdemy"><span>▶</span>YouTube</a>

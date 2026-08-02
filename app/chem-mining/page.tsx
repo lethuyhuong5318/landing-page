@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { getAssetPath } from "../basePath";
 
-const MiningGame3D = dynamic(() => import("@/components/MiningGame3D"), {
+const MiningGame2D = dynamic(() => import("@/components/MiningGame2D"), {
   ssr: false,
   loading: () => (
     <div
@@ -62,7 +62,7 @@ export default function ChemMiningPage() {
               marginBottom: "12px",
             }}
           >
-            ⛏️ Trò chơi giáo dục
+            ⛏️ Trò chơi giáo dục 2D
           </div>
           <h1
             style={{
@@ -75,7 +75,7 @@ export default function ChemMiningPage() {
               backgroundClip: "text",
             }}
           >
-            Đào Khoáng Chất Hóa 3D
+            Đào Hóa Trị 2D
           </h1>
           <p
             style={{
@@ -86,7 +86,7 @@ export default function ChemMiningPage() {
               lineHeight: "1.6",
             }}
           >
-            Khám phá các nguyên tố hóa học thông qua một trò chơi 3D tương tác. Thu thập tinh thể khoáng, tìm hiểu ký hiệu hóa học và nâng cao kỹ năng của bạn!
+            Canh móc, kéo đúng nguyên tố và ghi nhớ hóa trị qua từng lượt chơi 2D nhẹ, rõ nét.
           </p>
         </div>
 
@@ -96,7 +96,7 @@ export default function ChemMiningPage() {
             marginBottom: "60px",
           }}
         >
-          <MiningGame3D width={1000} height={700} difficulty="normal" />
+          <MiningGame2D />
         </div>
 
         {/* Info Section */}

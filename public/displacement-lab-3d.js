@@ -8,7 +8,7 @@
   const saltCations = { CuSO4: 'Cu', AgNO3: 'Ag', FeSO4: 'Fe', ZnSO4: 'Zn', MgSO4: 'Mg' };
   const series3d = ['K', 'Na', 'Ba', 'Ca', 'Mg', 'Al', 'Zn', 'Fe', 'Ni', 'Sn', 'Pb', 'H', 'Cu', 'Hg', 'Ag', 'Pt', 'Au'];
   const metalColors = { Mg: 0xbfc8ce, Al: 0xdce4e8, Zn: 0xaeb9c0, Fe: 0x7a858c, Cu: 0xb96b35, Ag: 0xdde4ea };
-  const solutionColors = { Cu: 0x36a7e2, Ag: 0xd8edfa, Fe: 0x9ac879, Zn: 0xd8edf8, Mg: 0xdceefa, Al: 0xdceefa };
+  const solutionColors = { Cu: 0x168fd1, Ag: 0xdff5ff, Fe: 0x83bd67, Zn: 0xd7f1fa, Mg: 0xe3f5fb, Al: 0xe3f5fb };
 
   let renderer;
   try {

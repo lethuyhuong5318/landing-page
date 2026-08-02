@@ -40,7 +40,7 @@
   <header class="cluster-lesson-header">
     <a class="cluster-home-link" href="/lay-goc-hoa/">← Về lộ trình Lấy gốc Hóa</a>
     <span class="cluster-kicker">Bài 08 · 30 phút</span>
-    <p class="cluster-original-title">Lấy gốc Hóa học THCS</p><p>Làm quen hydrocarbon, alcohol, acid acetic và các nhóm chất hữu cơ quan trọng.</p>
+    <p class="cluster-original-title">Lấy gốc Hóa học THCS</p><p>Làm quen hydrocarbon, alcohol, acid acetic và các nhóm chất hữu cơ quan trọng.</p><div class="cluster-lesson-side" aria-label="Điểm học tập"></div>
   </header>
   <nav class="cluster-lesson-nav" aria-label="Dieu huong bai hoc">
     <a class="cluster-prev" href="/lay-goc-hoa/day-hoat-dong-khi-ket-tua/"><span class="cluster-nav-arrow">&larr;</span><span>Dãy hoạt động, chất khí và kết tủa</span></a>
@@ -261,10 +261,10 @@
     </div>
 
         <div class="card chem-miner-upgrade">
-          <span class="eyebrow">GAME H&#7884;C T&#7852;P 3D</span>
-          <h2>&#272;&#224;o H&#243;a Tr&#7883; 3D</h2>
+          <span class="eyebrow">GAME H&#7884;C T&#7852;P 2D</span>
+          <h2>&#272;&#224;o H&#243;a Tr&#7883;</h2>
           <p>&#272;i&#7873;u khi&#7875;n m&#243;c &#273;&#224;o, thu th&#7853;p tinh th&#7875; nguy&#234;n t&#7889; v&#224; tr&#7843; l&#7901;i h&#243;a tr&#7883; &#273;&#7875; ghi nh&#7899; ch&#7911; &#273;&#7897;ng.</p>
-          <div class="chem-miner-frame-shell"><iframe src="/chem-mining/embed/" title="Game &#272;&#224;o H&#243;a Tr&#7883; 3D" loading="lazy" allow="fullscreen"></iframe></div>
+          <div class="chem-miner-frame-shell"><iframe src="/chem-mining/embed/" title="Game &#272;&#224;o H&#243;a Tr&#7883;" loading="lazy" allow="fullscreen"></iframe></div>
           <a class="chem-miner-fullscreen" href="/chem-mining/" target="_blank" rel="noopener">M&#7903; game to&#224;n m&#224;n h&#236;nh &rarr;</a>
         </div>
         <div class="card chem-miner-card chem-miner-legacy" hidden>
@@ -744,6 +744,7 @@
   <footer>
     <div class="b">ChamChamEdemy</div>
     <div class="t">CÔ TRÂM HÓA HỌC</div>
+    <div class="developer-credit">Phát triển bởi <b>Thehuntech</b> — Giải pháp số cho doanh nghiệp · <a href="tel:0354375305">0354 375 305</a></div>
   </footer>
 </div>
 
@@ -756,5 +757,5 @@
 <script src="/periodic-table-enhancements.js"></script>
 <script src="/virtual-lab.js"></script>
 <script src="/displacement-lab-3d.js"></script>
-<script src="/assets/js/lay-goc-hoa-init.js"></script><script src="/assets/js/chemistry-lesson-progress.js"></script><script>document.addEventListener("DOMContentLoaded",()=>{selectTab("p-organic");document.querySelectorAll(".panel").forEach(p=>{if(p.id!=="p-organic")p.setAttribute("hidden","")});});</script></body>
+<script src="/assets/js/lay-goc-hoa-init.js"></script><script src="/assets/js/chemistry-lesson-progress.js"></script><script>document.addEventListener("DOMContentLoaded",()=>{selectTab("p-organic");document.querySelectorAll(".panel").forEach(p=>{if(p.id!=="p-organic")p.setAttribute("hidden","")});const side=document.querySelector(".cluster-lesson-side"),mascot=document.querySelector(".hero .mascot-badge"),xp=document.querySelector(".hero .xp-badge");if(side){if(mascot)side.appendChild(mascot);if(xp)side.appendChild(xp);}});</script></body>
 </html>
