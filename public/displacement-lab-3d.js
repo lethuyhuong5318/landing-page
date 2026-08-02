@@ -186,7 +186,7 @@
     }
     deposits.children.forEach(particle => {
       const reveal = state.reacting ? Math.max(0, Math.min(1, (state.progress - .5 - particle.userData.delay * .35) * 7)) : 0;
-      particle.scale.setScalar(reveal);
+      particle.scale.setScalar(Math.max(0.001, Math.min(1, reveal)));
       if (!reduced) { particle.rotation.x += .006; particle.rotation.y += .008; }
     });
     renderer.render(scene, camera);
@@ -231,6 +231,7 @@
   resize();
   animate();
 })();
+
 
 
 
