@@ -9,7 +9,8 @@ const MiningGame2D = dynamic(() => import("@/components/MiningGame2D"), {
 
 export default function ChemistryMiningEmbedPage() {
   return (
-    <main className="mining-embed">`r`n      <MiningGame2D compact />
+    <main className="mining-embed">
+      <MiningGame2D compact />
       <style jsx global>{`
         * { box-sizing: border-box; }
         html, body { margin: 0; min-height: 100%; background: #e8f5fb; }

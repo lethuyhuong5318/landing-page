@@ -530,7 +530,6 @@
 <link rel="stylesheet" href="./periodic-table-enhancements.css">
 <link rel="stylesheet" href="./virtual-lab.css">
 <link rel="stylesheet" href="./atomic-lab.css">
-<link rel="stylesheet" href="./chem-miner-3d.css">
 <link rel="stylesheet" href="./displacement-lab-3d.css">
 <link rel="stylesheet" href="./everyday-chemistry.css">
 <link rel="stylesheet" href="./mobile-lesson-responsive.css">
@@ -762,20 +761,10 @@
           <span class="eyebrow">GAME H&#7884;C T&#7852;P 2D</span>
           <h2>&#272;&#224;o H&#243;a Tr&#7883;</h2>
           <p>&#272;i&#7873;u khi&#7875;n m&#243;c &#273;&#224;o, thu th&#7853;p tinh th&#7875; nguy&#234;n t&#7889; v&#224; tr&#7843; l&#7901;i h&#243;a tr&#7883; &#273;&#7875; ghi nh&#7899; ch&#7911; &#273;&#7897;ng.</p>
-          <div class="chem-miner-frame-shell"><iframe src="./chem-mining/embed/" title="Game &#272;&#224;o H&#243;a Tr&#7883;" loading="lazy" allow="fullscreen"></iframe></div>
-          <a class="chem-miner-fullscreen" href="./chem-mining/" target="_blank" rel="noopener">M&#7903; game to&#224;n m&#224;n h&#236;nh &rarr;</a>
+          <div class="chem-miner-frame-shell"><iframe src="/chem-mining/embed/" title="Game &#272;&#224;o H&#243;a Tr&#7883; 2D" loading="lazy" allow="fullscreen"></iframe></div>
+          <a class="chem-miner-fullscreen" href="/chem-mining/" target="_blank" rel="noopener">M&#7903; game 2D to&#224;n m&#224;n h&#236;nh &rarr;</a>
         </div>
-        <div class="card chem-miner-card chem-miner-legacy" hidden>
-      <div class="chem-miner-head"><div><span class="chem-miner-kicker">Game học tập Three.js</span><h2>Đào Hóa Trị</h2><p class="chem-miner-tagline">Điều khiển móc câu, thu thập khoáng vật và ghi nhớ hóa trị qua từng màn.</p></div><span class="chem-miner-save" id="minerBest">Kỷ lục: 0 điểm</span></div>
-      <div class="chem-miner-shell">
-        <div class="chem-miner-toolbar"><label><span>Chế độ</span><select id="minerMode"><option value="practice">Luyện tập</option><option value="challenge">Thử thách 60 giây</option></select></label><label><span>Cấp độ</span><select id="minerLevel"><option value="1">1 — Hóa trị I</option><option value="2">2 — Hóa trị II</option><option value="3">3 — Hóa trị III và IV</option><option value="4">4 — Nhóm nguyên tử</option><option value="boss">5 — Thử thách tổng hợp</option></select></label><button class="chem-miner-start" id="minerStart" type="button">Bắt đầu màn</button></div>
-        <div class="chem-miner-hud"><div class="miner-stat"><small>Điểm</small><b id="minerScore">0</b></div><div class="miner-stat"><small>Thời gian</small><b id="minerTime">∞</b></div><div class="miner-stat"><small>Lượt</small><b class="miner-hearts" id="minerLives">● ● ●</b></div><div class="miner-stat miner-streak"><small>Chuỗi đúng</small><b id="minerCombo">x0</b></div><button class="miner-hud-button" id="minerPause" type="button" aria-label="Tạm dừng" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg></button><button class="miner-hud-button" id="minerSound" type="button" aria-label="Tắt âm thanh" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M5 9v6h4l5 4V5L9 9H5Zm12 1a3 3 0 0 1 0 4m2-7a7 7 0 0 1 0 10"/></svg></button></div>
-        <div class="miner-question"><div><small>Yêu cầu màn chơi</small><strong id="minerQuestionText">Đào nguyên tố có hóa trị I</strong></div><span class="miner-question-progress" id="minerProgress">Đã tìm 0/10 đáp án đúng</span><span id="minerTarget" hidden>Hóa trị I</span></div>
-        <div class="chem-miner-stage" id="minerStage"><canvas id="chemMinerCanvas" width="760" height="400" aria-label="Game Three.js Đào Hóa Trị"></canvas><div class="miner-canvas-label">Chạm vùng chơi hoặc nhấn Space để thả móc</div><div class="miner-combo-badge" id="minerComboBadge">COMBO x3</div><div class="miner-mobile-controls"><button class="miner-control" type="button" data-aim="-1" aria-label="Hướng móc sang trái">TRÁI</button><button class="miner-control drop" type="button" data-action="drop">THẢ MÓC</button><button class="miner-control" type="button" data-aim="1" aria-label="Hướng móc sang phải">PHẢI</button></div><div class="miner-overlay" id="minerIntro"><div class="miner-dialog"><div class="miner-start-brand"><img src="./co-tram-mascot.webp" alt="Mascot gấu ChamChamEdemy đội mũ thợ mỏ"><div><small>ChamChamEdemy</small><h3>Đào Hóa Trị</h3></div></div><p>Canh hướng móc và thu đúng khoáng vật có hóa trị theo yêu cầu.</p><div class="miner-how"><div><b>1. Quan sát</b><span>Đọc mục tiêu hóa trị</span></div><div><b>2. Canh móc</b><span>Chờ hoặc chỉnh hướng</span></div><div><b>3. Thu thập</b><span>Chạm để thả móc</span></div></div><div class="miner-dialog-actions"><button class="miner-primary" id="minerIntroStart" type="button">Bắt đầu</button><button class="miner-secondary" id="minerHowButton" type="button">Cách chơi</button><button class="miner-secondary" id="minerTableButton" type="button">Bảng hóa trị</button><button class="miner-secondary" id="minerIntroSound" type="button"><span id="minerSoundText">Âm thanh bật</span></button></div></div></div><div class="miner-overlay" id="minerResult" hidden><div class="miner-dialog" id="minerResultBody"></div></div></div>
-        <div class="miner-toast" id="minerToast" aria-live="polite">Chọn chế độ và cấp độ để bắt đầu.</div>
-        <div class="miner-powerups"><button class="miner-power" type="button" data-power="time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>+8 giây</button><button class="miner-power" type="button" data-power="magnet"><svg viewBox="0 0 24 24"><path d="M6 3v9a6 6 0 0 0 12 0V3M6 8h5m2 0h5"/></svg>Nam châm</button><button class="miner-power" type="button" data-power="scope"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>Kính soi</button><button class="miner-power" type="button" data-power="bomb"><svg viewBox="0 0 24 24"><circle cx="11" cy="13" r="7"/><path d="m16 8 3-3m-1 0h3v3"/></svg>Lọc tinh thể</button></div>
-      </div>
-    </div><div class="card">
+        <div class="card">
       <div class="card-head"><h2>Bảng hóa trị đầy đủ</h2></div>
       <table class="tt">
         <tr><th>Hóa trị</th><th>Kim loại</th><th>Phi kim</th><th>Nhóm nguyên tử</th></tr>
@@ -2144,8 +2133,6 @@ tex(document.body);
 </script>
 <script src="./periodic-table.js"></script>
 <script src="./three.min.js"></script>
-<script src="./chem-miner-data.js"></script>
-<script src="./chem-miner-3d.js"></script>
 <script src="./atomic-lab.js"></script>
 <script src="./periodic-table-enhancements.js"></script>
 <script src="./virtual-lab.js"></script>
