@@ -66,7 +66,7 @@ export default function MiningGame3D({
   const [message, setMessage] = useState("");
   const hookPositionRef = useRef({ x: 0, y: 2, z: 0 });
   const hookStateRef = useRef({ isMoving: false, targetY: 2 });
-  const animationIdRef = useRef<number>();
+  const animationIdRef = useRef<number | null>(null);
   const startTimeRef = useRef<number>(Date.now());
 
   useEffect(() => {
@@ -78,7 +78,7 @@ export default function MiningGame3D({
     });
 
     return () => {
-      if (animationIdRef.current) {
+      if (animationIdRef.current !== null) {
         cancelAnimationFrame(animationIdRef.current);
       }
       if (rendererRef.current && containerRef.current) {
