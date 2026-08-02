@@ -15,15 +15,15 @@ type Mineral = {
 };
 
 const MINERALS: Omit<Mineral, "x" | "y" | "collected">[] = [
-  { symbol: "Na", name: "Natri", valence: "I", radius: 34, color: "#ffd166", weight: 1 },
-  { symbol: "K", name: "Kali", valence: "I", radius: 30, color: "#ffb84d", weight: 1 },
-  { symbol: "Ag", name: "Bạc", valence: "I", radius: 29, color: "#cfe8f3", weight: 1 },
-  { symbol: "Mg", name: "Magie", valence: "II", radius: 35, color: "#8bd3c7", weight: 1.25 },
-  { symbol: "Ca", name: "Canxi", valence: "II", radius: 36, color: "#91c9f7", weight: 1.3 },
-  { symbol: "Zn", name: "Kẽm", valence: "II", radius: 33, color: "#9ec5e6", weight: 1.25 },
-  { symbol: "Al", name: "Nhôm", valence: "III", radius: 37, color: "#c5b4e3", weight: 1.45 },
-  { symbol: "PO₄", name: "Phosphate", valence: "III", radius: 39, color: "#f6a6c1", weight: 1.6 },
-  { symbol: "C", name: "Carbon", valence: "IV", radius: 32, color: "#8093a7", weight: 1.35 },
+  { symbol: "Na", name: "Natri", valence: "I", radius: 25, color: "#ffd166", weight: 1 },
+  { symbol: "K", name: "Kali", valence: "I", radius: 23, color: "#ffb84d", weight: 1 },
+  { symbol: "Ag", name: "Bạc", valence: "I", radius: 22, color: "#cfe8f3", weight: 1 },
+  { symbol: "Mg", name: "Magie", valence: "II", radius: 26, color: "#8bd3c7", weight: 1.25 },
+  { symbol: "Ca", name: "Canxi", valence: "II", radius: 27, color: "#91c9f7", weight: 1.3 },
+  { symbol: "Zn", name: "Kẽm", valence: "II", radius: 25, color: "#9ec5e6", weight: 1.25 },
+  { symbol: "Al", name: "Nhôm", valence: "III", radius: 28, color: "#c5b4e3", weight: 1.45 },
+  { symbol: "PO₄", name: "Phosphate", valence: "III", radius: 29, color: "#f6a6c1", weight: 1.6 },
+  { symbol: "C", name: "Carbon", valence: "IV", radius: 24, color: "#8093a7", weight: 1.35 },
 ];
 
 const TARGETS = ["I", "II", "III", "IV"];
@@ -39,7 +39,8 @@ export default function MiningGame2D({ compact = false }: { compact?: boolean })
     target: "I",
     angle: -0.55,
     direction: 1,
-    length: 82,
+    length: 120,
+    restLength: 120,
     status: "swing" as "swing" | "extend" | "retract",
     caught: null as Mineral | null,
     minerals: [] as Mineral[],
@@ -55,10 +56,12 @@ export default function MiningGame2D({ compact = false }: { compact?: boolean })
 
   const spawn = useCallback((width: number, height: number) => {
     const columns = 3;
+    const scale = Math.max(0.72, Math.min(1, width / 760));
     stateRef.current.minerals = MINERALS.map((item, index) => ({
       ...item,
       x: width * (0.2 + (index % columns) * 0.3) + (index % 2 ? 10 : -8),
-      y: height * (0.48 + Math.floor(index / columns) * 0.19),
+      y: height * (0.56 + Math.floor(index / columns) * 0.16),
+      radius: item.radius * scale,
       collected: false,
     }));
   }, []);
@@ -75,7 +78,8 @@ export default function MiningGame2D({ compact = false }: { compact?: boolean })
     state.target = TARGETS[Math.floor(Math.random() * TARGETS.length)];
     state.angle = -0.55;
     state.direction = 1;
-    state.length = 82;
+    state.restLength = Math.max(108, Math.min(150, rect.height * 0.26));
+    state.length = state.restLength;
     state.status = "swing";
     state.caught = null;
     state.particles = [];
@@ -111,7 +115,9 @@ export default function MiningGame2D({ compact = false }: { compact?: boolean })
       canvas.width = Math.round(rect.width * ratio);
       canvas.height = Math.round(rect.height * ratio);
       context.setTransform(ratio, 0, 0, ratio, 0, 0);
-      if (!stateRef.current.minerals.length) spawn(rect.width, rect.height);
+      stateRef.current.restLength = Math.max(108, Math.min(150, rect.height * 0.26));
+      if (stateRef.current.status === "swing") stateRef.current.length = stateRef.current.restLength;
+      spawn(rect.width, rect.height);
     };
 
     const drawBackground = (width: number, height: number) => {
@@ -151,6 +157,39 @@ export default function MiningGame2D({ compact = false }: { compact?: boolean })
       }
     };
 
+    const drawMinerMascot = (width: number, height: number) => {
+      const scale = Math.max(0.62, Math.min(1, width / 720));
+      const x = Math.max(48, width * 0.1);
+      const y = Math.max(64, height * 0.2);
+      context.save();
+      context.translate(x, y);
+      context.scale(scale, scale);
+      context.lineJoin = "round";
+      context.lineCap = "round";
+
+      context.fillStyle = "rgba(11,54,94,.2)";
+      context.beginPath(); context.ellipse(0, 48, 42, 11, 0, 0, Math.PI * 2); context.fill();
+      context.fillStyle = "#163d63";
+      roundedRect(-28, 16, 56, 39, 17); context.fill();
+      context.fillStyle = "#fff4dc";
+      context.beginPath(); context.arc(0, 0, 31, 0, Math.PI * 2); context.fill();
+      context.strokeStyle = "#0b365e"; context.lineWidth = 3; context.stroke();
+      context.beginPath(); context.arc(-22, -20, 11, 0, Math.PI * 2); context.arc(22, -20, 11, 0, Math.PI * 2); context.fill(); context.stroke();
+      context.fillStyle = "#ffc83d";
+      context.beginPath(); context.arc(0, -9, 32, Math.PI, 0); context.lineTo(32, -5); context.lineTo(-32, -5); context.closePath(); context.fill(); context.stroke();
+      roundedRect(-37, -8, 74, 10, 5); context.fill(); context.stroke();
+      context.fillStyle = "#0b365e";
+      context.beginPath(); context.arc(-11, 0, 3.5, 0, Math.PI * 2); context.arc(11, 0, 3.5, 0, Math.PI * 2); context.fill();
+      context.beginPath(); context.ellipse(0, 10, 7, 5, 0, 0, Math.PI * 2); context.fill();
+      context.strokeStyle = "#0b365e"; context.lineWidth = 2;
+      context.beginPath(); context.arc(0, 12, 10, .2, Math.PI - .2); context.stroke();
+      context.strokeStyle = "#8c5b2f"; context.lineWidth = 5;
+      context.beginPath(); context.moveTo(24, 28); context.lineTo(52, 7); context.stroke();
+      context.strokeStyle = "#dce9ef"; context.lineWidth = 6;
+      context.beginPath(); context.moveTo(44, 3); context.lineTo(57, 13); context.stroke();
+      context.restore();
+    };
+
     const drawRig = (pivotX: number, pivotY: number, hookX: number, hookY: number) => {
       context.strokeStyle = "#f5d8a1";
       context.lineWidth = 4;
@@ -175,13 +214,13 @@ export default function MiningGame2D({ compact = false }: { compact?: boolean })
       context.restore();
 
       context.fillStyle = "#f3aa2d";
-      roundedRect(pivotX - 52, pivotY - 30, 104, 34, 12);
+      roundedRect(pivotX - 43, pivotY - 27, 86, 29, 10);
       context.fill();
       context.strokeStyle = "#0b365e";
       context.lineWidth = 3;
       context.stroke();
       context.fillStyle = "#0b365e";
-      context.font = '800 13px "Be Vietnam Pro", sans-serif';
+      context.font = '800 11px "Be Vietnam Pro", sans-serif';
       context.textAlign = "center";
       context.fillText("MỎ HÓA TRỊ", pivotX, pivotY - 8);
     };
@@ -254,7 +293,7 @@ export default function MiningGame2D({ compact = false }: { compact?: boolean })
       const delta = Math.min(0.032, (now - (state.last || now)) / 1000);
       state.last = now;
       const pivotX = width / 2;
-      const pivotY = Math.max(54, height * 0.15);
+      const pivotY = Math.max(58, height * 0.13);
 
       if (state.running) {
         if (state.status === "swing") {
@@ -267,7 +306,7 @@ export default function MiningGame2D({ compact = false }: { compact?: boolean })
           const hookY = pivotY + Math.cos(state.angle) * state.length;
           if (state.status === "extend") {
             const hit = state.minerals.find((mineral) =>
-              !mineral.collected && Math.hypot(hookX - mineral.x, hookY - mineral.y) < mineral.radius + 16
+              !mineral.collected && Math.hypot(hookX - mineral.x, hookY - mineral.y) < mineral.radius + 12
             );
             if (hit) {
               state.caught = hit;
@@ -281,9 +320,9 @@ export default function MiningGame2D({ compact = false }: { compact?: boolean })
             state.caught.x = hookX;
             state.caught.y = hookY + 18;
           }
-          if (state.status === "retract" && state.length <= 82) {
+          if (state.status === "retract" && state.length <= state.restLength) {
             if (state.caught) state.caught.collected = true;
-            state.length = 82;
+            state.length = state.restLength;
             state.caught = null;
             state.status = "swing";
             if (state.lives <= 0 || state.minerals.filter((item) => !item.collected).length <= 2) {
@@ -299,6 +338,7 @@ export default function MiningGame2D({ compact = false }: { compact?: boolean })
       }
 
       drawBackground(width, height);
+      drawMinerMascot(width, height);
       state.minerals.forEach(drawMineral);
       const hookX = pivotX + Math.sin(state.angle) * state.length;
       const hookY = pivotY + Math.cos(state.angle) * state.length;
@@ -382,7 +422,7 @@ export default function MiningGame2D({ compact = false }: { compact?: boolean })
         .mining-drop:disabled{cursor:not-allowed;opacity:.55}
         .mining-feedback{min-height:44px;margin:9px 0 0;padding:11px 14px;border-radius:12px;background:#e8f5fb;font-size:12px;font-weight:700}
         .is-compact{padding:12px}.is-compact header{margin-bottom:9px}.is-compact header p{font-size:12px}
-        @media(max-width:600px){.mining-game-2d{padding:9px;border-radius:16px}header{align-items:flex-start}header p{display:none}header button{padding:0 14px}.mining-hud{grid-template-columns:repeat(2,1fr);gap:5px}.mining-hud span{padding:6px 8px}canvas{aspect-ratio:4/3}.mining-drop{bottom:8px}.mining-feedback{font-size:11px}}
+        @media(max-width:600px){.mining-game-2d{padding:9px;border-radius:16px}header{align-items:flex-start}header p{display:none}header button{padding:0 14px}.mining-hud{grid-template-columns:repeat(2,1fr);gap:5px}.mining-hud span{padding:6px 8px}canvas{aspect-ratio:16/11}.mining-drop{bottom:8px}.mining-feedback{font-size:11px}}
         @media(prefers-reduced-motion:reduce){button{transition:none}}
       `}</style>
     </section>
