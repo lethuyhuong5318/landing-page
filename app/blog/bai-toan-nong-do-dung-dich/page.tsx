@@ -7,7 +7,7 @@ import { getAssetPath } from "../../basePath";
 const TITLE = "Cách giải bài toán nồng độ dung dịch";
 const DESCRIPTION = "Quy trình đọc đề, đổi số mol, lập phương trình và tính nồng độ dung dịch sau phản ứng.";
 const SLUG = "/blog/bai-toan-nong-do-dung-dich";
-const IMAGE = "/so-do-dong-chat-fe-cu.jpg";
+const IMAGE = "/so-do-dong-chat-fe-cu.webp";
 const DATE_PUBLISHED = "2026-07-20";
 
 export const metadata: Metadata = {

@@ -32,7 +32,7 @@ const caveat = Caveat({
 const HOME_TITLE = "Học Hóa Quận 9, Thủ Đức & Online | Cô Trâm";
 const HOME_DESCRIPTION =
   "ChamChamEdemy cùng Cô Trâm dạy Hóa THCS–THPT cho học sinh mất gốc: học trực tiếp Quận 9/Thủ Đức hoặc online toàn quốc.";
-const SHARE_IMAGE = getAssetPath("/co-tram-mascot.jpg");
+const SHARE_IMAGE = getAssetPath("/co-tram-mascot.webp");
 
 export const viewport: Viewport = {
   width: "device-width",

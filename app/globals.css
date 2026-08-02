@@ -1420,3 +1420,8 @@ footer { padding-bottom: 56px; }
   .element-result h3 { margin-top: 10px; }
   .fact-card { margin-top: 9px; }
 }
+@supports (content-visibility: auto) {
+  .courses-section, .teacher-section, .proof-section { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+}
+
+.article-wrap .cover { aspect-ratio: 3 / 2; object-fit: cover; }

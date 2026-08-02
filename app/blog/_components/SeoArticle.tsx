@@ -34,7 +34,7 @@ export default function SeoArticle({
         <p className="section-kicker">{kicker}</p><h1>{title}</h1>
         <p className="article-lead">{description}</p>
         <p className="article-byline">Biên soạn bởi Cô Trâm – ChamChamEdemy · Cập nhật 30/07/2026 · {readingTime}</p>
-        <img className="cover" src={getAssetPath(image)} alt={imageAlt} />
+        <img className="cover" src={getAssetPath(image)} alt={imageAlt} width="1200" height="800" loading="eager" fetchPriority="high" decoding="async" />
         <div className="article-body">
           <section className="answer-box"><h2 id="tra-loi-nhanh">Trả lời nhanh</h2>{quickAnswer}</section>
           <section className="quick-summary"><h2 id="tom-tat-nhanh">Tóm tắt nhanh</h2><ul>{summary.map((item) => <li key={item}>{item}</li>)}</ul></section>

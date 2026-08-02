@@ -17,7 +17,7 @@ export default function SiteChrome({ children }: { children: ReactNode }) {
       <a className="skip-link" href="#page-content">Bỏ qua điều hướng</a>
       <header className="site-header">
         <a className="brand" href={getAssetPath("/")} aria-label="ChamChamEdemy — trang chủ">
-          <img className="brand-logo" src={getAssetPath("/chamcham-logo.png")} alt="Logo ChamChamEdemy" width="58" height="58" />
+          <img className="brand-logo" src={getAssetPath("/chamcham-logo-256.webp")} alt="Logo ChamChamEdemy" width="58" height="58" />
           <span>ChamCham<span>Edemy</span><small>Học Hóa bằng tư duy trực quan</small></span>
         </a>
         <nav className="desktop-nav" aria-label="Điều hướng chính">
@@ -33,7 +33,7 @@ export default function SiteChrome({ children }: { children: ReactNode }) {
       <div id="page-content">{children}</div>
       <footer className="site-footer">
         <div className="footer-inner">
-          <a className="brand footer-brand" href={getAssetPath("/")}><img className="brand-logo" src={getAssetPath("/chamcham-logo.png")} alt="Logo ChamChamEdemy" width="52" height="52" /><span>ChamCham<span>Edemy</span><small>Học Hóa bằng tư duy trực quan</small></span></a>
+          <a className="brand footer-brand" href={getAssetPath("/")}><img className="brand-logo" src={getAssetPath("/chamcham-logo-256.webp")} alt="Logo ChamChamEdemy" width="52" height="52" /><span>ChamCham<span>Edemy</span><small>Học Hóa bằng tư duy trực quan</small></span></a>
           <nav className="footer-nav" aria-label="Liên kết cuối trang"><a href={getAssetPath("/#khoa-hoc")}>Khóa học</a><a href={getAssetPath("/#giang-vien")}>Giảng viên</a><a href={getAssetPath("/feedback")}>Feedback</a><a href={getAssetPath("/blog")}>Blog</a><a href={getAssetPath("/#dang-ky")}>Đăng ký</a></nav>
           <p className="footer-address">9/5A Đường Số 1, Thành phố Thủ Đức, TP. Hồ Chí Minh · Học trực tiếp tại Quận 9 & học online toàn quốc</p>
           <div className="footer-social" aria-label="Kết nối với ChamChamEdemy">

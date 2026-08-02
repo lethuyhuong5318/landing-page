@@ -103,7 +103,10 @@ export default function MiningGame3D({
     // Renderer
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.domElement.style.width = "100%";
+    renderer.domElement.style.height = "auto";
+    renderer.domElement.style.aspectRatio = `${width} / ${height}`;
     renderer.shadowMap.enabled = true;
     rendererRef.current = renderer;
 

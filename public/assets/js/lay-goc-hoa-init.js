@@ -8,3 +8,15 @@
   drawer.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>setMenu(false)));
   document.addEventListener('keydown',event=>{if(event.key==='Escape')setMenu(false)});
 })();
+
+
+document.addEventListener("click",function(event){
+  const button=event.target.closest(".mass-answer-toggle");
+  if(!button)return;
+  const panel=button.nextElementSibling;
+  if(!panel)return;
+  panel.hidden=!panel.hidden;
+  button.setAttribute("aria-expanded",String(!panel.hidden));
+  const label=button.querySelector("span");
+  if(label)label.innerHTML=panel.hidden?"Xem &#273;&#225;p &#225;n v&#224; c&#225;ch t&#237;nh":"&#7848;n &#273;&#225;p &#225;n v&#224; c&#225;ch t&#237;nh";
+});

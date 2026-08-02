@@ -7,7 +7,7 @@ import { getAssetPath } from "../../basePath";
 const TITLE = "Gia sư Hóa học Quận 9: Lộ trình vững nền cùng Cô Trâm";
 const DESCRIPTION = "Lớp học Hóa THCS–THPT, gia sư Hóa Quận 9: lấy gốc Hóa 8–9, ôn thi vào 10 và luyện thi lớp 11–12 cùng Cô Trâm ChamChamEdemy.";
 const SLUG = "/blog/gia-su-luyen-thi-hoa-quan-9-tp-thu-duc";
-const IMAGE = "/co-le-thuy-tram-professional.png";
+const IMAGE = "/co-le-thuy-tram-professional.webp";
 const DATE_PUBLISHED = "2026-07-21";
 
 export const metadata: Metadata = {

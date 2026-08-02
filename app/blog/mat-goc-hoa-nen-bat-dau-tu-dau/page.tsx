@@ -12,7 +12,7 @@ const faqs = [
   { question: "Khi nào em cần giáo viên hỗ trợ?", answer: "Nên tìm hỗ trợ khi em không xác định được chỗ hổng, lặp lại cùng lỗi nhiều lần hoặc đã tự học đều nhưng không giải thích được vì sao mình làm như vậy." },
 ];
 export default function Page() {
-  return <SeoArticle title={title} description={description} path={path} image="/lay-goc-hoa-bang-mindmap.jpg" imageAlt="Sơ đồ lộ trình lấy lại kiến thức nền Hóa học theo từng bước" kicker="LỘ TRÌNH MẤT GỐC" readingTime="10 phút đọc"
+  return <SeoArticle title={title} description={description} path={path} image="/lay-goc-hoa-bang-mindmap.webp" imageAlt="Sơ đồ lộ trình lấy lại kiến thức nền Hóa học theo từng bước" kicker="LỘ TRÌNH MẤT GỐC" readingTime="10 phút đọc"
     quickAnswer={<p>Nếu mất gốc Hóa, em hãy bắt đầu bằng một bài kiểm tra ngắn để biết mình hổng ở đâu. Thứ tự an toàn là: kí hiệu và công thức → hóa trị → phản ứng và phương trình → mol → nồng độ. Mỗi chặng cần có ví dụ, bài tập nhỏ và bước tự kiểm tra trước khi chuyển tiếp.</p>}
     summary={["Không học lại toàn bộ sách một cách máy móc.", "Ưu tiên ngôn ngữ Hóa học trước bài toán tính toán.", "Chỉ chuyển phần khi có thể giải thích cách làm bằng lời.", "Ghi lỗi sai để tránh lặp lại.", "Dùng bài chẩn đoán để chọn đúng điểm bắt đầu."]}
     toc={[{id:"chan-doan",label:"Bước 1: Chẩn đoán lỗ hổng"},{id:"thu-tu",label:"Bước 2: Học theo đúng thứ tự"},{id:"cach-hoc",label:"Bước 3: Học một phiên như thế nào"},{id:"loi-sai",label:"Lỗi thường gặp"},{id:"tu-kiem-tra",label:"Tự kiểm tra"}]}

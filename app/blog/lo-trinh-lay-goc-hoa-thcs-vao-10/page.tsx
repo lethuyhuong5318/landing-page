@@ -7,7 +7,7 @@ import { getAssetPath } from "../../basePath";
 const TITLE = "Lộ trình lấy gốc Hóa THCS trước khi vào lớp 10";
 const DESCRIPTION = "Các kiến thức Hóa trị, công thức hóa học, phương trình, mol và nồng độ cần ôn trước lớp 10.";
 const SLUG = "/blog/lo-trinh-lay-goc-hoa-thcs-vao-10";
-const IMAGE = "/khoa-hoc-khtn-9.jpg";
+const IMAGE = "/khoa-hoc-khtn-9.webp";
 const DATE_PUBLISHED = "2026-07-20";
 
 export const metadata: Metadata = {

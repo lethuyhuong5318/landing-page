@@ -27,7 +27,7 @@ export default function FeedbackPage() {
           <div className="page-actions"><a href={getAssetPath("/#dang-ky")}>Đăng ký học thử</a><a className="secondary" href={getAssetPath("/blog")}>Đọc Blog Hóa</a></div>
         </section>
         <div className="feedback-layout">
-          <figure className="feedback-image"><img src={getAssetPath("/feedback-buoi-live.jpg")} alt="Infographic kết quả khảo sát buổi live lấy gốc Hóa THCS ChamChamEdemy" /></figure>
+          <figure className="feedback-image"><img src={getAssetPath("/feedback-buoi-live.webp")} alt="Infographic kết quả khảo sát buổi live lấy gốc Hóa THCS ChamChamEdemy" /></figure>
           <aside className="feedback-stats">
             <article><strong>28</strong><h2>Học sinh tham gia khảo sát</h2><p>100% người điền khảo sát đã tham gia buổi học.</p></article>
             <article><strong>4,07/5</strong><h2>Điểm hiểu bài trung bình</h2><p>Phần lớn học sinh tự đánh giá ở mức hiểu khá hoặc rất hiểu.</p></article>

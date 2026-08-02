@@ -14,8 +14,8 @@ export function organizationSchema() {
     slogan: SITE_TAGLINE,
     description:
       "ChamChamEdemy dạy Hóa học và Khoa học tự nhiên cho học sinh THCS–THPT, học trực tiếp tại Quận 9 (TP.HCM) và học online toàn quốc, cùng Cô Lê Thùy Trâm.",
-    logo: absoluteUrl("/chamcham-logo.png"),
-    image: absoluteUrl("/chamcham-logo.png"),
+    logo: absoluteUrl("/chamcham-logo-256.webp"),
+    image: absoluteUrl("/chamcham-logo-256.webp"),
     telephone: CONTACT_PHONE,
     address: {
       "@type": "PostalAddress",
@@ -57,7 +57,7 @@ export function teacherPersonSchema() {
       { "@type": "CollegeOrUniversity", name: "Đại học Đồng Nai" },
       { "@type": "CollegeOrUniversity", name: "Đại học Thủ đô Hà Nội" },
     ],
-    image: absoluteUrl("/co-le-thuy-tram-professional.png"),
+    image: absoluteUrl("/co-le-thuy-tram-professional.webp"),
   };
 }
 

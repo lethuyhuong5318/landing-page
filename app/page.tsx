@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, InvalidEvent, MouseEvent as ReactMouseEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, InvalidEvent, useEffect, useRef, useState } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
   BatteryCharging,
@@ -259,22 +259,7 @@ export default function Home() {
   const [noticeIndex, setNoticeIndex] = useState(0);
   const [resultOpen, setResultOpen] = useState(false);
   const [hoveredBenefit, setHoveredBenefit] = useState<(typeof benefits)[number] | null>(null);
-  const portraitFrameRef = useRef<HTMLDivElement>(null);
   const formLoadedAt = useRef(Date.now());
-
-  function handlePortraitTilt(event: ReactMouseEvent<HTMLDivElement>) {
-    const frame = portraitFrameRef.current;
-    if (!frame) return;
-    const rect = frame.getBoundingClientRect();
-    const px = (event.clientX - rect.left) / rect.width - 0.5;
-    const py = (event.clientY - rect.top) / rect.height - 0.5;
-    frame.style.transform = `rotateY(${px * 3}deg) rotateX(${py * -3}deg)`;
-  }
-
-  function resetPortraitTilt() {
-    const frame = portraitFrameRef.current;
-    if (frame) frame.style.transform = "";
-  }
 
   useEffect(() => {
     if (!resultOpen) return;
@@ -440,7 +425,7 @@ export default function Home() {
       <a className="skip-link" href="#main-content">Bỏ qua điều hướng</a>
       <header className="site-header">
         <a className="brand" href={getAssetPath("/")} aria-label="ChamChamEdemy — trang chủ">
-          <img className="brand-logo" src={getAssetPath("/chamcham-logo.png")} alt="Logo ChamChamEdemy" width="58" height="58" />
+          <img className="brand-logo" src={getAssetPath("/chamcham-logo-256.webp")} alt="Logo ChamChamEdemy" width="58" height="58" />
           <span>ChamCham<span>Edemy</span><small>Học Hóa bằng tư duy trực quan</small></span>
         </a>
         <nav className="desktop-nav" aria-label="Điều hướng chính">
@@ -494,7 +479,7 @@ export default function Home() {
           <div className="atom atom-b"><i /><i /></div>
           <div className="mascot-card">
             <div className="mascot-badge">HỌC CÙNG CÔ TRÂM</div>
-            <img className="mascot-image" src={getAssetPath("/co-tram-mascot.jpg")} alt="Mascot gấu Cô Trâm Hóa Học của ChamChamEdemy" width="620" height="620" fetchPriority="high" />
+            <img className="mascot-image" src={getAssetPath("/co-tram-mascot.webp")} alt="Mascot gấu Cô Trâm Hóa Học của ChamChamEdemy" width="620" height="620" fetchPriority="high" />
             <div className="speech">À, hóa ra là vậy!</div>
           </div>
           <div className="hero-benefit-card" aria-label="Lợi ích học tập nổi bật">
@@ -652,8 +637,8 @@ export default function Home() {
       <section className="teacher-section" id="giang-vien" aria-labelledby="teacher-title">
         <div className="teacher-section__grid">
           <div className="teacher-section__media teacher-portrait" data-reveal>
-          <div className="portrait-frame" ref={portraitFrameRef} onMouseMove={handlePortraitTilt} onMouseLeave={resetPortraitTilt}>
-            <img src={getAssetPath("/co-le-thuy-tram-professional.png")} alt="Cô Lê Thùy Trâm - giáo viên Hóa học ChamChamEdemy" width={1023} height={1537} loading="lazy" />
+          <div className="portrait-frame">
+            <img src={getAssetPath("/co-le-thuy-tram-professional.webp")} alt="Cô Lê Thùy Trâm - giáo viên Hóa học ChamChamEdemy" width={768} height={1155} loading="lazy" decoding="async" />
             <span className="portrait-formula" aria-hidden="true">H₂O</span>
           </div>
           <div className="experience-seal"><strong>4+</strong><span>năm kinh nghiệm<br />THCS & THPT</span></div>
@@ -746,7 +731,7 @@ export default function Home() {
             </div>
             <div className="report-window">
               <div className="report-header">
-                <img src={getAssetPath("/chamcham-logo.png")} alt="" aria-hidden="true" />
+                <img src={getAssetPath("/chamcham-logo-256.webp")} alt="" aria-hidden="true" width="32" height="32" loading="lazy" />
                 <strong>PHIẾU NHẬN XÉT BUỔI HỌC</strong>
               </div>
               <div className="report-content">
@@ -791,9 +776,9 @@ export default function Home() {
             <p>Infographic, sơ đồ dòng chất và tài liệu khóa học đều được thiết kế để học sinh nhìn thấy mối liên hệ giữa các bước giải.</p>
           </div>
           <div className="material-grid">
-            <a href={getAssetPath("/lay-goc-hoa-bang-mindmap.jpg")} target="_blank"><img src={getAssetPath("/lay-goc-hoa-bang-mindmap.jpg")} alt="Mindmap lấy gốc Hóa: hóa trị, oxide, acid, base, muối và dãy hoạt động kim loại" loading="lazy" /><span><strong>Lấy gốc Hóa bằng mindmap</strong><small>Xem toàn bộ ↗</small></span></a>
-            <a href={getAssetPath("/so-do-dong-chat-fe-cu.jpg")} target="_blank"><img src={getAssetPath("/so-do-dong-chat-fe-cu.jpg")} alt="Sơ đồ dòng chất Fe và Cu trong bài toán hóa học" loading="lazy" /><span><strong>Sơ đồ dòng chất Fe – Cu</strong><small>Xem toàn bộ ↗</small></span></a>
-            <a href={getAssetPath("/khoa-hoc-khtn-9.jpg")} target="_blank"><img src={getAssetPath("/khoa-hoc-khtn-9.jpg")} alt="Tổng quan tài liệu và bài giảng khóa học KHTN 9 ChamChamEdemy" loading="lazy" /><span><strong>Kho học liệu KHTN 9</strong><small>Xem toàn bộ ↗</small></span></a>
+            <a href={getAssetPath("/lay-goc-hoa-bang-mindmap.webp")} target="_blank"><img src={getAssetPath("/lay-goc-hoa-bang-mindmap.webp")} alt="Mindmap lấy gốc Hóa: hóa trị, oxide, acid, base, muối và dãy hoạt động kim loại" loading="lazy" /><span><strong>Lấy gốc Hóa bằng mindmap</strong><small>Xem toàn bộ ↗</small></span></a>
+            <a href={getAssetPath("/so-do-dong-chat-fe-cu.webp")} target="_blank"><img src={getAssetPath("/so-do-dong-chat-fe-cu.webp")} alt="Sơ đồ dòng chất Fe và Cu trong bài toán hóa học" loading="lazy" /><span><strong>Sơ đồ dòng chất Fe – Cu</strong><small>Xem toàn bộ ↗</small></span></a>
+            <a href={getAssetPath("/khoa-hoc-khtn-9.webp")} target="_blank"><img src={getAssetPath("/khoa-hoc-khtn-9.webp")} alt="Tổng quan tài liệu và bài giảng khóa học KHTN 9 ChamChamEdemy" loading="lazy" /><span><strong>Kho học liệu KHTN 9</strong><small>Xem toàn bộ ↗</small></span></a>
           </div>
         </div>
 
@@ -881,7 +866,7 @@ export default function Home() {
       <footer className="site-footer">
         <div className="footer-inner">
           <a className="brand footer-brand" href="#main-content">
-            <img className="brand-logo" src={getAssetPath("/chamcham-logo.png")} alt="Logo ChamChamEdemy" width="52" height="52" />
+            <img className="brand-logo" src={getAssetPath("/chamcham-logo-256.webp")} alt="Logo ChamChamEdemy" width="52" height="52" />
             <span>ChamCham<span>Edemy</span><small>Học Hóa bằng tư duy trực quan</small></span>
           </a>
           <nav className="footer-nav" aria-label="Liên kết cuối trang"><a href={getAssetPath("/#khoa-hoc")}>Khóa học</a><a href={getAssetPath("/#giang-vien")}>Giảng viên</a><a href={getAssetPath("/feedback")}>Feedback</a><a href={getAssetPath("/blog")}>Blog</a><a href={getAssetPath("/#dang-ky")}>Đăng ký</a></nav>
