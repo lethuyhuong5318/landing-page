@@ -463,7 +463,7 @@
       updateRope(endpoint());
       renderer.render(scene, camera);
     }
-    state.frameId = state.frameId = requestAnimationFrame(tick);
+    state.frameId = requestAnimationFrame(tick);
   }
 
   $('minerStart').addEventListener('click', reset, { signal: state.abort.signal });
@@ -520,8 +520,9 @@
   };
   state.resizeObserver = new ResizeObserver(() => { resize(); if (!state.running) spawn(); }); state.resizeObserver.observe(canvas);
   ui.best.textContent = `Ká»· lá»¥c: ${Number(localStorage.getItem('chemMinerBest') || 0)} Ä‘iá»ƒm`;
-  resize(); state.target = 'I'; spawn(); updateHud(); updateRope(endpoint()); state.frameId = state.frameId = requestAnimationFrame(tick);
+  resize(); state.target = 'I'; spawn(); updateHud(); updateRope(endpoint()); state.frameId = requestAnimationFrame(tick);
 })();
+
 
 
 
