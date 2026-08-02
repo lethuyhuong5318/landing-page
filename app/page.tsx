@@ -203,7 +203,7 @@ type SubmitStatus = "idle" | "sending" | "success" | "error";
 
 function CountUp({ to, decimals = 0, prefix = "", suffix = "" }: { to: number; decimals?: number; prefix?: string; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(to);
 
   useEffect(() => {
     const el = ref.current;
@@ -215,7 +215,8 @@ function CountUp({ to, decimals = 0, prefix = "", suffix = "" }: { to: number; d
           if (entry.isIntersecting && !started) {
             started = true;
             const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-            if (reduceMotion) {
+            const isMobile = window.matchMedia("(max-width: 767px)").matches;
+            if (reduceMotion || isMobile) {
               setValue(to);
               observer.disconnect();
               return;
@@ -259,6 +260,10 @@ export default function Home() {
   const [noticeIndex, setNoticeIndex] = useState(0);
   const [resultOpen, setResultOpen] = useState(false);
   const [hoveredBenefit, setHoveredBenefit] = useState<(typeof benefits)[number] | null>(null);
+  const [showAllElements, setShowAllElements] = useState(false);
+  const [showMobileCta, setShowMobileCta] = useState(false);
+  const [reportExpanded, setReportExpanded] = useState(false);
+  const [formErrors, setFormErrors] = useState<{ name?: string; phone?: string }>({});
   const formLoadedAt = useRef(Date.now());
 
   useEffect(() => {
@@ -302,6 +307,26 @@ export default function Home() {
     return () => window.clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    const hero = document.querySelector(".hero");
+    const form = document.querySelector("#dang-ky");
+    const footer = document.querySelector(".site-footer");
+    if (!hero) return;
+    const update = () => {
+      const heroPassed = hero.getBoundingClientRect().bottom < 0;
+      const blocked = [form, footer].some((node) => {
+        if (!node) return false;
+        const rect = node.getBoundingClientRect();
+        return rect.top < window.innerHeight && rect.bottom > 0;
+      });
+      setShowMobileCta(heroPassed && !blocked);
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => { window.removeEventListener("scroll", update); window.removeEventListener("resize", update); };
+  }, []);
+
   async function copyToClipboard(text: string) {
     try {
       if (!navigator.clipboard) throw new Error("Clipboard API unavailable");
@@ -325,6 +350,17 @@ export default function Home() {
     event.preventDefault();
     const formEl = event.currentTarget;
     const form = new FormData(formEl);
+    const nameValue = String(form.get("name") ?? "").trim();
+    const phoneValue = String(form.get("phone") ?? "").trim();
+    const nextErrors: { name?: string; phone?: string } = {};
+    if (!nameValue) nextErrors.name = "Vui lòng nhập họ tên học sinh.";
+    if (!phoneValue) nextErrors.phone = "Vui lòng nhập số điện thoại/Zalo.";
+    else if (!/^[0-9+\s.-]{9,15}$/.test(phoneValue)) nextErrors.phone = "Số điện thoại chưa đúng định dạng.";
+    setFormErrors(nextErrors);
+    if (Object.keys(nextErrors).length) {
+      formEl.querySelector<HTMLInputElement>(nextErrors.name ? "#name" : "#phone")?.focus();
+      return;
+    }
 
     // Honeypot: trường ẩn chỉ bot mới điền — người dùng thật sẽ luôn để trống.
     if (form.get("botcheck")) {
@@ -428,6 +464,7 @@ export default function Home() {
           <img className="brand-logo" src={getAssetPath("/chamcham-logo-256.webp")} alt="Logo ChamChamEdemy" width="58" height="58" />
           <span>ChamCham<span>Edemy</span><small>Học Hóa bằng tư duy trực quan</small></span>
         </a>
+        <a className="mobile-register" href="#dang-ky">Đăng ký</a>
         <nav className="desktop-nav" aria-label="Điều hướng chính">
           <a href={getAssetPath("/#khoa-hoc")}>Khóa học</a>
           <a href={getAssetPath("/#giang-vien")}>Giảng viên</a>
@@ -533,11 +570,12 @@ export default function Home() {
               </div>
             </div>
             <div className="element-grid" aria-label="Các nguyên tố để khám phá">
-              {elementExplorer.map((element) => (
+              {elementExplorer.map((element, index) => (
                 <button
                   type="button"
                   className={`element-tile ${element.tone} ${activeElement.symbol === element.symbol ? "is-active" : ""} ${discoveredElements.includes(element.symbol) ? "is-discovered" : ""}`}
                   key={element.symbol}
+                  data-mobile-hidden={!showAllElements && index >= 8 ? "true" : undefined}
                   onClick={() => discoverElement(element)}
                   onMouseEnter={() => previewElement(element)}
                   aria-pressed={activeElement.symbol === element.symbol}
@@ -548,6 +586,9 @@ export default function Home() {
                 </button>
               ))}
             </div>
+            <button className="element-more" type="button" onClick={() => setShowAllElements((value) => !value)} aria-expanded={showAllElements}>
+              {showAllElements ? "Thu gọn" : "Xem thêm 12 nguyên tố"}
+            </button>
           </div>
 
           <div
@@ -734,15 +775,18 @@ export default function Home() {
                 <img src={getAssetPath("/chamcham-logo-256.webp")} alt="" aria-hidden="true" width="32" height="32" loading="lazy" />
                 <strong>PHIẾU NHẬN XÉT BUỔI HỌC</strong>
               </div>
-              <div className="report-content">
-                <div className="report-meta"><span>📅 08/07/2026</span><span>📚 Thành phần nguyên tử</span></div>
-                <h3>📝 Nhận xét</h3>
+              <div className={`report-content${reportExpanded ? " is-expanded" : ""}`}>
+                <div className="report-meta"><span><AppIcon icon={ClipboardCheck} size={15} /> 08/07/2026</span><span><AppIcon icon={BookOpenCheck} size={15} /> Thành phần nguyên tử</span></div>
+                <h3><AppIcon icon={PencilLine} size={18} /> Nhận xét</h3>
                 <p>Em Khoa ngoan, lễ phép và hợp tác tốt với giáo viên trong suốt buổi học. Em tiếp thu được các kiến thức cơ bản và hoàn thành tốt các bài tập ở mức yêu cầu (cấu tạo nguyên tử, các loại hạt trong nguyên tử, kích thước, khối lượng các loại hạt trong nguyên tử). Khả năng ghi nhớ của em tương đối tốt, tuy nhiên đôi khi vẫn nhầm lẫn một số kiến thức trong bài.</p>
                 <div className="report-columns">
-                  <div><strong>✅ Giáo viên đã hỗ trợ</strong><span>Chốt trọng tâm · Sửa lỗi · Giao bài củng cố.</span></div>
-                  <div><strong>🤝 Phụ huynh đồng hành</strong><span>Nhắc em hoàn thành bài tập về nhà.</span></div>
+                  <div><strong><AppIcon icon={ShieldCheck} size={17} /> Giáo viên đã hỗ trợ</strong><span>Chốt trọng tâm · Sửa lỗi · Giao bài củng cố.</span></div>
+                  <div><strong><AppIcon icon={Route} size={17} /> Phụ huynh đồng hành</strong><span>Nhắc em hoàn thành bài tập về nhà.</span></div>
                 </div>
               </div>
+              <button className="report-toggle" type="button" onClick={() => setReportExpanded((value) => !value)} aria-expanded={reportExpanded}>
+                {reportExpanded ? "Thu gọn" : "Xem đầy đủ"}
+              </button>
               <div className="report-sent"><span>✓</span> Phiếu được gửi sau buổi học</div>
             </div>
           </section>
@@ -788,15 +832,16 @@ export default function Home() {
             <h2>Chẩn đoán trước.<br />Xếp đúng lộ trình sau.</h2>
             <p>Điền thông tin bên dưới, cô Trâm sẽ chủ động liên hệ qua SĐT/Zalo trong vòng 24h để gửi bài test và tư vấn lộ trình phù hợp với năng lực thật.</p>
           </div>
-          <form onSubmit={handleRegister}>
+          <form onSubmit={handleRegister} noValidate>
             <label htmlFor="name">Họ tên học sinh</label>
             <input id="name" name="name" type="text" required placeholder="VD: Nguyễn Văn A" onInvalid={showVietnameseValidity} onInput={clearValidity} />
 
             <label htmlFor="phone">Số điện thoại / Zalo</label>
-            <input id="phone" name="phone" type="tel" inputMode="tel" required placeholder="VD: 0912 345 678" onInvalid={showVietnameseValidity} onInput={clearValidity} />
+            <input id="phone" name="phone" type="tel" inputMode="tel" required autoComplete="tel" aria-invalid={Boolean(formErrors.phone)} aria-describedby="phone-error" placeholder="VD: 0912 345 678" onBlur={(event) => { const value = event.currentTarget.value.trim(); setFormErrors((current) => ({ ...current, phone: !value ? "Vui l?ng nh?p s? ?i?n tho?i/Zalo." : !/^[0-9+\s.-]{9,15}$/.test(value) ? "S? ?i?n tho?i ch?a ??ng ??nh d?ng." : undefined })); }} onInput={clearValidity} />
+            <span className="field-error" id="phone-error" role="alert">{formErrors.phone}</span>
 
             <label htmlFor="parentEmail">Email phụ huynh (không bắt buộc)</label>
-            <input id="parentEmail" name="parentEmail" type="email" placeholder="VD: phuhuynh@email.com" onInvalid={showVietnameseValidity} onInput={clearValidity} />
+            <input className="form-optional-mobile" id="parentEmail" name="parentEmail" type="email" placeholder="VD: phuhuynh@email.com" onInvalid={showVietnameseValidity} onInput={clearValidity} />
 
             <label htmlFor="grade">Lớp hiện tại</label>
             <select id="grade" name="grade" defaultValue="Lớp 10">
@@ -808,14 +853,14 @@ export default function Home() {
             </select>
 
             <label htmlFor="level">Mức độ hiểu Hóa hiện tại</label>
-            <select id="level" name="level" defaultValue="Mất gốc">
+            <select className="form-optional-mobile" id="level" name="level" defaultValue="Mất gốc">
               <option>Mất gốc</option>
               <option>Trung bình</option>
               <option>Khá</option>
               <option>Giỏi</option>
             </select>
 
-            <label htmlFor="goal">Mục tiêu chính</label>
+            <label htmlFor="goal">Vấn đề đang gặp / mục tiêu</label>
             <select id="goal" name="goal" defaultValue="Lấy lại kiến thức nền">
               <option>Lấy lại kiến thức nền</option>
               <option>Cải thiện điểm trên lớp</option>
@@ -827,7 +872,7 @@ export default function Home() {
             </select>
 
             <label htmlFor="timeSlot">Khung giờ học mong muốn</label>
-            <select id="timeSlot" name="timeSlot" defaultValue="Chưa chắc, cần tư vấn">
+            <select className="form-optional-mobile" id="timeSlot" name="timeSlot" defaultValue="Chưa chắc, cần tư vấn">
               <option>Sáng</option>
               <option>Chiều</option>
               <option>Tối</option>
@@ -880,7 +925,7 @@ export default function Home() {
           </div>
         </div>
       </footer>
-      <div className="mobile-cta-bar" aria-label="Liên hệ nhanh"><a href="tel:0329309293" aria-label="Gọi điện cho Cô Trâm">Gọi điện</a><a href={FACEBOOK_URL} target="_blank" rel="noreferrer" aria-label="Nhắn tin qua Facebook">Facebook</a><a href={ZALO_URL} target="_blank" rel="noreferrer" aria-label="Nhận tư vấn qua Zalo">Zalo tư vấn</a></div>
+      <div className={`mobile-cta-bar${showMobileCta ? " is-visible" : ""}`} aria-label="Liên hệ nhanh"><a href={ZALO_URL} target="_blank" rel="noreferrer">Nhắn Zalo</a><a href="#dang-ky">Nhận bài test</a></div>
     </main>
   );
 }
