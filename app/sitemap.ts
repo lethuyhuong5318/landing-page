@@ -70,7 +70,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date("2026-07-28"),
     },
     {
-      url: `${SITE_URL}/lay-goc-hoa.html`,
+      url: `${SITE_URL}/lay-goc-hoa/`,
       changeFrequency: "monthly",
       priority: 0.8,
       lastModified: new Date("2026-07-25"),

@@ -6,7 +6,7 @@ const MOBILE_LINKS = [
   { href: getAssetPath("/#khoa-hoc"), label: "Khóa học" },
   { href: getAssetPath("/#giang-vien"), label: "Giảng viên" },
   { href: getAssetPath("/feedback"), label: "Feedback" },
-  { href: getAssetPath("/lay-goc-hoa.html"), label: "Lấy gốc hóa" },
+  { href: getAssetPath("/lay-goc-hoa/"), label: "Lấy gốc hóa" },
   { href: getAssetPath("/blog"), label: "Blog Hóa" },
   { href: getAssetPath("/#dang-ky"), label: "Nhận tư vấn" },
 ];
@@ -24,7 +24,7 @@ export default function SiteChrome({ children }: { children: ReactNode }) {
           <a href={getAssetPath("/#khoa-hoc")}>Khóa học</a>
           <a href={getAssetPath("/#giang-vien")}>Giảng viên</a>
           <a href={getAssetPath("/feedback")}>Feedback</a>
-          <a href={getAssetPath("/lay-goc-hoa.html")}>Lấy gốc hóa</a>
+          <a href={getAssetPath("/lay-goc-hoa/")}>Lấy gốc hóa</a>
           <a href={getAssetPath("/blog")}>Blog Hóa</a>
           <a href={getAssetPath("/#dang-ky")} className="nav-cta">Nhận tư vấn</a>
         </nav>
