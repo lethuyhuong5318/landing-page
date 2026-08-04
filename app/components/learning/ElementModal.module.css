@@ -3,7 +3,10 @@
 .overlay {
   display: flex;
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: var(--z-modal);
   background: rgba(15, 76, 129, 0.35);
   backdrop-filter: blur(4px);
@@ -11,6 +14,7 @@
   justify-content: center;
   padding: var(--spacing-lg);
   animation: fadeIn var(--duration-normal) var(--ease-out);
+  overflow: hidden;
 }
 
 @keyframes fadeIn {
