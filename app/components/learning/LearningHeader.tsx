@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './LearningHeader.module.css';
@@ -29,14 +29,38 @@ export function LearningHeader({
   focusModeActive = false,
 }: LearningHeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const firstMenuItemRef = useRef<HTMLButtonElement>(null);
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
 
   const handleMenuClose = useCallback(() => {
     setMobileMenuOpen(false);
+    menuToggleRef.current?.focus();
   }, []);
 
   const toggleMenu = useCallback(() => {
     setMobileMenuOpen(prev => !prev);
   }, []);
+
+  // Handle keyboard: Escape to close menu
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        handleMenuClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [mobileMenuOpen, handleMenuClose]);
+
+  // Focus first menu item when menu opens
+  useEffect(() => {
+    if (mobileMenuOpen && firstMenuItemRef.current) {
+      firstMenuItemRef.current.focus();
+    }
+  }, [mobileMenuOpen]);
 
   const progressDisplay = lessonNumber && totalLessons
     ? `${lessonNumber}/${totalLessons}`
@@ -118,10 +142,11 @@ export function LearningHeader({
 
       {/* Mobile Menu Toggle */}
       <button
+        ref={menuToggleRef}
         className={styles.mobileMenuToggle}
         onClick={toggleMenu}
         aria-expanded={mobileMenuOpen}
-        aria-label="Mở menu"
+        aria-label={mobileMenuOpen ? 'Đóng menu' : 'Mở menu'}
       >
         <span />
         <span />
@@ -130,8 +155,9 @@ export function LearningHeader({
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <nav className={styles.mobileMenu}>
+        <nav className={styles.mobileMenu} role="navigation" aria-label="Menu di động">
           <button
+            ref={firstMenuItemRef}
             className={styles.mobileMenuButton}
             onClick={() => {
               onSoundToggle?.(!soundEnabled);
