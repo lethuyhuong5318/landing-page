@@ -16,7 +16,9 @@
   const saltCations = { CuSO4: 'Cu', AgNO3: 'Ag', FeSO4: 'Fe', ZnSO4: 'Zn', MgSO4: 'Mg' };
   const series3d = ['K', 'Na', 'Ba', 'Ca', 'Mg', 'Al', 'Zn', 'Fe', 'Ni', 'Sn', 'Pb', 'H', 'Cu', 'Hg', 'Ag', 'Pt', 'Au'];
   const metalColors = { Mg: 0xbfc8ce, Al: 0xdce4e8, Zn: 0xaeb9c0, Fe: 0x7a858c, Cu: 0xb96b35, Ag: 0xdde4ea };
-  const solutionColors = { Cu: 0x168fd1, Ag: 0xdff5ff, Fe: 0x83bd67, Zn: 0xd7f1fa, Mg: 0xe3f5fb, Al: 0xe3f5fb };
+  // Desaturated a stop from the original values: 0x168fd1 / 0x83bd67 read
+  // as glaring cyan and acid green against the pale beaker and lighting.
+  const solutionColors = { Cu: 0x3f8bb5, Ag: 0xe4f4fb, Fe: 0x8fb583, Zn: 0xdcf0f7, Mg: 0xe6f3f8, Al: 0xe6f3f8 };
 
   let renderer;
   try {
@@ -183,7 +185,20 @@
     state.progress += (state.target - state.progress) * .045;
     strip.position.y = 2.45 - state.progress * 2.55;
     holder.position.y = strip.position.y + 1.6;
-    if (!state.drag && !reduced) lab.rotation.y += .001;
+    // Smooth, weighted orbit: after release the leftover drag velocity
+    // spins down instead of stopping dead, and the mesh always eases
+    // toward the target angles rather than jumping per pointer event.
+    if (!state.drag) {
+      state.vYaw = (state.vYaw || 0) * .92;
+      state.vPitch = (state.vPitch || 0) * .88;
+      if (Math.abs(state.vYaw) > 1e-4) state.yaw += state.vYaw;
+      if (Math.abs(state.vPitch) > 1e-4) {
+        state.pitch = Math.max(-.38, Math.min(.38, state.pitch + state.vPitch));
+      }
+      if (!reduced && Math.abs(state.vYaw) <= 1e-4) state.yaw += .001; // idle drift
+    }
+    lab.rotation.y += (state.yaw - lab.rotation.y) * .14;
+    lab.rotation.x += (state.pitch - lab.rotation.x) * .14;
     if (!reduced) {
       ions.forEach(ion => {
         ion.position.y = ion.userData.baseY + Math.sin(time * .001 * ion.userData.speed + ion.userData.phase) * .06;
@@ -205,10 +220,17 @@
   }, { signal: state.abort.signal });
   canvas.addEventListener('pointermove', event => {
     if (!state.drag) return;
-    lab.rotation.y += (event.clientX - state.x) * .011;
-    lab.rotation.x = Math.max(-.38, Math.min(.38, lab.rotation.x + (event.clientY - state.y) * .007));
+    // Drive TARGET angles, not the mesh directly. animate() eases the mesh
+    // toward these, which is what makes the drag feel weighted and smooth
+    // instead of snapping one-to-one with every pointer event.
+    const dx = (event.clientX - state.x) * .011;
+    const dy = (event.clientY - state.y) * .007;
+    state.yaw += dx;
+    state.pitch = Math.max(-.38, Math.min(.38, state.pitch + dy));
+    state.vYaw = dx;           // carried into a short spin-down on release
+    state.vPitch = dy;
     state.x = event.clientX; state.y = event.clientY;
-  });
+  }, { signal: state.abort.signal });
   const endDrag = () => { state.drag = false; canvas.classList.remove('is-dragging'); };
   canvas.addEventListener('pointerup', endDrag, { signal: state.abort.signal });
   canvas.addEventListener('pointercancel', endDrag, { signal: state.abort.signal });

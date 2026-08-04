@@ -145,3 +145,40 @@ h1,h2,h3,h4,
   }
   .cc-vlab-tempbox{top:8px;right:8px;width:62px;padding:6px;border-radius:10px}
 }
+
+/* --- 9. Activity series: stop clipping the start of the row ----------- */
+/* .series-row is `justify-content:center` and the mobile rules turn it
+   into an overflow-x:auto strip. A centred flex line that overflows
+   spills equally BOTH ways, and the left overflow is unreachable - the
+   row silently lost K, Na, Ba, Ca, Mg off the front. `safe center`
+   keeps the centring while it fits and falls back to flex-start the
+   moment it overflows, so nothing is ever cut off.                     */
+.series-row,.legend,.filter-row,.chip-row,.segmented,.model-tabs{
+  justify-content:safe center
+}
+@supports not (justify-content:safe center){
+  .series-row,.legend,.filter-row,.chip-row,.segmented,.model-tabs{justify-content:flex-start}
+}
+.series-row{scroll-padding-inline:8px}
+
+/* --- 10. Data tables: scroll the wrapper, never the <table> ----------- */
+/* Pairs with the wrapper injected by lay-goc-hoa-init.js. Setting
+   display:block on a <table> (the previous approach) breaks column
+   alignment and leaves the ugly seam that was reported.                */
+.table-scroll{
+  max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;
+  -webkit-overflow-scrolling:touch;border-radius:12px
+}
+.table-scroll:focus-visible{outline:3px solid var(--yellow-500,#f6b73c);outline-offset:2px}
+.table-scroll>.tt{display:table;width:100%;min-width:520px;margin:0}
+@media(max-width:720px){
+  /* undo the old table-breaking rules now that a wrapper handles overflow */
+  .tt{display:table!important;width:100%}
+  .tt tbody{min-width:0!important}
+}
+
+/* --- 11. Lesson tab labels: readable on the navy pill ----------------- */
+.tab-btn.active,.tab-btn[aria-selected=true]{color:#fff}
+.tab-btn.active .tab-num,.tab-btn[aria-selected=true] .tab-num{
+  background:#ffd166;color:#0b365e
+}

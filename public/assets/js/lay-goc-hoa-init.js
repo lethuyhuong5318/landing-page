@@ -20,3 +20,24 @@ document.addEventListener("click",function(event){
   const label=button.querySelector("span");
   if(label)label.innerHTML=panel.hidden?"Xem &#273;&#225;p &#225;n v&#224; c&#225;ch t&#237;nh":"&#7848;n &#273;&#225;p &#225;n v&#224; c&#225;ch t&#237;nh";
 });
+
+/* Wrap wide data tables in a horizontal scroller.
+   The mobile stylesheet used to force `display:block` on <table> itself,
+   which discards the table layout algorithm - columns stop aligning and
+   the body renders as a detached chunk with a visible seam. Wrapping the
+   table instead keeps `display:table` intact and moves the overflow onto
+   a plain div. */
+(function(){
+  var tables=document.querySelectorAll('table.tt');
+  for(var i=0;i<tables.length;i++){
+    var t=tables[i];
+    if(t.parentElement&&t.parentElement.classList.contains('table-scroll'))continue;
+    var box=document.createElement('div');
+    box.className='table-scroll';
+    box.setAttribute('tabindex','0');
+    box.setAttribute('role','region');
+    box.setAttribute('aria-label','Bảng dữ liệu, có thể cuộn ngang');
+    t.parentNode.insertBefore(box,t);
+    box.appendChild(t);
+  }
+})();
