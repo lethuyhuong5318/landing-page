@@ -111,7 +111,7 @@
     camera.lookAt(0, 0, 0);
     atom.rotation.set(.08, -.2, 0);
 
-    const state = { scene, renderer, camera, atom, electrons, canvas, abort, observer: null, frame: 0, paused: reduced, drag: false, x: 0, y: 0 };
+    const state = { scene, renderer, camera, atom, electrons, canvas, abort, observer: null, frame: 0, paused: reduced, drag: false, x: 0, y: 0, vx: 0, vy: 0 };
     activeLab = state;
     if (reduced) toggle.textContent = 'Tiếp tục';
 
@@ -131,7 +131,17 @@
           item.angle += item.speed;
           item.mesh.position.set(Math.cos(item.angle) * item.radius, Math.sin(item.angle) * item.radius, 0);
         });
-        if (!state.drag) atom.rotation.y += .0022;
+        if (!state.drag) {
+          atom.rotation.y += .0022;
+          if (Math.abs(state.vx) > 0.0001) {
+            atom.rotation.y += state.vx;
+            state.vx *= 0.92;
+          }
+          if (Math.abs(state.vy) > 0.0001) {
+            atom.rotation.x = Math.max(-1.1, Math.min(1.1, atom.rotation.x + state.vy));
+            state.vy *= 0.92;
+          }
+        }
         nucleus.rotation.y -= .0014;
       }
       renderer.render(scene, camera);
@@ -153,8 +163,12 @@
     }, signal);
     canvas.addEventListener('pointermove', event => {
       if (!state.drag) return;
-      atom.rotation.y += (event.clientX - state.x) * .012;
-      atom.rotation.x = Math.max(-1.1, Math.min(1.1, atom.rotation.x + (event.clientY - state.y) * .009));
+      const dx = event.clientX - state.x;
+      const dy = event.clientY - state.y;
+      state.vx = dx * .012;
+      state.vy = dy * .009;
+      atom.rotation.y += state.vx;
+      atom.rotation.x = Math.max(-1.1, Math.min(1.1, atom.rotation.x + state.vy));
       state.x = event.clientX; state.y = event.clientY;
     }, signal);
     const endDrag = () => { state.drag = false; canvas.classList.remove('is-dragging'); };
@@ -162,10 +176,21 @@
     canvas.addEventListener('pointercancel', endDrag, signal);
     toggle.addEventListener('click', () => { state.paused = !state.paused; toggle.textContent = state.paused ? 'Tiếp tục' : 'Tạm dừng'; }, signal);
     reset.addEventListener('click', () => { atom.rotation.set(.08, -.2, 0); camera.position.set(0, .25, Math.max(8.2, maxOrbit * 2.18)); camera.lookAt(0, 0, 0); }, signal);
-    state.observer = new ResizeObserver(resize); state.observer.observe(canvas); resize(); animate();
+    state.observer = new ResizeObserver(resize); state.observer.observe(canvas); resize();
+    setTimeout(() => {
+      const loader = host.querySelector('.atomic-lab-loading');
+      if (loader) {
+        loader.style.transition = 'opacity 0.3s';
+        loader.style.opacity = '0';
+        setTimeout(() => loader.remove(), 300);
+      }
+    }, 100);
+    animate();
   };
 
   document.addEventListener('keydown', event => { if (event.key === 'Escape') window.destroyAtomicLab?.(); });
   document.addEventListener('click', event => { if (event.target.closest?.('.em-close') || event.target.id === 'elModalOverlay') window.destroyAtomicLab?.(); });
 })();
+
+
 

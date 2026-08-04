@@ -10,5 +10,10 @@ export default function LearningLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <script src="/audio-fallback.js" async></script>
+      {children}
+    </>
+  );
 }

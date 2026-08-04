@@ -45,11 +45,13 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-primary);
   line-height: var(--line-height-tight);
   margin: 0;
+  scroll-margin-top: 88px;
 }
 
 h1 {
   font-size: var(--font-size-3xl);
   margin-bottom: var(--spacing-md);
+  letter-spacing: -0.5px;
 }
 
 h2 {
@@ -58,12 +60,14 @@ h2 {
   margin-bottom: var(--spacing-md);
   padding-bottom: var(--spacing-md);
   border-bottom: 1px solid var(--border);
+  letter-spacing: -0.3px;
 }
 
 h3 {
   font-size: var(--font-size-xl);
   margin-top: var(--spacing-xl);
   margin-bottom: var(--spacing-sm);
+  letter-spacing: -0.2px;
 }
 
 p {

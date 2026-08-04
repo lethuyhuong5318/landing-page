@@ -209,13 +209,21 @@
 
   const originalRender = window.renderDisplacement;
   const originalPlay = window.playDisplacement;
+  
+  function animateStripFeedback() {
+    strip.scale.set(1.1, 1, 1.1);
+    setTimeout(() => strip.scale.set(1, 1, 1), 300);
+  }
+  
   window.renderDisplacement = function () {
     originalRender?.();
     setSelection(true);
+    animateStripFeedback();
   };
   window.playDisplacement = function () {
     originalPlay?.();
     play();
+    animateStripFeedback();
   };
 
   window.destroyDisplacementLab = () => {
@@ -231,6 +239,7 @@
   resize();
   animate();
 })();
+
 
 
 
