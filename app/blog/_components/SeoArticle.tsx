@@ -2,11 +2,12 @@ import "./article-seo.css";
 import type { ReactNode } from "react";
 import SiteChrome from "../../components/SiteChrome";
 import JsonLd from "../../../components/seo/JsonLd";
-import { articleSchema, breadcrumbSchema } from "../../../lib/schema";
+import { articleSchema, breadcrumbSchema, howToSchema } from "../../../lib/schema";
 import { getAssetPath } from "../../basePath";
 
 type Faq = { question: string; answer: string };
 type Link = { href: string; label: string };
+type HowTo = { title: string; steps: Array<{ name: string; text: string }> };
 
 function faqSchema(items: Faq[]) {
   return {
@@ -17,12 +18,13 @@ function faqSchema(items: Faq[]) {
 
 export default function SeoArticle({
   title, description, path, image, imageAlt, kicker, readingTime,
-  quickAnswer, summary, toc, children, faqs, links, cta,
+  quickAnswer, summary, toc, children, faqs, links, cta, howTo,
 }: {
   title: string; description: string; path: string; image: string; imageAlt: string;
   kicker: string; readingTime: string; quickAnswer: ReactNode; summary: string[];
   toc: Array<{ id: string; label: string }>; children: ReactNode; faqs: Faq[];
   links: Link[]; cta: { title: string; text: string; href: string; label: string };
+  howTo?: HowTo;
 }) {
   const published = "2026-07-30";
   return (
@@ -30,6 +32,7 @@ export default function SeoArticle({
       <JsonLd data={articleSchema({ headline: title, description, path, image, datePublished: published, dateModified: published })} />
       <JsonLd data={breadcrumbSchema([{ name: "Trang chủ", path: "/" }, { name: "Blog Hóa", path: "/blog" }, { name: title, path }])} />
       <JsonLd data={faqSchema(faqs)} />
+      {howTo && <JsonLd data={howToSchema({ name: howTo.title, description, steps: howTo.steps })} />}
       <article className="article-wrap">
         <p className="section-kicker">{kicker}</p><h1>{title}</h1>
         <p className="article-lead">{description}</p>
@@ -40,6 +43,16 @@ export default function SeoArticle({
           <section className="quick-summary"><h2 id="tom-tat-nhanh">Tóm tắt nhanh</h2><ul>{summary.map((item) => <li key={item}>{item}</li>)}</ul></section>
           <nav className="article-toc" aria-label="Mục lục bài viết"><strong>Mục lục</strong><ol>{toc.map((item) => <li key={item.id}><a href={`#${item.id}`}>{item.label}</a></li>)}</ol></nav>
           {children}
+          {howTo && (
+            <section className="article-howto">
+              <h2 id="cac-buoc-thuc-hien">{howTo.title}</h2>
+              <ol>
+                {howTo.steps.map((step) => (
+                  <li key={step.name}><strong>{step.name}</strong> {step.text}</li>
+                ))}
+              </ol>
+            </section>
+          )}
           <section className="related-reading"><h2 id="bai-lien-quan">Bài học liên quan</h2><ul>{links.map((link) => <li key={link.href}><a href={getAssetPath(link.href)}>{link.label}</a></li>)}</ul></section>
           <section className="article-faq"><h2 id="cau-hoi-thuong-gap">Câu hỏi thường gặp</h2>{faqs.map((faq) => <details key={faq.question}><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}</section>
           <aside className="article-cta"><h2>{cta.title}</h2><p>{cta.text}</p><a className="button button-primary" href={getAssetPath(cta.href)}>{cta.label}</a></aside>

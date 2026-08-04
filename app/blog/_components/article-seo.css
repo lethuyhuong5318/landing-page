@@ -1,4 +1,7 @@
-.answer-box,.quick-summary,.article-toc,.related-reading,.article-faq,.article-cta{margin:28px 0;padding:22px;border:1px solid #dce7e8;border-radius:20px;background:#fff}
+.answer-box,.quick-summary,.article-toc,.related-reading,.article-faq,.article-cta,.article-howto{margin:28px 0;padding:22px;border:1px solid #dce7e8;border-radius:20px;background:#fff}
+.article-howto{background:#f6faf7;border-color:#cfe5d4}
+.article-howto h2{margin-top:0}
+.article-howto ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:10px}
 .answer-box{border-color:#b9dce2;background:#eff9fa}
 .answer-box h2,.quick-summary h2,.article-cta h2{margin-top:0}
 .quick-summary{background:#f8fbfb}
