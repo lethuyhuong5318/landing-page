@@ -575,7 +575,7 @@ export default function Home() {
                   type="button"
                   className={`element-tile ${element.tone} ${activeElement.symbol === element.symbol ? "is-active" : ""} ${discoveredElements.includes(element.symbol) ? "is-discovered" : ""}`}
                   key={element.symbol}
-                  data-mobile-hidden={!showAllElements && index >= 8 ? "true" : undefined}
+                  data-mobile-hidden={!showAllElements && index >= 16 ? "true" : undefined}
                   onClick={() => discoverElement(element)}
                   onMouseEnter={() => previewElement(element)}
                   aria-pressed={activeElement.symbol === element.symbol}
@@ -587,7 +587,7 @@ export default function Home() {
               ))}
             </div>
             <button className="element-more" type="button" onClick={() => setShowAllElements((value) => !value)} aria-expanded={showAllElements}>
-              {showAllElements ? "Thu gọn" : "Xem thêm 12 nguyên tố"}
+              {showAllElements ? "Thu gọn" : "Xem thêm 4 nguyên tố"}
             </button>
           </div>
 

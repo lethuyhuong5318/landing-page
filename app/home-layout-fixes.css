@@ -119,7 +119,7 @@
   .element-game,.positioning-section,.courses-section,.teacher-section,.proof-section{padding-left:14px!important;padding-right:14px!important}
   .game-heading{gap:16px!important}
   .game-shell{display:flex!important;flex-direction:column!important;gap:14px!important;padding:12px!important;overflow:visible!important}
-  .periodic-panel{width:100%!important;padding:14px!important}
+  .periodic-panel{width:100%!important;padding:16px!important;overflow:hidden!important}
   .periodic-toolbar{margin-bottom:12px!important;display:flex!important;align-items:center!important;flex-direction:row!important;gap:8px!important}
   .periodic-toolbar>div:first-child strong{font-size:18px!important}
   .game-progress{min-width:84px!important}
@@ -132,9 +132,10 @@
   .element-tile>.element-tile-photo{width:22px!important;height:22px!important;right:4px!important;bottom:4px!important;font-size:14px!important}
   .element-tile>i{width:17px!important;height:17px!important;top:4px!important;right:4px!important;font-size:8px!important}
   .element-more{width:100%;min-height:44px;margin-top:12px;display:block;border:1px solid rgba(255,255,255,.35);border-radius:12px;color:#123d5b;background:#ffd66b;font:800 14px/1 inherit}
-  .element-result-backdrop{display:none!important}
-  .element-result{width:100%!important;max-width:none!important;max-height:none!important;padding:18px!important;position:static!important;inset:auto!important;display:block!important;overflow:hidden!important;border-radius:18px!important;transform:none!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important}
-  .element-result-close{display:none!important}
+  /* Popup behavior (backdrop + fixed centered .element-result) comes from
+     globals.css at max-width:980px and is intentionally left active here -
+     do NOT force it back to an inline/static panel on mobile. */
+  .element-result{padding:20px!important}
   .result-identity{gap:10px!important}
   .result-symbol{font-size:52px!important}
   .element-illustration{min-width:0!important;max-width:52%!important}
