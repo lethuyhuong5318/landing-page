@@ -25,6 +25,12 @@ const posts = [
   { href: "/blog/cach-can-bang-phuong-trinh-hoa-hoc", image: "/infographic-hoa-co-ban.webp", tag: "HÓA THCS", title: "Cách cân bằng phương trình hóa học: thứ tự làm ít sai", excerpt: "Quy trình 5 bước, ví dụ và lỗi học sinh thường gặp khi đặt hệ số." },
   { href: "/blog/bai-toan-nong-do-dung-dich", image: "/so-do-dong-chat-fe-cu.webp", tag: "BÀI TẬP HÓA", title: "Bài toán nồng độ dung dịch: đọc đề và đi đúng dòng chất", excerpt: "Tách dữ kiện, đổi số mol và theo dõi chất trước – sau phản ứng bằng sơ đồ." },
   { href: "/blog/lo-trinh-lay-goc-hoa-thcs-vao-10", image: "/lay-goc-hoa-bang-mindmap.webp", tag: "LỘ TRÌNH HỌC", title: "Lộ trình lấy gốc Hóa THCS trước khi vào lớp 10", excerpt: "Những phần kiến thức cần ưu tiên để không bị ngợp trong các tuần đầu THPT." },
+  { href: "/blog/hoc-hoa-online-co-hieu-qua-khong", image: "/co-le-thuy-tram-professional.webp", tag: "HỌC HÓA ONLINE", title: "Học Hóa online có hiệu quả không?", excerpt: "Tiêu chí đánh giá một lớp Hóa online đáng học, và cách nhận biết lớp chỉ có video một chiều." },
+  { href: "/blog/mat-goc-hoa-9-thi-vao-10-phai-lam-sao", image: "/lay-goc-hoa-bang-mindmap.webp", tag: "MẤT GỐC · ÔN THI VÀO 10", title: "Mất gốc Hóa 9 phải làm sao để kịp thi vào 10?", excerpt: "Trọng tâm ôn tập và lịch ôn theo tuần cho học sinh mất gốc gần ngày thi." },
+  { href: "/blog/hoa-10-nen-bat-dau-hoc-tu-dau", image: "/infographic-hoa-co-ban.webp", tag: "HÓA 10", title: "Hóa 10 nên bắt đầu học từ đâu?", excerpt: "Thứ tự học hợp lý từ cấu tạo nguyên tử đến liên kết hóa học, tránh mất gốc ngay đầu năm." },
+  { href: "/blog/nen-hoc-gia-su-hoa-hay-trung-tam", image: "/hoc-hoa-tai-quan-9-thumbnail.webp", tag: "SO SÁNH LỰA CHỌN", title: "Nên học gia sư Hóa hay trung tâm?", excerpt: "Bảng so sánh và tiêu chí chọn hình thức học phù hợp với mức độ mất gốc của con." },
+  { href: "/blog/hoc-hoa-thu-duc-nen-chon-lop-nao", image: "/khoa-hoc-khtn-9.webp", tag: "TP. THỦ ĐỨC", title: "Học Hóa ở Thủ Đức nên chọn lớp nào?", excerpt: "Tiêu chí chọn lớp theo đúng trình độ tại khu vực Quận 9/TP. Thủ Đức, không theo quảng cáo." },
+  { href: "/blog/hoa-tri-la-gi-hoc-the-nao-cho-de-nho", image: "/so-do-dong-chat-fe-cu.webp", tag: "KIẾN THỨC NỀN", title: "Hóa trị là gì và học thế nào cho dễ nhớ?", excerpt: "Hiểu bản chất hóa trị và quy tắc lập công thức hóa học thay vì học thuộc lòng." },
 ];
 
 export default function BlogPage() {

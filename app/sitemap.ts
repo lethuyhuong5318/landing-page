@@ -13,6 +13,12 @@ const blogPosts = [
   "/blog/cach-can-bang-phuong-trinh-hoa-hoc",
   "/blog/bai-toan-nong-do-dung-dich",
   "/blog/lo-trinh-lay-goc-hoa-thcs-vao-10",
+  "/blog/hoc-hoa-online-co-hieu-qua-khong",
+  "/blog/mat-goc-hoa-9-thi-vao-10-phai-lam-sao",
+  "/blog/hoa-10-nen-bat-dau-hoc-tu-dau",
+  "/blog/nen-hoc-gia-su-hoa-hay-trung-tam",
+  "/blog/hoc-hoa-thu-duc-nen-chon-lop-nao",
+  "/blog/hoa-tri-la-gi-hoc-the-nao-cho-de-nho",
 ];
 
 function withTrailingSlash(path: string): string {
