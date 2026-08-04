@@ -365,10 +365,13 @@ h1, h2, h3,
   display: block;
   width: 50px;
   height: 50px;
-  padding: 3px;
-  border: 1px solid #d4e3e6;
+  /* No padding / white background / light border here: the logo artwork is
+     a transparent PNG-WebP whose own navy ring IS the badge edge. A white
+     fill behind it showed through as a visible white halo ring. */
+  padding: 0;
+  border: 0;
   border-radius: 50%;
-  background: #ffffff;
+  background: transparent;
   box-shadow: 0 4px 12px rgba(28,67,98,.1);
   object-fit: contain;
   overflow: hidden;

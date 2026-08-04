@@ -98,3 +98,50 @@ h1,h2,h3,h4,
   .disp-3d-badge{padding:5px 8px}
   .atomic-lab-tip{left:6px;bottom:6px;padding:4px 6px}
 }
+
+/* --- 6. Element facts: keep 2x2 on the narrowest phones ---------------- */
+/* atomic-lab.css collapses this to a single column under 370px, which
+   turned four compact tiles into four full-width rows and pushed the
+   "open 3D" button below the fold. Two columns still fit at 320px.      */
+@media(max-width:560px){
+  .element-facts{grid-template-columns:1fr 1fr}
+  .element-facts>div{padding:8px 9px}
+  .element-facts span{font-size:7.5px}
+  .element-facts b{font-size:11.5px;line-height:1.35}
+}
+
+/* --- 7. Desktop: stop wasting half the screen -------------------------- */
+/* Lesson pages were locked to .wrap{max-width:980px}, so on a 1440-1920px
+   display roughly half the viewport was empty while the periodic table,
+   the 3D labs and the virtual lab were all cramped. 1180px matches the
+   marketing site's container (--container-max-width in DESIGN_SYSTEM.md),
+   so the two halves of the product finally line up.
+   Body copy keeps a readable measure via max-width on text blocks.      */
+@media(min-width:1100px){
+  .wrap{max-width:1180px}
+  .cluster-lesson-header,.cluster-lesson-nav,.cluster-breadcrumb{width:min(100%,1180px)}
+  /* keep prose at a comfortable measure even though the shell is wider */
+  .card>p,.card>.note,.lesson-intro,.card-head+p{max-width:78ch}
+  /* wide interactive modules get the extra room they actually need */
+  .atomic-models-row{grid-template-columns:minmax(190px,.62fr) minmax(0,1.38fr)}
+  .atomic-lab-stage,#atomicLabCanvas{height:300px;min-height:300px}
+}
+@media(min-width:1400px){
+  .wrap{max-width:1280px}
+}
+
+/* --- 8. Virtual lab: declutter the simulation stage -------------------- */
+/* The stage is only ~360x370 on a phone and was holding the drag hint,
+   the temperature box, the thermometer, the beaker, the metal chip AND a
+   canvas-drawn "H2O" label pinned at (19,34) - the hint sat right on top
+   of that label. The stage background is a brown "ground" band across the
+   bottom 25% that carried no information, so the hint moves there and the
+   temperature box shrinks, clearing the whole upper-left corner.        */
+@media(max-width:560px){
+  .cc-vlab-hint{
+    top:auto;bottom:8px;left:8px;right:8px;
+    padding:6px 9px;border-radius:9px;background:#ffffffef;
+    font-size:9px;line-height:1.3;text-align:center
+  }
+  .cc-vlab-tempbox{top:8px;right:8px;width:62px;padding:6px;border-radius:10px}
+}
