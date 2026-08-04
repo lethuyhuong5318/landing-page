@@ -84,6 +84,29 @@ export function articleSchema(args: {
   };
 }
 
+export function courseSchema(args: {
+  name: string;
+  description: string;
+  path: string;
+  numberOfLessons: number;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "@id": `${SITE_URL}${args.path}#course`,
+    name: args.name,
+    description: args.description,
+    url: absoluteUrl(args.path),
+    provider: { "@id": `${SITE_URL}/#organization` },
+    inLanguage: "vi-VN",
+    hasCourseInstance: {
+      "@type": "CourseInstance",
+      courseMode: ["online", "onsite"],
+      courseWorkload: `${args.numberOfLessons} bài học`,
+    },
+  };
+}
+
 export function howToSchema(args: {
   name: string;
   description: string;

@@ -1,4 +1,6 @@
-import { LESSONS } from '@/app/lib/lessons-data';
+import { LESSONS, COURSE_TITLE, COURSE_DESCRIPTION } from '@/app/lib/lessons-data';
+import JsonLd from '../../../components/seo/JsonLd';
+import { courseSchema } from '../../../lib/schema';
 import LessonPageClient from './LessonPageClient';
 
 export function generateStaticParams() {
@@ -6,5 +8,17 @@ export function generateStaticParams() {
 }
 
 export default function LessonPage() {
-  return <LessonPageClient />;
+  return (
+    <>
+      <JsonLd
+        data={courseSchema({
+          name: COURSE_TITLE,
+          description: COURSE_DESCRIPTION,
+          path: '/lay-goc-hoa',
+          numberOfLessons: LESSONS.length,
+        })}
+      />
+      <LessonPageClient />
+    </>
+  );
 }
