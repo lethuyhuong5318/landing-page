@@ -19,6 +19,23 @@
   filter: blur(0);
 }
 
+/* Stagger effect for multiple sections */
+.section:nth-child(2) {
+  transition-delay: var(--duration-fast);
+}
+
+.section:nth-child(3) {
+  transition-delay: var(--duration-normal);
+}
+
+.section:nth-child(4) {
+  transition-delay: calc(var(--duration-normal) + var(--duration-fast));
+}
+
+.section:nth-child(n+5) {
+  transition-delay: var(--duration-slow);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .section {
     opacity: 1;

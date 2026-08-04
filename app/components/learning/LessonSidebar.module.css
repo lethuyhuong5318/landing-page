@@ -77,9 +77,15 @@
   border-left: 3px solid transparent;
 }
 
+.link {
+  border-left-width: 3px;
+}
+
 .link:hover {
   background: var(--surface-variant);
   color: var(--text-primary);
+  padding-left: calc(var(--spacing-lg) + 2px);
+  transition: all var(--duration-fast) var(--ease-out);
 }
 
 .link.active {
@@ -87,6 +93,12 @@
   color: var(--text-inverse);
   font-weight: var(--font-weight-semibold);
   border-left-color: var(--accent);
+  box-shadow: inset -4px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.link.active:hover {
+  background: var(--primary-hover);
+  padding-left: var(--spacing-lg);
 }
 
 .link:focus-visible {
@@ -153,4 +165,79 @@
   color: var(--text-secondary);
   line-height: var(--line-height-relaxed);
   margin: 0;
+}
+
+/* ========== MOBILE BOTTOM SHEET VARIANT ========== */
+.sidebarBottomSheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 150;
+  max-height: 80vh;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  padding: var(--spacing-lg) var(--container-padding-mobile);
+  overflow-y: auto;
+  animation: slideUp var(--duration-normal) var(--ease-out);
+  box-shadow: 0 -4px 12px rgba(15, 76, 129, 0.1);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.bottomSheetHandle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-lg);
+  padding-top: var(--spacing-sm);
+}
+
+.bottomSheetHandle::before {
+  content: '';
+  width: 40px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebarBottomSheet {
+    animation: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .sidebarBottomSheet {
+    padding: var(--spacing-md) var(--container-padding-mobile);
+    max-height: 75vh;
+  }
+
+  .section {
+    gap: var(--spacing-md);
+  }
+
+  .nav {
+    gap: 0;
+  }
+
+  .link {
+    padding: var(--spacing-md);
+    font-size: var(--font-size-sm);
+    min-height: 44px;
+  }
+
+  .courseInfo {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-md);
+  }
 }
