@@ -4,6 +4,14 @@
   const saltSelect = document.getElementById('dispSalt');
   if (!canvas || !metalSelect || !saltSelect || !window.THREE) return;
 
+  // NOTE: `state` must be declared before the first `state.*` access below
+  // (the webglcontextlost/restored listeners use state.drag and
+  // state.abort.signal). It used to be declared ~110 lines further down,
+  // which put those accesses in the temporal dead zone and threw
+  // "ReferenceError: Cannot access 'state' before initialization",
+  // aborting the whole IIFE so the 3D lab never initialised at all.
+  const state = { progress: 0, target: 0, reacting: false, yaw: -.32, pitch: 0, drag: false, x: 0, y: 0, resizeObserver: null, frameId: null, abort: new AbortController() };
+
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const saltCations = { CuSO4: 'Cu', AgNO3: 'Ag', FeSO4: 'Fe', ZnSO4: 'Zn', MgSO4: 'Mg' };
   const series3d = ['K', 'Na', 'Ba', 'Ca', 'Mg', 'Al', 'Zn', 'Fe', 'Ni', 'Sn', 'Pb', 'H', 'Cu', 'Hg', 'Ag', 'Pt', 'Au'];
@@ -128,8 +136,6 @@
     particle.userData.delay = i / 46;
     deposits.add(particle);
   }
-
-  const state = { progress: 0, target: 0, reacting: false, yaw: -.32, pitch: 0, drag: false, x: 0, y: 0, resizeObserver: null, frameId: null, abort: new AbortController() };
 
   function selection() {
     const metal = metalSelect.value;

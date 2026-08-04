@@ -14,3 +14,87 @@ html{scroll-padding-top:92px}body{overflow-wrap:break-word}img,svg,canvas,video,
 
 /* Footer line-wrap and compact mining iframe */
 footer{display:grid!important;grid-template-columns:auto 1fr!important;align-items:center!important}footer .b{white-space:nowrap}footer .t{text-align:right}.developer-credit{grid-column:1/-1!important;white-space:normal!important;text-wrap:balance}@media(max-width:480px){footer{grid-template-columns:1fr!important;text-align:center}footer .b,footer .t{text-align:center}.developer-credit{font-size:11px!important}.chem-miner-frame-shell iframe{height:min(520px,130vw);min-height:440px}}
+
+
+/* =========================================================================
+   2026-08 UX pass — lesson pages
+   Loads last, so these intentionally override the per-module stylesheets.
+   ========================================================================= */
+
+/* --- 1. Stop gratuitous mid-word breaks -------------------------------- */
+/* body{overflow-wrap:break-word} above is needed for long formulas, but it
+   was also chopping ordinary words in narrow boxes ("Zirconi|um").
+   Names, headings and short labels must never break inside a word.        */
+h1,h2,h3,h4,
+.card-head h2,.cluster-lesson-header h1,.cluster-kicker,.cluster-home-link,
+.em-name,.element-identity,.periodic-modal-category,
+.element-section-title b,.element-facts span,
+.pel .m,.tab-btn,.periodic-filter,.atomic-lab-head b,
+.disp-3d-badge,.cc-vlab-badge,.atomic-lab-modal-sheet>header h2{
+  overflow-wrap:normal;word-break:normal;hyphens:none
+}
+/* values (electron config etc.) may wrap, but only when truly necessary */
+.element-facts b{overflow-wrap:break-word}
+
+/* --- 2. Lesson header card: stronger, more legible text (mobile) ------- */
+@media(max-width:680px){
+  .cluster-lesson-header{padding:14px}
+  .cluster-home-link{color:#dcefff;font-size:12px}
+  .cluster-kicker{margin-top:3px;color:#ffdc86;font-size:10.5px;letter-spacing:.1em}
+  .cluster-lesson-header h1{margin:6px 0 4px;font-size:clamp(22px,5.8vw,27px);line-height:1.16;text-wrap:balance}
+  .cluster-lesson-header p{color:#eaf6ff;font-size:11.5px;line-height:1.5}
+}
+
+/* --- 3. Periodic table on phones -------------------------------------- */
+/* 18 columns can never be legible at 375px, so instead of shrinking text
+   into illegibility we: drop the 5.5px element name (tapping a cell opens
+   the full detail card anyway), enlarge the symbol, shrink the cell so
+   there is ~17% less horizontal scrolling, and add real scroll affordance. */
+@media(max-width:560px){
+  .ptable.periodic-grid{--cell:36px;min-width:700px;gap:3px}
+  .periodic-grid .pel{padding:2px;border-radius:6px}
+  .periodic-grid .pel .m{display:none}
+  .periodic-grid .pel .s{font-size:14px}
+  .periodic-grid .pel .z{top:2px;left:3px;font-size:6.5px}
+  .periodic-shell{
+    touch-action:pan-x pan-y pinch-zoom;
+    background:
+      linear-gradient(90deg,#fff 32%,rgba(255,255,255,0)) left/22px 100% no-repeat local,
+      linear-gradient(90deg,rgba(255,255,255,0),#fff 68%) right/22px 100% no-repeat local,
+      radial-gradient(farthest-side at 0 50%,rgba(11,47,91,.17),transparent) left/11px 100% no-repeat scroll,
+      radial-gradient(farthest-side at 100% 50%,rgba(11,47,91,.17),transparent) right/11px 100% no-repeat scroll
+  }
+  .periodic-hint{
+    display:flex;align-items:center;gap:6px;margin-bottom:8px;padding:7px 10px;
+    border:1px solid #cfe3f2;border-radius:10px;background:#f2f9ff;
+    color:#2b648f;font-size:10.5px
+  }
+  .periodic-hint::before{content:"↔";font-size:13px;font-weight:900}
+}
+
+/* --- 4. Element detail card: fit more above the fold ------------------- */
+@media(max-width:560px){
+  /* ID-scoped to beat `#elModalOverlay .el-modal-head` in lay-goc-hoa.css,
+     otherwise the tightening below is dead CSS. Right padding must stay
+     clear of .wiki-element-media (right:36px + 54px wide = 90px).        */
+  #elModalOverlay .el-modal-head{min-height:0;padding:14px 96px 13px 15px}
+  .el-modal-head .em-eyebrow{margin-bottom:7px}
+  .element-identity .nuclear-element{font-size:42px}
+  .el-modal-head .em-name{font-size:16px}
+  .wiki-element-media{width:54px;height:54px;right:36px}
+  .el-modal-body{padding:12px 13px 14px}
+  .element-facts{gap:6px;margin-bottom:10px}
+  .element-facts>div{padding:8px 9px}
+  .element-facts b{font-size:12px}
+  .atomic-model-2d.element-bohr-card{padding:10px}
+  .element-bohr-card .periodic-shell-diagram svg{width:min(100%,152px)}
+  .element-bohr-card>p{font-size:8.5px}
+  .open-atomic-3d{min-height:52px;margin-top:8px}
+}
+
+/* --- 5. 3D simulation panels: keep overlays off the model -------------- */
+@media(max-width:560px){
+  .disp-3d-hint{bottom:6px;padding:5px 8px;font-size:7.5px;max-width:calc(100% - 16px)}
+  .disp-3d-badge{padding:5px 8px}
+  .atomic-lab-tip{left:6px;bottom:6px;padding:4px 6px}
+}

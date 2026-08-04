@@ -53,7 +53,7 @@
     try {
       renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
     } catch (error) {
-      host.innerHTML = <p class="atomic-lab-fallback">Thiết bị chưa hỗ trợ WebGL để hiển thị mô hình 3D.<br><button onclick="location.reload()" style="margin-top:8px; padding:8px 12px; background:#267fc1; color:#fff; border:none; border-radius:6px; cursor:pointer;">Thử lại</button></p>;
+      host.innerHTML = '<p class="atomic-lab-fallback">Thiết bị chưa hỗ trợ WebGL để hiển thị mô hình 3D.<br><button onclick="location.reload()" style="margin-top:8px; padding:8px 12px; background:#267fc1; color:#fff; border:none; border-radius:6px; cursor:pointer;">Thử lại</button></p>';
       return;
     }
 
