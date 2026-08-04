@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styles from './ElementModal.module.css';
 
 export interface ElementData {
@@ -30,6 +30,10 @@ export function ElementModal({
   element,
   onClose,
 }: ElementModalProps) {
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const previousActiveElement = useRef<HTMLElement | null>(null);
+
   // Close on ESC key
   useEffect(() => {
     if (!isOpen) return;
@@ -44,12 +48,15 @@ export function ElementModal({
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
-  // Prevent body scroll when modal is open
+  // Focus management and body scroll prevention
   useEffect(() => {
     if (isOpen) {
+      previousActiveElement.current = document.activeElement as HTMLElement;
       document.body.style.overflow = 'hidden';
+      closeButtonRef.current?.focus();
     } else {
       document.body.style.overflow = '';
+      previousActiveElement.current?.focus();
     }
 
     return () => {
@@ -57,7 +64,45 @@ export function ElementModal({
     };
   }, [isOpen]);
 
+  // Focus trap: keep focus within modal
+  useEffect(() => {
+    if (!isOpen || !modalRef.current) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+
+      const focusableElements = modalRef.current?.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      ) as NodeListOf<HTMLElement>;
+
+      if (!focusableElements.length) return;
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+      const activeElement = document.activeElement;
+
+      if (e.shiftKey) {
+        // Shift + Tab
+        if (activeElement === firstElement) {
+          e.preventDefault();
+          lastElement.focus();
+        }
+      } else {
+        // Tab
+        if (activeElement === lastElement) {
+          e.preventDefault();
+          firstElement.focus();
+        }
+      }
+    };
+
+    modalRef.current.addEventListener('keydown', handleKeyDown);
+    return () => modalRef.current?.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
+
   if (!isOpen || !element) return null;
+
+  const elementTitleId = `element-${element.symbol}-title`;
 
   return (
     <div
@@ -68,21 +113,29 @@ export function ElementModal({
         }
       }}
       role="presentation"
+      aria-hidden="false"
     >
-      <div className={styles.modal} role="dialog" aria-modal="true">
+      <div
+        ref={modalRef}
+        className={styles.modal}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={elementTitleId}
+      >
         {/* Header */}
         <div className={styles.header}>
           <button
+            ref={closeButtonRef}
             className={styles.closeButton}
             onClick={onClose}
-            aria-label="Đóng"
-            title="Đóng (ESC)"
+            aria-label="Đóng (ESC)"
+            title="Đóng"
           >
             ✕
           </button>
           <div className={styles.headerContent}>
             <div className={styles.symbol}>{element.symbol}</div>
-            <div className={styles.name}>{element.name}</div>
+            <div id={elementTitleId} className={styles.name}>{element.name}</div>
           </div>
         </div>
 
