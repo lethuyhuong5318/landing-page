@@ -914,15 +914,38 @@ export default function Home() {
             <img className="brand-logo" src={getAssetPath("/chamcham-logo-256.webp")} alt="Logo ChamChamEdemy" width="52" height="52" />
             <span>ChamCham<span>Edemy</span><small>Học Hóa bằng tư duy trực quan</small></span>
           </a>
-          <nav className="footer-nav" aria-label="Liên kết cuối trang"><a href={getAssetPath("/#khoa-hoc")}>Khóa học</a><a href={getAssetPath("/#giang-vien")}>Giảng viên</a><a href={getAssetPath("/feedback")}>Feedback</a><a href={getAssetPath("/blog")}>Blog</a><a href={getAssetPath("/#dang-ky")}>Đăng ký</a></nav>
-          <p className="footer-address">9/5A Đường Số 1, Thành phố Thủ Đức, TP. Hồ Chí Minh · Học trực tiếp tại Quận 9 & học online toàn quốc</p>
-          <p className="footer-developer">Phát triển bởi <strong>Thehuntech</strong> — Giải pháp số cho doanh nghiệp · <a href="tel:0354375305">0354 375 305</a></p>
-          <div className="footer-social" aria-label="Kết nối với ChamChamEdemy">
-            <a href={MAP_URL} target="_blank" rel="noreferrer" aria-label="Địa chỉ ChamChamEdemy trên Google Maps"><span>⌖</span>Địa chỉ</a>
-            <a href={YOUTUBE_URL} target="_blank" rel="noreferrer" aria-label="YouTube ChamChamEdemy"><span>▶</span>YouTube</a>
-            <a href={FACEBOOK_URL} target="_blank" rel="noreferrer" aria-label="Facebook ChamChamEdemy"><span>f</span>Facebook</a>
-            <a href={TIKTOK_URL} target="_blank" rel="noreferrer" aria-label="TikTok ChamChamEdemy"><span>♪</span>TikTok</a>
+          <nav className="footer-col footer-col--nav" aria-labelledby="footer-explore">
+            <h2 id="footer-explore">Khám phá</h2>
+            <a href={getAssetPath("/#khoa-hoc")}>Khóa học</a>
+            <a href={getAssetPath("/#giang-vien")}>Giảng viên</a>
+            <a href={getAssetPath("/lay-goc-hoa/")}>Lấy gốc Hóa</a>
+            <a href={getAssetPath("/blog")}>Blog Hóa</a>
+            <a href={getAssetPath("/feedback")}>Feedback</a>
+          </nav>
+
+          <div className="footer-col footer-col--contact">
+            <h2>Liên hệ</h2>
+            <p className="footer-address">9/5A Đường Số 1, TP. Thủ Đức, TP. Hồ Chí Minh</p>
+            <p className="footer-note">Học trực tiếp tại Quận 9 &amp; học online toàn quốc</p>
+            <a className="footer-phone" href={ZALO_URL} target="_blank" rel="noreferrer">Zalo: 0329 309 293</a>
           </div>
+
+          <div className="footer-col footer-col--social">
+            <h2>Kết nối</h2>
+            <div className="footer-social" aria-label="Kết nối với ChamChamEdemy">
+              <a href={MAP_URL} target="_blank" rel="noreferrer" aria-label="Địa chỉ ChamChamEdemy trên Google Maps"><span>⌖</span>Địa chỉ</a>
+              <a href={YOUTUBE_URL} target="_blank" rel="noreferrer" aria-label="YouTube ChamChamEdemy"><span>▶</span>YouTube</a>
+              <a href={FACEBOOK_URL} target="_blank" rel="noreferrer" aria-label="Facebook ChamChamEdemy"><span>f</span>Facebook</a>
+              <a href={TIKTOK_URL} target="_blank" rel="noreferrer" aria-label="TikTok ChamChamEdemy"><span>♪</span>TikTok</a>
+            </div>
+          </div>
+
+          <p className="footer-developer">
+            <span className="footer-developer__label">Phát triển bởi</span>
+            <strong>Thehuntech</strong>
+            <span className="footer-developer__tag">Giải pháp số cho doanh nghiệp</span>
+            <a href="tel:0354375305">0354 375 305</a>
+          </p>
         </div>
       </footer>
       <div className={`mobile-cta-bar${showMobileCta ? " is-visible" : ""}`} aria-label="Liên hệ nhanh"><a href={ZALO_URL} target="_blank" rel="noreferrer">Nhắn Zalo</a><a href="#dang-ky">Nhận bài test</a></div>

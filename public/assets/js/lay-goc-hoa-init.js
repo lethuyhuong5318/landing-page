@@ -41,3 +41,27 @@ document.addEventListener("click",function(event){
     box.appendChild(t);
   }
 })();
+
+/* Give every data cell its column label so narrow screens can render the
+   table as stacked "label: value" rows instead of a horizontal scroller
+   (requested: see all the information without scrolling). */
+(function(){
+  var tables=document.querySelectorAll('table.tt');
+  for(var i=0;i<tables.length;i++){
+    var t=tables[i];
+    var headRow=t.querySelector('tr');
+    if(!headRow)continue;
+    var heads=headRow.querySelectorAll('th');
+    if(!heads.length)continue;
+    var labels=[];
+    for(var h=0;h<heads.length;h++)labels.push((heads[h].textContent||'').trim());
+    var rows=t.querySelectorAll('tr');
+    for(var r=0;r<rows.length;r++){
+      var cells=rows[r].querySelectorAll('td');
+      for(var c=0;c<cells.length;c++){
+        if(labels[c]&&!cells[c].hasAttribute('data-label'))cells[c].setAttribute('data-label',labels[c]);
+      }
+    }
+    t.classList.add('tt--stackable');
+  }
+})();

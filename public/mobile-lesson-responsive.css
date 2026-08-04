@@ -182,3 +182,43 @@ h1,h2,h3,h4,
 .tab-btn.active .tab-num,.tab-btn[aria-selected=true] .tab-num{
   background:#ffd166;color:#0b365e
 }
+
+/* --- 12. Periodic table must stay swipeable on touch ------------------ */
+/* `manipulation` (inherited pattern from the button rule) was winning on
+   .periodic-shell. Be explicit: horizontal panning + pinch zoom.        */
+/* `pan-x pan-y pinch-zoom` was being dropped by the parser (computed
+   stayed `manipulation`), so use plain `auto` - it permits horizontal
+   panning and pinch zoom, which is exactly what this strip needs. */
+.periodic-shell{touch-action:auto !important;-webkit-overflow-scrolling:touch}
+
+/* --- 13. Data tables: stack on phones, no horizontal scrolling -------- */
+/* Requested: show every column without scrolling. Below 620px each row
+   becomes its own card and each cell prints "Column: value" using the
+   data-label attribute injected by lay-goc-hoa-init.js. Above that the
+   normal table (inside .table-scroll) is used unchanged.                */
+@media(max-width:620px){
+  .table-scroll{overflow-x:visible;border-radius:0}
+  /* !important needed: rule 10 above sets .tt{display:table!important} to
+     undo the old table-breaking CSS, and that would otherwise win here. */
+  .table-scroll>.tt.tt--stackable{min-width:0;display:block!important;border-collapse:separate}
+  .tt--stackable thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+  .tt--stackable tbody,.tt--stackable tr,.tt--stackable td{display:block;width:100%}
+  .tt--stackable tr{
+    margin:0 0 10px;padding:10px 12px;
+    border:1px solid #d9e6f0;border-radius:12px;background:#fff;
+    box-shadow:0 2px 8px rgba(11,47,91,.06)
+  }
+  .tt--stackable tr:first-child:has(th){display:none}
+  .tt--stackable td{
+    padding:6px 0;border:0;border-bottom:1px solid #eef4f9;
+    font-size:13px;line-height:1.5;text-align:left
+  }
+  .tt--stackable td:last-child{border-bottom:0;padding-bottom:0}
+  .tt--stackable td::before{
+    content:attr(data-label);
+    display:block;margin-bottom:2px;
+    color:#5b7c93;font-size:10px;font-weight:900;
+    letter-spacing:.06em;text-transform:uppercase
+  }
+  .tt--stackable td:not([data-label])::before{content:none}
+}
