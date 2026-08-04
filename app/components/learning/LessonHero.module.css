@@ -66,14 +66,22 @@
 }
 
 .title {
-  font-size: var(--font-size-4xl);
+  font-size: clamp(24px, 5vw, 28px);
   margin-bottom: var(--spacing-md);
   line-height: var(--line-height-tight);
+  letter-spacing: -0.5px;
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 22px;
+    margin-bottom: var(--spacing-sm);
+  }
 }
 
 @media (max-width: 767px) {
   .title {
-    font-size: var(--font-size-3xl);
+    font-size: 24px;
   }
 }
 

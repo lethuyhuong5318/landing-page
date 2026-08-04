@@ -15,10 +15,33 @@
   }
 }
 
+@media (max-width: 768px) {
+  .navigation {
+    gap: var(--spacing-md);
+  }
+}
+
 @media (max-width: 600px) {
   .navigation {
     grid-template-columns: 1fr;
-    gap: var(--spacing-md);
+    padding: var(--spacing-xl) var(--container-padding-mobile);
+  }
+}
+
+@media (max-width: 480px) {
+  .navigation {
+    gap: var(--spacing-sm);
+    padding: var(--spacing-lg) var(--container-padding-mobile);
+  }
+
+  .button {
+    min-height: 48px;
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: var(--font-size-sm);
+  }
+
+  .label {
+    font-size: 10px;
   }
 }
 
