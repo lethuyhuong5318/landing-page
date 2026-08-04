@@ -9,7 +9,7 @@ interface ReadingProgressProps {
 
 export function ReadingProgress({ stickyHeaderHeight = 72 }: ReadingProgressProps) {
   const [progress, setProgress] = useState(0);
-  const rafRef = useRef<number>();
+  const rafRef = useRef<number | undefined>(undefined);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

@@ -4,8 +4,8 @@
    Mobile: Full width responsive, sidebar → bottom sheet
    ============================================================ */
 
-@import 'design-tokens.css';
-@import 'learning-layout.css';
+@import './design-tokens.css';
+@import './learning-layout.css';
 
 /* ========== LESSON PAGE GRID ========== */
 .lesson-page {

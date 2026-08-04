@@ -137,11 +137,11 @@
   border-radius: var(--radius-full);
 }
 
-.linkStatus['in-progress'] {
+.linkStatus.in-progress {
   color: var(--accent);
 }
 
-.linkStatus['not-started'] {
+.linkStatus.not-started {
   color: var(--text-tertiary);
 }
 

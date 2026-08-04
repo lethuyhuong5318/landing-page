@@ -1,4 +1,4 @@
-import '@/styles/learning-lesson.css';
+import '@/app/styles/learning-lesson.css';
 
 export const metadata = {
   title: 'Lấy gốc Hóa - ChamChamEdemy',

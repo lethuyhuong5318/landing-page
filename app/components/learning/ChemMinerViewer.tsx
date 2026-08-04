@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import { useEffectPreference } from '@/context/EffectPreferenceContext';
+import { useEffectPreference } from '@/app/context/EffectPreferenceContext';
 import { WebGLErrorBoundary } from './WebGLErrorBoundary';
 
 export function ChemMinerViewer() {
