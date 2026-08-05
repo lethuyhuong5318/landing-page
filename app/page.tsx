@@ -943,8 +943,7 @@ export default function Home() {
           <p className="footer-developer">
             <span className="footer-developer__label">Phát triển bởi</span>
             <strong>Thehuntech</strong>
-            <span className="footer-developer__tag">Giải pháp số cho doanh nghiệp</span>
-            <a href="tel:0354375305">0354 375 305</a>
+            <a href="tel:0354375205">0354 375 205</a>
           </p>
         </div>
       </footer>
