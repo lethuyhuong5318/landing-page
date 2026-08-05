@@ -1262,6 +1262,14 @@ function awardXP(amount){
   el.textContent = appState.xp;
   badge.classList.add('bump');
   setTimeout(()=>badge.classList.remove('bump'), 300);
+  // Ring fills with progress toward the *next* level (xp % 50 of 50),
+  // not raw xp, so it always reads as a meaningful 0-100% arc instead of
+  // jumping past a full circle once xp exceeds 100.
+  const ringFill = document.getElementById('xpRingFill');
+  if (ringFill) {
+    const pctToNextLevel = (appState.xp % 50) / 50 * 100;
+    ringFill.style.strokeDashoffset = String(100 - pctToNextLevel);
+  }
   const newLevel = levelFromXP(appState.xp);
   if(newLevel !== appState.level){
     appState.level = newLevel;

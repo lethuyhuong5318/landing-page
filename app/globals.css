@@ -1150,11 +1150,11 @@ footer { padding-bottom: 56px; }
 @media (max-width: 560px) {
   .footer-inner { grid-template-columns: 1fr; gap: 18px; }
 }
-.site-footer .footer-brand { grid-area: brand; font-size: 21px; }
+.site-footer .footer-brand { font-size: 21px; }
 .site-footer .footer-brand .brand-logo { width: 45px; height: 45px; }
 .site-footer .footer-brand small { font-size: 10px; }
-.footer-nav { grid-area: nav; display: flex; justify-content: flex-start; gap: 19px; color: #3f5d72; font-size: 10px; font-weight: 800; }
-.footer-address { grid-area: address; margin: 0; color: #6c7e89; font-size: 11px; line-height: 1.5; }
+.footer-nav { display: flex; justify-content: flex-start; gap: 19px; color: #3f5d72; font-size: 10px; font-weight: 800; }
+.footer-address { margin: 0; color: #6c7e89; font-size: 11px; line-height: 1.5; }
 .footer-developer{grid-column:1/-1;width:100%;margin:8px 0 0;padding:16px 22px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 14px;border:1px solid #2f6f96;border-left:5px solid #ffd166;border-radius:14px;background:linear-gradient(115deg,#0b365e 0%,#14527f 62%,#1b6a9c 100%);text-align:center;color:#fff;font-size:13px;font-weight:650;line-height:1.6;box-shadow:0 10px 26px rgba(11,54,94,.22)}
 .footer-developer__label{color:#bfe0f2;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
 .footer-developer strong{color:#ffe071;font-family:var(--font-heading),Arial,sans-serif;font-size:19px;font-weight:900;letter-spacing:.01em}
@@ -1162,7 +1162,7 @@ footer { padding-bottom: 56px; }
 .footer-developer__tag::before{content:"·";margin-right:12px;color:#5f9cc4}.footer-developer a{min-height:44px;padding-inline:4px;display:inline-flex;align-items:center;color:#fff3a8;font-weight:900;text-decoration:underline;text-underline-offset:3px}.footer-developer a:hover{color:#fff;text-decoration-thickness:2px}.footer-developer a:focus-visible{outline:3px solid #ffd166;outline-offset:2px;border-radius:5px}
 .footer-nav a, .footer-social a { transition: color .2s ease, transform .2s ease; }
 .footer-nav a:hover, .footer-social a:hover { color: var(--blue); transform: translateY(-1px); }
-.footer-social { grid-area: social; display: flex; justify-content: flex-start; flex-wrap: wrap; gap: 7px; }
+.footer-social { display: flex; justify-content: flex-start; flex-wrap: wrap; gap: 7px; }
 .footer-social a { min-height: 28px; padding: 4px 9px 4px 5px; display: inline-flex; align-items: center; gap: 6px; border: 1px solid #d9e5e6; border-radius: 999px; color: #526b7c; background: white; font-size: 8px; font-weight: 800; }
 .footer-social a > span { width: 19px; height: 19px; display: grid; place-items: center; border-radius: 50%; color: white; background: #245782; font-family: Arial, sans-serif; font-size: 9px; font-weight: 900; }
 .footer-social a:nth-child(1) > span { background: #2b9b70; }
@@ -1193,7 +1193,11 @@ footer { padding-bottom: 56px; }
 .report-sent { padding: 8px 12px; }
 
 @media (max-width: 900px) {
-  .footer-inner { grid-template-columns: auto 1fr; grid-template-areas: "brand nav" "address address" "social social"; justify-content: stretch; gap: 10px 22px; }
+  /* .footer-inner column count is owned by the single rule near its
+     definition (900px -> 2 cols, 560px -> 1 col); redeclaring
+     grid-template-areas here for classes that no longer exist as direct
+     grid children (.footer-nav/.footer-address/.footer-social) used to
+     inject phantom implicit tracks and shove the brand column sideways. */
   .footer-social { justify-content: flex-start; }
   .parent-value { grid-template-columns: 1fr; }
   .report-window { width: min(100%, 600px); justify-self: center; }
@@ -1201,7 +1205,7 @@ footer { padding-bottom: 56px; }
 
 @media (max-width: 620px) {
   .site-footer { padding: 16px 0 18px; }
-  .footer-inner { width: calc(100% - 28px); grid-template-columns: 1fr; grid-template-areas: "brand" "nav" "address" "social"; gap: 11px; }
+  .footer-inner { width: calc(100% - 28px); }
   .footer-nav { gap: 15px; overflow-x: auto; white-space: nowrap; }
   .footer-social { justify-content: flex-start; }
   .parent-value-copy { padding-left: 0; }
