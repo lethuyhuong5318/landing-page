@@ -55,12 +55,23 @@
   lab.rotation.y = -.32;
   scene.add(lab);
 
+  // A pale, oversized disc read as the beaker being "glued" to a flat white
+  // pancake with no depth cues. Shrunk to a proper stand footprint and given
+  // a darker navy tone (with a lighter rim) so it visually separates from
+  // the pale translucent glass instead of blending into it.
   const bench = new THREE.Mesh(
-    new THREE.CylinderGeometry(3.6, 3.6, .22, 64),
-    new THREE.MeshPhongMaterial({ color: 0xe8eef2, shininess: 35 })
+    new THREE.CylinderGeometry(1.9, 2.05, .32, 64),
+    new THREE.MeshPhongMaterial({ color: 0x1f4a68, shininess: 55 })
   );
-  bench.position.y = -1.75;
+  bench.position.y = -1.66;
   lab.add(bench);
+  const benchRim = new THREE.Mesh(
+    new THREE.TorusGeometry(1.9, .05, 12, 64),
+    new THREE.MeshPhongMaterial({ color: 0xffd166, shininess: 80 })
+  );
+  benchRim.rotation.x = Math.PI / 2;
+  benchRim.position.y = -1.5;
+  lab.add(benchRim);
 
   const glassProfile = [
     new THREE.Vector2(.95, -1.48), new THREE.Vector2(1.42, -1.32),
@@ -70,7 +81,7 @@
   const glass = new THREE.Mesh(
     new THREE.LatheGeometry(glassProfile, 64),
     new THREE.MeshPhongMaterial({
-      color: 0xd8f1ff, transparent: true, opacity: .22, shininess: 120,
+      color: 0xd8f1ff, transparent: true, opacity: .35, shininess: 120,
       specular: 0xffffff, side: THREE.DoubleSide, depthWrite: false
     })
   );
