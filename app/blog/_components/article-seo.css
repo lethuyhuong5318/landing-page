@@ -11,10 +11,13 @@
 .article-body table{width:100%;margin:22px 0;border-collapse:collapse;font-size:14px}
 .article-body th,.article-body td{padding:12px;border:1px solid #dce7e8;text-align:left;vertical-align:top}
 .article-body th{color:#193b55;background:#eef7f7}
-.article-faq details{padding:14px 0;border-bottom:1px solid #e4ecee}
+.article-faq details{padding:14px 0;border-bottom:1px solid #e4ecee;transition:background .2s ease}
 .article-faq details:last-child{border-bottom:0}
-.article-faq summary{color:#193b55;font-weight:800;cursor:pointer}
-.article-faq p{margin-bottom:0}
+.article-faq details[open]{background:rgba(185,220,226,.1)}
+.article-faq summary{color:#193b55;font-weight:800;cursor:pointer;user-select:none;display:flex;align-items:center;gap:8px;transition:color .2s ease}
+.article-faq summary::marker{color:#193b55}
+.article-faq summary:hover{color:#0f4c7f}
+.article-faq p{margin-bottom:0;margin-top:12px;color:#334155;line-height:1.6}
 .article-cta{border:0;color:#fff;background:linear-gradient(135deg,#193b55,#176c78)}
 .article-cta h2,.article-cta p{color:#fff}
 .article-source{margin-top:32px;color:#71818d;font-size:13px}

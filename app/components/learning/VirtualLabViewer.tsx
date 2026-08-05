@@ -36,14 +36,14 @@ export function VirtualLabViewer() {
 
   return (
     <WebGLErrorBoundary>
-      <div style={{ marginTop: '24px', borderRadius: '12px', overflow: 'hidden', aspectRatio: '16/9' }}>
+      <div style={{ marginTop: '24px', marginBottom: '32px', borderRadius: '12px', overflow: 'hidden', aspectRatio: '16/9' }}>
         <canvas
           ref={canvasRef}
           style={{
             width: '100%',
             height: '100%',
             display: 'block',
-            background: '#fff',
+            background: '#eef7fb',
           }}
           aria-label="Phòng thí nghiệm ảo 2D"
         />
