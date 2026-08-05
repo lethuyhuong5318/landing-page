@@ -16,7 +16,22 @@ function renderSteps(el, steps, finalHtml){
   tex(el);
 }
 /* ---------------- GAMIFICATION ENGINE ---------------- */
-const appState = { xp:0, visited:new Set(), level:1 };
+function loadAppState(){
+  const saved = localStorage.getItem('ccAppState');
+  if(saved){
+    const data = JSON.parse(saved);
+    return { xp: data.xp || 0, visited: new Set(data.visited || []), level: data.level || 1 };
+  }
+  return { xp:0, visited:new Set(), level:1 };
+}
+function saveAppState(){
+  localStorage.setItem('ccAppState', JSON.stringify({
+    xp: appState.xp,
+    visited: Array.from(appState.visited),
+    level: appState.level
+  }));
+}
+const appState = loadAppState();
 function levelFromXP(xp){ return Math.floor(xp/50)+1; }
 function awardXP(amount){
   appState.xp += amount;
@@ -39,6 +54,7 @@ function awardXP(amount){
     document.getElementById('lvlLbl').textContent = `Cấp ${newLevel}`;
     confettiBurst();
   }
+  saveAppState();
 }
 function updateProgress(){
   const pct = Math.round(appState.visited.size / tabs.length * 100);
@@ -50,6 +66,7 @@ function markVisited(id){
     appState.visited.add(id);
     awardXP(5);
     updateProgress();
+    saveAppState();
     const btn = document.querySelector(`.tab-btn[data-target="${id}"]`);
     if(btn) btn.classList.add('visited');
   }
