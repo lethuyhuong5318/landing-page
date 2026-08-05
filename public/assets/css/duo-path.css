@@ -1,0 +1,72 @@
+/* ============================================================
+   DUOLINGO-STYLE VERTICAL LESSON PATH
+   Winding path of circular lesson nodes with a caption card
+   under each node, connected by an SVG line drawn via JS
+   (see duo-path.js) so it always matches real node positions.
+   ============================================================ */
+
+.duo-path-wrap{position:relative;width:min(100%,560px);margin:0 auto;padding:12px 0 8px}
+
+.duo-path-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:1}
+.duo-path-svg path{fill:none;stroke:#cfe0ea;stroke-width:6;stroke-linecap:round;stroke-dasharray:2 22}
+.duo-path-svg path.duo-path-done{stroke:#ffd166}
+
+.duo-node{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;margin:0 auto 46px;width:max-content;max-width:100%;text-decoration:none;color:inherit;transform:translateX(var(--x,0px))}
+.duo-node:last-child{margin-bottom:6px}
+
+.duo-node-circle{position:relative;width:74px;height:74px;flex:none;display:grid;place-items:center;border-radius:50%;background:linear-gradient(155deg,#bcd8e8,#9dc3d8);border:4px solid #fff;box-shadow:0 6px 0 #91b3c4,0 10px 20px rgba(11,54,94,.14);transition:transform .15s ease,box-shadow .15s ease}
+.duo-node-emoji{font-size:28px;line-height:1;filter:drop-shadow(0 1px 1px rgba(0,0,0,.15))}
+.duo-node-num{position:absolute;bottom:-6px;right:-6px;min-width:22px;height:22px;padding:0 5px;display:grid;place-items:center;border-radius:999px;background:#0b365e;color:#fff;font-size:10px;font-weight:900;border:2px solid #fff}
+.duo-node-check{position:absolute;inset:0;display:none;place-items:center;border-radius:50%;background:rgba(20,150,111,.92);color:#fff;font-size:30px;font-weight:900}
+
+.duo-node:hover .duo-node-circle,.duo-node:focus-visible .duo-node-circle{transform:translateY(-3px);box-shadow:0 9px 0 #91b3c4,0 14px 26px rgba(11,54,94,.18)}
+.duo-node:focus-visible{outline:none}
+.duo-node:focus-visible .duo-node-circle{outline:3px solid #168be0;outline-offset:3px}
+
+.duo-node-caption{width:168px;max-width:52vw;padding:8px 10px;display:flex;flex-direction:column;align-items:center;gap:2px;border:1px solid #d4e5ef;border-radius:14px;background:#fff;box-shadow:0 3px 10px rgba(18,63,95,.06);text-align:center}
+.duo-node-caption b{color:#1769aa;font-size:9px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
+.duo-node-caption strong{margin-top:1px;color:#102d48;font-size:12.5px;font-weight:800;line-height:1.3}
+.duo-node-caption span{margin-top:2px;color:#526c80;font-size:10px;font-weight:700}
+
+/* --- state: upcoming (default) --- */
+.duo-node.is-upcoming .duo-node-circle{background:linear-gradient(155deg,#e7edf1,#d7dfe4);box-shadow:0 6px 0 #c3cdd3,0 10px 20px rgba(11,54,94,.08)}
+.duo-node.is-upcoming .duo-node-emoji{opacity:.6;filter:grayscale(.4)}
+
+/* --- state: current --- */
+.duo-node.is-current .duo-node-circle{background:linear-gradient(155deg,#ffd166,#ffb84d);box-shadow:0 6px 0 #d99b1e,0 0 0 8px rgba(255,209,102,.28),0 10px 24px rgba(184,124,0,.22);animation:duoPulse 1.8s ease-in-out infinite}
+.duo-node.is-current .duo-node-num{background:#8a5a00}
+.duo-node.is-current .duo-node-caption{border-color:#ffd166;box-shadow:0 4px 14px rgba(184,124,0,.16)}
+.duo-node.is-current .duo-node-caption b{color:#c95c00}
+.duo-node-start{width:max-content;margin:0 auto -34px;padding:5px 12px;border-radius:999px;background:#0b365e;color:#fff;font-size:10px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;box-shadow:0 4px 10px rgba(11,54,94,.28);display:none;position:relative;z-index:3}
+.duo-node.is-current .duo-node-start{display:block;order:-1}
+
+@keyframes duoPulse{0%,100%{box-shadow:0 6px 0 #d99b1e,0 0 0 8px rgba(255,209,102,.28),0 10px 24px rgba(184,124,0,.22)}50%{box-shadow:0 6px 0 #d99b1e,0 0 0 14px rgba(255,209,102,.12),0 10px 24px rgba(184,124,0,.22)}}
+
+/* --- state: complete --- */
+.duo-node.is-complete .duo-node-circle{background:linear-gradient(155deg,#33c393,#14966f);box-shadow:0 6px 0 #0e7658,0 10px 20px rgba(11,54,94,.14)}
+.duo-node.is-complete .duo-node-check{display:grid}
+.duo-node.is-complete .duo-node-caption span{color:#087656;font-weight:900}
+
+@media(prefers-reduced-motion:reduce){.duo-node.is-current .duo-node-circle{animation:none}.duo-node-circle{transition:none}}
+
+/* zigzag offsets — 11 nodes, gentle S-curve */
+.duo-node:nth-of-type(1){--x:0px}
+.duo-node:nth-of-type(2){--x:78px}
+.duo-node:nth-of-type(3){--x:110px}
+.duo-node:nth-of-type(4){--x:78px}
+.duo-node:nth-of-type(5){--x:0px}
+.duo-node:nth-of-type(6){--x:-78px}
+.duo-node:nth-of-type(7){--x:-110px}
+.duo-node:nth-of-type(8){--x:-78px}
+.duo-node:nth-of-type(9){--x:0px}
+.duo-node:nth-of-type(10){--x:78px}
+.duo-node:nth-of-type(11){--x:0px}
+
+@media(max-width:520px){
+  .duo-node:nth-of-type(n){--x:0px !important}
+  .duo-node-caption{width:auto;max-width:78vw}
+}
+@media(max-width:380px){
+  .duo-node-circle{width:64px;height:64px}
+  .duo-node-emoji{font-size:24px}
+}
