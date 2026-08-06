@@ -3,6 +3,20 @@ import { SITE_URL } from "../lib/seo";
 
 export const dynamic = "force-static";
 
+const layGocHoaLessons = [
+  "/lay-goc-hoa/nen-tang-hoa-hoc-6-7",
+  "/lay-goc-hoa/cong-thuc-hoa-hoc",
+  "/lay-goc-hoa/hoa-tri",
+  "/lay-goc-hoa/bang-tuan-hoan",
+  "/lay-goc-hoa/phan-ung-va-phuong-trinh-hoa-hoc",
+  "/lay-goc-hoa/tan-ph-quy-tim",
+  "/lay-goc-hoa/day-hoat-dong-khi-ket-tua",
+  "/lay-goc-hoa/hoa-hoc-huu-co-co-ban",
+  "/lay-goc-hoa/danh-phap-iupac",
+  "/lay-goc-hoa/phan-tu-khoi",
+  "/lay-goc-hoa/bai-tap-lay-goc-hoa",
+];
+
 const blogPosts = [
   "/blog/mat-goc-hoa-nen-bat-dau-tu-dau",
   "/blog/bai-kiem-tra-chan-doan-mat-goc-hoa",
@@ -81,6 +95,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
       lastModified: new Date("2026-07-25"),
     },
+    ...layGocHoaLessons.map((path) => ({
+      url: withTrailingSlash(path),
+      changeFrequency: "monthly" as const,
+      priority: 0.85,
+      lastModified: new Date("2026-08-06"),
+    })),
     ...blogPosts.map((path) => ({
       url: withTrailingSlash(path),
       changeFrequency: "monthly" as const,
