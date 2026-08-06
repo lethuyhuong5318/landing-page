@@ -271,11 +271,6 @@ h1, h2, h3 { font-family: var(--font-heading), Arial, sans-serif; }
 .message-preview button:hover { background: #e5f2fa; }
 .register-panel form small { display: block; margin-top: 12px; color: #64748b; text-align: center; font-size: 11px; line-height: 1.5; }
 
-footer { width: min(1180px, calc(100% - 40px)); margin: 0 auto; padding: 42px 0; display: flex; align-items: center; justify-content: space-between; color: #687994; }
-.footer-brand { color: var(--ink); }
-footer > p { font-size: 13px; }
-footer > div { display: flex; gap: 22px; font-size: 12px; font-weight: 800; }
-footer a:hover { color: var(--blue); }
 
 @media (max-width: 1050px) {
   .hero { padding: 56px 40px; grid-template-columns: 1fr .78fr; }
@@ -317,7 +312,6 @@ footer a:hover { color: var(--blue); }
   .proof-section { padding-top: 80px; padding-bottom: 72px; }
   .evidence-panel { margin-top: 64px; padding: 32px 22px; gap: 40px; }
   .register-panel { padding: 32px 22px; gap: 36px; }
-  footer { align-items: flex-start; flex-direction: column; gap: 18px; }
 }
 
 @media (max-width: 430px) {
@@ -864,7 +858,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visib
 .feedback-stats article { box-shadow: var(--shadow-sm); }
 
 .mobile-cta-bar { display: none; }
-footer { padding-bottom: 56px; }
+.footer-companion { padding-bottom: 56px; }
 
 @media (max-width: 1100px) {
   .course-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
@@ -911,7 +905,7 @@ footer { padding-bottom: 56px; }
   .mobile-cta-bar { height: 62px; padding: 8px 9px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; display: grid; grid-template-columns: 1fr 1fr 1.1fr; gap: 7px; border-top: 1px solid #d5e2e5; background: rgba(255,255,255,.94); box-shadow: 0 -12px 30px rgba(25,62,83,.1); backdrop-filter: blur(14px); }
   .mobile-cta-bar a { display: grid; place-items: center; border-radius: 11px; color: var(--blue); border: 1px solid #cbdde5; font-size: 12px; font-weight: 800; }
   .mobile-cta-bar a:last-child { color: white; border-color: #16895a; background: #16895a; }
-  footer { padding-bottom: 20px; }
+  .footer-companion { padding-bottom: 76px; }
 }
 
 /* Interactive chemistry experience */
@@ -1112,63 +1106,20 @@ footer { padding-bottom: 56px; }
   .class-status > i, .score-column i { animation: none !important; }
 }
 
-/* Compact footer and parent report refresh */
+/* Site footer — see app/components/footer-companion.css for the
+   "Learning Companion" footer's own visual design. This class stays
+   as a lightweight reset + JS hook (app/page.tsx watches
+   .site-footer's viewport position to hide the mobile CTA bar). */
 .site-footer {
   width: 100%;
   margin: 0;
-  padding: 18px 0 20px;
-  position: relative;
   color: #5f7483;
-  border-top: 8px solid #19425f;
-  background: #fbfaf6;
 }
-.footer-inner {
-  width: min(1180px, calc(100% - 40px));
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1.2fr 1fr;
-  align-items: start;
-  gap: 26px 34px;
-}
-.footer-col { display: flex; flex-direction: column; align-items: flex-start; gap: 9px; }
-.footer-col h2 {
-  margin: 0 0 2px;
-  color: #123d5b;
-  font-family: var(--font-heading), Arial, sans-serif;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: .02em;
-}
-.footer-col a { min-height: 30px; display: inline-flex; align-items: center; color: #3f5d72; font-size: 13px; font-weight: 700; }
-.footer-col a:hover { color: var(--blue); }
-.footer-col p { margin: 0; }
-.footer-note { color: #7d8f9c; font-size: 12px; line-height: 1.5; }
-.footer-phone { color: #15668f !important; font-weight: 800 !important; text-decoration: underline; text-underline-offset: 3px; }
-@media (max-width: 900px) {
-  .footer-inner { grid-template-columns: 1fr 1fr; gap: 22px 20px; }
-}
-@media (max-width: 560px) {
-  .footer-inner { grid-template-columns: 1fr; gap: 18px; }
-}
-.site-footer .footer-brand { font-size: 21px; }
-.site-footer .footer-brand .brand-logo { width: 45px; height: 45px; }
-.site-footer .footer-brand small { font-size: 10px; }
-.footer-nav { display: flex; justify-content: flex-start; gap: 19px; color: #3f5d72; font-size: 10px; font-weight: 800; }
-.footer-address { margin: 0; color: #6c7e89; font-size: 11px; line-height: 1.5; }
 .footer-developer{grid-column:1/-1;width:100%;margin:8px 0 0;padding:16px 22px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 14px;border:1px solid #cbd5e1;border-left:5px solid #9ca3af;border-radius:14px;background:#f3f4f6;text-align:center;color:#6b7280;font-size:13px;font-weight:650;line-height:1.6;box-shadow:0 4px 12px rgba(0,0,0,.05)}
 .footer-developer__label{color:#6b7280;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
 .footer-developer strong{color:#1f2937;font-family:var(--font-heading),Arial,sans-serif;font-size:14px;font-weight:900;letter-spacing:.01em}
 .footer-developer__tag{color:#6b7280;font-size:12px}
 .footer-developer__tag::before{content:"·";margin-right:12px;color:#9ca3af}.footer-developer a{min-height:44px;padding-inline:4px;display:inline-flex;align-items:center;color:#1f2937;font-weight:900;text-decoration:underline;text-underline-offset:3px}.footer-developer a:hover{color:#374151;text-decoration-thickness:2px}.footer-developer a:focus-visible{outline:3px solid #9ca3af;outline-offset:2px;border-radius:5px}
-.footer-nav a, .footer-social a { transition: color .2s ease, transform .2s ease; }
-.footer-nav a:hover, .footer-social a:hover { color: var(--blue); transform: translateY(-1px); }
-.footer-social { display: flex; justify-content: flex-start; flex-wrap: wrap; gap: 7px; }
-.footer-social a { min-height: 28px; padding: 4px 9px 4px 5px; display: inline-flex; align-items: center; gap: 6px; border: 1px solid #d9e5e6; border-radius: 999px; color: #526b7c; background: white; font-size: 8px; font-weight: 800; }
-.footer-social a > span { width: 19px; height: 19px; display: grid; place-items: center; border-radius: 50%; color: white; background: #245782; font-family: Arial, sans-serif; font-size: 9px; font-weight: 900; }
-.footer-social a:nth-child(1) > span { background: #2b9b70; }
-.footer-social a:nth-child(2) > span { background: #e34747; }
-.footer-social a:nth-child(3) > span { background: #397bc1; }
-.footer-social a:nth-child(4) > span { background: #242c35; }
 
 .parent-value { grid-template-columns: .86fr 1.14fr; gap: 62px; background: #173f5c; }
 .parent-value-copy { padding-left: 4px; }
@@ -1193,21 +1144,11 @@ footer { padding-bottom: 56px; }
 .report-sent { padding: 8px 12px; }
 
 @media (max-width: 900px) {
-  /* .footer-inner column count is owned by the single rule near its
-     definition (900px -> 2 cols, 560px -> 1 col); redeclaring
-     grid-template-areas here for classes that no longer exist as direct
-     grid children (.footer-nav/.footer-address/.footer-social) used to
-     inject phantom implicit tracks and shove the brand column sideways. */
-  .footer-social { justify-content: flex-start; }
   .parent-value { grid-template-columns: 1fr; }
   .report-window { width: min(100%, 600px); justify-self: center; }
 }
 
 @media (max-width: 620px) {
-  .site-footer { padding: 16px 0 18px; }
-  .footer-inner { width: calc(100% - 28px); }
-  .footer-nav { gap: 15px; overflow-x: auto; white-space: nowrap; }
-  .footer-social { justify-content: flex-start; }
   .parent-value-copy { padding-left: 0; }
   .report-window { transform: none; }
   .report-header { min-height: 82px; }
