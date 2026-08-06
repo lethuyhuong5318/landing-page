@@ -1,0 +1,390 @@
+/* ============================================================
+   FOOTER "LEARNING COMPANION" — static /lay-goc-hoa/ pages
+   Sister stylesheet to app/components/footer-companion.css (the
+   React version used on every other page). Colors are hardcoded
+   rather than referencing var(--navy)/var(--blue) etc. because the
+   hub page (chemistry-hub.css) and lesson pages (lay-goc-hoa.css)
+   each define their own, differently-named custom properties — this
+   file needs to look identical on both without depending on either.
+   ============================================================ */
+
+.footer-companion {
+  width: min(1180px, calc(100% - 40px));
+  margin: 56px auto 32px;
+  padding: 0;
+  color: #17324d;
+  font-family: 'Be Vietnam Pro', Arial, sans-serif;
+}
+
+.fc-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.fc-card {
+  padding: 22px 24px;
+  border: 1px solid #d4e5ef;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, .06);
+  transition: transform .25s ease-out, box-shadow .25s ease-out;
+}
+
+.fc-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, .1);
+}
+
+.fc-card-title {
+  margin: 0 0 14px;
+  font-family: 'Baloo 2', 'Be Vietnam Pro', Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -.01em;
+  color: #102a47;
+}
+
+.fc-progress {
+  background: linear-gradient(155deg, #fffaf0 0%, #fff7e2 55%, #fffdf7 100%);
+  border-color: #f1dfa8;
+}
+
+.fc-stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.fc-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 4px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .6);
+  text-align: center;
+}
+
+.fc-stat-icon {
+  font-size: 20px;
+  line-height: 1;
+  transition: transform .25s ease-out;
+}
+
+.fc-card:hover .fc-stat-icon {
+  transform: translateY(-2px) scale(1.08);
+}
+
+.fc-stat-value {
+  margin-top: 4px;
+  font-family: 'Baloo 2', 'Be Vietnam Pro', Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #102a47;
+}
+
+.fc-stat-value small {
+  font-size: 11px;
+  font-weight: 700;
+  color: #526c80;
+}
+
+.fc-stat-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #526c80;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.fc-goal {
+  margin-top: 16px;
+}
+
+.fc-goal-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #526c80;
+}
+
+.fc-progress-track {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(30, 58, 95, .1);
+  overflow: hidden;
+}
+
+.fc-progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #e4b84f, #f0a35a);
+  transition: width .6s cubic-bezier(.22, 1, .36, 1);
+}
+
+.fc-continue {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(150deg, #1e3a5f 0%, #102a47 100%);
+  border-color: #102a47;
+  color: #fff;
+}
+
+.fc-continue .fc-card-title {
+  color: #ffe9b8;
+}
+
+.fc-continue-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.fc-continue-lesson {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.fc-continue-time {
+  margin: 0 0 10px;
+  color: #cfe0f5;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.fc-resume-btn {
+  width: max-content;
+  margin-top: auto;
+  min-height: 44px;
+  padding: 0 20px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 14px;
+  background: #e4b84f;
+  color: #102a47;
+  font-weight: 900;
+  font-size: 13px;
+  text-decoration: none;
+  transition: transform .2s ease-out, box-shadow .2s ease-out;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, .18);
+}
+
+.fc-resume-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 22px rgba(0, 0, 0, .22);
+}
+
+.fc-actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.fc-action-btn {
+  min-height: 48px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #d4e5ef;
+  border-radius: 14px;
+  background: #eaf2fb;
+  color: #102a47;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform .2s ease-out, background-color .2s ease-out;
+}
+
+.fc-action-btn span {
+  font-size: 16px;
+}
+
+.fc-action-btn:hover {
+  transform: translateY(-2px);
+  background: #dcecfb;
+}
+
+.fc-community-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.fc-community-btn {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: #eaf2fb;
+  color: #1e3a5f;
+  font-weight: 900;
+  font-size: 16px;
+  text-decoration: none;
+  transition: transform .2s ease-out, background-color .2s ease-out, color .2s ease-out;
+}
+
+.fc-community-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  background: #1e3a5f;
+  color: #fff;
+}
+
+.fc-brand-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 24px;
+  border: 1px solid #d4e5ef;
+  border-radius: 24px;
+  background: linear-gradient(120deg, #fffaf0, #eaf2fb);
+}
+
+.fc-mascot {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 6px 16px rgba(28, 67, 98, .18);
+  animation: fcMascotBob 3.6s ease-in-out infinite;
+}
+
+@keyframes fcMascotBob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-4px) rotate(-4deg); }
+}
+
+.fc-brand-copy {
+  min-width: 0;
+}
+
+.fc-brand-name {
+  font-family: 'Baloo 2', 'Be Vietnam Pro', Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #17324d;
+  text-decoration: none;
+}
+
+.fc-brand-name span {
+  color: #1e3a5f;
+}
+
+.fc-brand-mission {
+  margin: 4px 0 0;
+  color: #526c80;
+  font-size: 12px;
+  line-height: 1.5;
+  max-width: 44ch;
+}
+
+.fc-motivation {
+  margin: 0;
+  padding: 10px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .65);
+  color: #102a47;
+  font-size: 12px;
+  font-weight: 700;
+  font-style: italic;
+  text-align: right;
+  max-width: 30ch;
+  transition: opacity .4s ease-out;
+}
+
+/* This site's globals.css defines .footer-developer for the React
+   pages; the static /lay-goc-hoa/ pages don't load that stylesheet,
+   so the full rule is repeated here (kept in sync by hand — same
+   muted-gray card treatment on both). */
+.footer-developer {
+  grid-column: 1 / -1;
+  width: 100%;
+  margin: 4px 0 0;
+  padding: 16px 22px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px 14px;
+  border: 1px solid #cbd5e1;
+  border-left: 5px solid #9ca3af;
+  border-radius: 14px;
+  background: #f3f4f6;
+  text-align: center;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .05);
+}
+.footer-developer__label {
+  color: #6b7280;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.footer-developer strong {
+  color: #1f2937;
+  font-family: 'Baloo 2', 'Be Vietnam Pro', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: .01em;
+}
+.footer-developer a {
+  min-height: 44px;
+  padding-inline: 4px;
+  display: inline-flex;
+  align-items: center;
+  color: #1f2937;
+  font-weight: 900;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.footer-developer a:hover {
+  color: #374151;
+  text-decoration-thickness: 2px;
+}
+.footer-developer a:focus-visible {
+  outline: 3px solid #9ca3af;
+  outline-offset: 2px;
+  border-radius: 5px;
+}
+
+@media (max-width: 900px) {
+  .fc-grid { grid-template-columns: 1fr; }
+  .fc-brand-row { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+  .fc-motivation { max-width: none; text-align: center; }
+}
+
+@media (max-width: 640px) {
+  .footer-companion { width: calc(100% - 24px); margin-top: 40px; }
+  .fc-card { padding: 18px 16px; border-radius: 20px; }
+  .fc-stat-value { font-size: 17px; }
+  .fc-actions-grid { grid-template-columns: 1fr; }
+  .fc-action-btn { min-height: 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fc-card, .fc-stat-icon, .fc-resume-btn, .fc-action-btn, .fc-community-btn, .fc-progress-fill, .fc-motivation {
+    transition: none;
+  }
+  .fc-mascot { animation: none; }
+}

@@ -213,8 +213,7 @@ function CountUp({ to, decimals = 0, prefix = "", suffix = "" }: { to: number; d
           if (entry.isIntersecting && !started) {
             started = true;
             const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-            const isMobile = window.matchMedia("(max-width: 767px)").matches;
-            if (reduceMotion || isMobile) {
+            if (reduceMotion) {
               setValue(to);
               observer.disconnect();
               return;
