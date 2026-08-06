@@ -12,6 +12,8 @@ type Mineral = {
   color: string;
   weight: number;
   collected?: boolean;
+  origX?: number;
+  origY?: number;
 };
 
 const MINERALS: Omit<Mineral, "x" | "y" | "collected">[] = [
@@ -43,6 +45,7 @@ export default function MiningGame2D({ compact = false }: { compact?: boolean })
     restLength: 120,
     status: "swing" as "swing" | "extend" | "retract" | "quiz",
     caught: null as Mineral | null,
+    lastAnswerGood: false,
     minerals: [] as Mineral[],
     particles: [] as { x: number; y: number; vx: number; vy: number; life: number; color: string }[],
     last: 0,
@@ -68,7 +71,15 @@ export default function MiningGame2D({ compact = false }: { compact?: boolean })
     const rowStart = 0.5;
     const rowEnd = 0.88;
     const rowGap = rows > 1 ? (rowEnd - rowStart) / (rows - 1) : 0;
-    stateRef.current.minerals = MINERALS.map((item, index) => ({
+    // Shuffle so the ore layout (and which valence group ends up where)
+    // is different every round instead of always Na/K/Ag top-left down to
+    // C bottom-right in the same order.
+    const shuffled = [...MINERALS];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    stateRef.current.minerals = shuffled.map((item, index) => ({
       ...item,
       x: width * colPositions[index % columns] + (index % 2 ? 8 : -6),
       y: height * (rowStart + Math.floor(index / columns) * rowGap),
@@ -115,6 +126,7 @@ export default function MiningGame2D({ compact = false }: { compact?: boolean })
     const mineral = state.caught;
     if (!mineral || state.status !== "quiz") return;
     const good = answer === mineral.valence;
+    state.lastAnswerGood = good;
     if (good) {
       state.score += 100 + state.combo * 20;
       state.combo += 1;
@@ -316,6 +328,8 @@ export default function MiningGame2D({ compact = false }: { compact?: boolean })
               !mineral.collected && Math.hypot(hookX - mineral.x, hookY - mineral.y) < mineral.radius + 12
             );
             if (hit) {
+              hit.origX = hit.x;
+              hit.origY = hit.y;
               state.caught = hit;
               state.status = "quiz";
               setQuizMineral({...hit});
@@ -328,7 +342,18 @@ export default function MiningGame2D({ compact = false }: { compact?: boolean })
             state.caught.y = hookY + 18;
           }
           if (state.status === "retract" && state.length <= state.restLength) {
-            if (state.caught) state.caught.collected = true;
+            if (state.caught) {
+              if (state.lastAnswerGood) {
+                state.caught.collected = true;
+              } else if (state.caught.origX !== undefined && state.caught.origY !== undefined) {
+                // Wrong answer: drop the ore back at its original spot instead
+                // of silently removing it, so a wrong pick has a visible,
+                // undeniable consequence instead of looking identical to a
+                // correct catch.
+                state.caught.x = state.caught.origX;
+                state.caught.y = state.caught.origY;
+              }
+            }
             state.length = state.restLength;
             state.caught = null;
             state.status = "swing";
