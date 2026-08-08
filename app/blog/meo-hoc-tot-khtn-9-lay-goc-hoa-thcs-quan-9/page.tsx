@@ -6,7 +6,7 @@ import { getAssetPath } from "../../basePath";
 
 const TITLE = "Mẹo học tốt KHTN 9 & Lấy gốc Hóa THCS cấp tốc";
 const DESCRIPTION = "Bí quyết học giỏi môn KHTN 9 phân môn Hóa học, lấy gốc Hóa THCS nhanh chóng cùng Cô Trâm ChamChamEdemy.";
-const SLUG = "/blog/meo-hoc-tot-khtn-9-lay-goc-hoa-thcs-quan-9";
+const SLUG = "/blog/meo-hoc-tot-khtn-9-lay-goc-hoa-thcs-quan-9/";
 const IMAGE = "/khoa-hoc-khtn-9.webp";
 const DATE_PUBLISHED = "2026-07-21";
 
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 export default function KHTN9Article() {
   return (
     <SiteChrome>
-      <JsonLd data={breadcrumbSchema([{ name: "Trang chủ", path: "/" }, { name: "Blog Hóa", path: "/blog" }, { name: TITLE, path: SLUG }])} />
+      <JsonLd data={breadcrumbSchema([{ name: "Trang chủ", path: "/" }, { name: "Blog Hóa", path: "/blog/" }, { name: TITLE, path: SLUG }])} />
       <JsonLd data={articleSchema({ headline: TITLE, description: DESCRIPTION, path: SLUG, image: IMAGE, datePublished: DATE_PUBLISHED })} />
       <article className="article-wrap">
         <p className="section-kicker">BÍ QUYẾT HỌC TẬP · HỌC SINH THCS QUẬN 9</p>

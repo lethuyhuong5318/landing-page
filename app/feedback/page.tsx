@@ -24,7 +24,7 @@ export default function FeedbackPage() {
           <p className="section-kicker">FEEDBACK HỌC VIÊN</p>
           <h1>Không dùng lời khen chung chung.<br />Dùng dữ liệu sau buổi học.</h1>
           <p>Kết quả dưới đây đến từ khảo sát sau buổi live lấy gốc Hóa THCS. ChamChamEdemy công khai cả điểm tốt lẫn góp ý để tiếp tục điều chỉnh cách dạy.</p>
-          <div className="page-actions"><a href={getAssetPath("/#dang-ky")}>Đăng ký học thử</a><a className="secondary" href={getAssetPath("/blog")}>Đọc Blog Hóa</a></div>
+          <div className="page-actions"><a href={getAssetPath("/#dang-ky")}>Đăng ký học thử</a><a className="secondary" href={getAssetPath("/blog/")}>Đọc Blog Hóa</a></div>
         </section>
         <div className="feedback-layout">
           <figure className="feedback-image"><img src={getAssetPath("/feedback-buoi-live.webp")} alt="Infographic kết quả khảo sát buổi live lấy gốc Hóa THCS ChamChamEdemy" /></figure>

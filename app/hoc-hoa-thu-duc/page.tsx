@@ -32,7 +32,7 @@ export default function HocHoaThuDucPage() {
           <p>Học trực tiếp hoặc gia sư 1:1. Hóa 8–9 lấy gốc, ôn thi vào 10, Hóa 11–12 luyện thi. Chẩn đoán kiến thức trước khi xếp lớp.</p>
           <div className="hero-actions">
             <a href={getAssetPath("/#dang-ky")} className="button button-primary">Đăng ký học thử</a>
-            <a href={getAssetPath("/hoc-hoa-quan-9")} className="button button-ghost">Xem Quận 9</a>
+            <a href={getAssetPath("/hoc-hoa-quan-9/")} className="button button-ghost">Xem Quận 9</a>
           </div>
         </section>
 

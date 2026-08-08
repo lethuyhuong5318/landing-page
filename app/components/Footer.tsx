@@ -33,8 +33,8 @@ const MOTIVATIONS = [
 const QUICK_ACTIONS = [
   { icon: "🏠", label: "Trang chủ", href: "/" },
   { icon: "📚", label: "Lộ trình Lấy gốc Hóa", href: "/lay-goc-hoa/" },
-  { icon: "✍️", label: "Blog Hóa", href: "/blog" },
-  { icon: "💬", label: "Góp ý", href: "/feedback" },
+  { icon: "✍️", label: "Blog Hóa", href: "/blog/" },
+  { icon: "💬", label: "Góp ý", href: "/feedback/" },
 ];
 
 const COMMUNITY_LINKS = [

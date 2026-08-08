@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import SeoArticle from "../_components/SeoArticle";
 
-const path = "/blog/hoa-10-nen-bat-dau-hoc-tu-dau";
+const path = "/blog/hoa-10-nen-bat-dau-hoc-tu-dau/";
 const title = "Hóa 10 nên bắt đầu học từ đâu?";
 const description = "Hóa 10 nên bắt đầu từ cấu tạo nguyên tử và bảng tuần hoàn, vì đây là nền cho toàn bộ chương trình THPT. Xem thứ tự học hợp lý và cách tránh mất gốc ngay từ đầu năm lớp 10.";
 export const metadata: Metadata = { title, description, alternates: { canonical: path }, openGraph: { title, description, url: path, type: "article" } };
@@ -50,14 +50,14 @@ export default function Page() {
       howTo={howTo}
       faqs={faqs}
       links={[
-        { href: "/blog/lo-trinh-lay-goc-hoa-thcs-vao-10", label: "lộ trình lấy gốc Hóa THCS trước khi vào 10" },
-        { href: "/blog/hoa-tri-la-gi-hoc-the-nao-cho-de-nho", label: "hóa trị là gì và học thế nào cho dễ nhớ" },
-        { href: "/blog/mat-goc-hoa-nen-bat-dau-tu-dau", label: "lộ trình học lại khi mất gốc Hóa" },
+        { href: "/blog/lo-trinh-lay-goc-hoa-thcs-vao-10/", label: "lộ trình lấy gốc Hóa THCS trước khi vào 10" },
+        { href: "/blog/hoa-tri-la-gi-hoc-the-nao-cho-de-nho/", label: "hóa trị là gì và học thế nào cho dễ nhớ" },
+        { href: "/blog/mat-goc-hoa-nen-bat-dau-tu-dau/", label: "lộ trình học lại khi mất gốc Hóa" },
       ]}
       cta={{
         title: "Muốn kiểm tra mình đã sẵn sàng học Hóa 10 chưa?",
         text: "Làm bài kiểm tra chẩn đoán nhanh để biết phần THCS nào cần ôn lại trước khi vào chương trình lớp 10.",
-        href: "/blog/bai-kiem-tra-chan-doan-mat-goc-hoa",
+        href: "/blog/bai-kiem-tra-chan-doan-mat-goc-hoa/",
         label: "Làm bài chẩn đoán",
       }}
     >

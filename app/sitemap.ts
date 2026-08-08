@@ -90,6 +90,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date("2026-07-28"),
     },
     {
+      url: withTrailingSlash("/chem-mining"),
+      changeFrequency: "monthly",
+      priority: 0.6,
+      lastModified: new Date("2026-08-06"),
+    },
+    {
+      url: withTrailingSlash("/chemistry-simulation"),
+      changeFrequency: "monthly",
+      priority: 0.6,
+      lastModified: new Date("2026-08-06"),
+    },
+    {
       url: `${SITE_URL}/lay-goc-hoa/`,
       changeFrequency: "monthly",
       priority: 0.8,

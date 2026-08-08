@@ -30,7 +30,7 @@ export default function SeoArticle({
   return (
     <SiteChrome>
       <JsonLd data={articleSchema({ headline: title, description, path, image, datePublished: published, dateModified: published })} />
-      <JsonLd data={breadcrumbSchema([{ name: "Trang chủ", path: "/" }, { name: "Blog Hóa", path: "/blog" }, { name: title, path }])} />
+      <JsonLd data={breadcrumbSchema([{ name: "Trang chủ", path: "/" }, { name: "Blog Hóa", path: "/blog/" }, { name: title, path }])} />
       <JsonLd data={faqSchema(faqs)} />
       {howTo && <JsonLd data={howToSchema({ name: howTo.title, description, steps: howTo.steps })} />}
       <article className="article-wrap">

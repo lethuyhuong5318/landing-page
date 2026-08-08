@@ -72,9 +72,9 @@ const ZALO_URL = "https://zalo.me/0329309293";
 const MOBILE_LINKS = [
   { href: getAssetPath("/#khoa-hoc"), label: "Khóa học" },
   { href: getAssetPath("/#giang-vien"), label: "Giảng viên" },
-  { href: getAssetPath("/feedback"), label: "Feedback" },
+  { href: getAssetPath("/feedback/"), label: "Feedback" },
   { href: getAssetPath("/lay-goc-hoa/"), label: "Lấy gốc hóa" },
-  { href: getAssetPath("/blog"), label: "Blog Hóa" },
+  { href: getAssetPath("/blog/"), label: "Blog Hóa" },
   { href: getAssetPath("/#dang-ky"), label: "Nhận tư vấn" },
 ];
 
@@ -465,9 +465,9 @@ export default function Home() {
         <nav className="desktop-nav" aria-label="Điều hướng chính">
           <a href={getAssetPath("/#khoa-hoc")}>Khóa học</a>
           <a href={getAssetPath("/#giang-vien")}>Giảng viên</a>
-          <a href={getAssetPath("/feedback")}>Feedback</a>
+          <a href={getAssetPath("/feedback/")}>Feedback</a>
           <a href={getAssetPath("/lay-goc-hoa/")}>Lấy gốc hóa</a>
-          <a href={getAssetPath("/blog")}>Blog Hóa</a>
+          <a href={getAssetPath("/blog/")}>Blog Hóa</a>
           <a href={getAssetPath("/#dang-ky")} className="nav-cta">Nhận test đầu vào</a>
         </nav>
         <MobileMenu links={MOBILE_LINKS} navId="mobile-nav-home" />
@@ -709,7 +709,7 @@ export default function Home() {
             <div className="survey-proof">
               <div><strong><CountUp to={28} /></strong><span>học sinh tham gia khảo sát</span></div>
               <div><strong><CountUp to={100} suffix="%" /></strong><span>đánh giá cách giảng dễ hiểu</span></div>
-              <a href={getAssetPath("/feedback")}>Xem feedback thật →</a>
+              <a href={getAssetPath("/feedback/")}>Xem feedback thật →</a>
             </div>
           </div>
           <div className="lab-cycle" aria-label="Chu trình học tập tại ChamChamEdemy">

@@ -22,7 +22,7 @@ export default function NotFound() {
           <a href={getAssetPath("/")} className="button button-primary">
             Quay lại trang chủ
           </a>
-          <a href={getAssetPath("/blog")} className="button button-ghost">
+          <a href={getAssetPath("/blog/")} className="button button-ghost">
             Blog Hóa
           </a>
         </div>

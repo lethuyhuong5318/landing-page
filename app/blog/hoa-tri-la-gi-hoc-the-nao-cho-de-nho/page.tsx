@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import SeoArticle from "../_components/SeoArticle";
 
-const path = "/blog/hoa-tri-la-gi-hoc-the-nao-cho-de-nho";
+const path = "/blog/hoa-tri-la-gi-hoc-the-nao-cho-de-nho/";
 const title = "Hóa trị là gì và học thế nào cho dễ nhớ?";
 const description = "Hóa trị là con số biểu thị khả năng liên kết của một nguyên tử với nguyên tử khác. Xem cách hiểu bản chất hóa trị thay vì học thuộc lòng, kèm quy tắc lập công thức hóa học nhanh và ít sai.";
 export const metadata: Metadata = { title, description, alternates: { canonical: path }, openGraph: { title, description, url: path, type: "article" } };
@@ -50,14 +50,14 @@ export default function Page() {
       howTo={howTo}
       faqs={faqs}
       links={[
-        { href: "/blog/cach-can-bang-phuong-trinh-hoa-hoc", label: "cách cân bằng phương trình hóa học" },
-        { href: "/blog/mat-goc-hoa-nen-bat-dau-tu-dau", label: "lộ trình học lại khi mất gốc Hóa" },
-        { href: "/blog/hoa-10-nen-bat-dau-hoc-tu-dau", label: "Hóa 10 nên bắt đầu học từ đâu" },
+        { href: "/blog/cach-can-bang-phuong-trinh-hoa-hoc/", label: "cách cân bằng phương trình hóa học" },
+        { href: "/blog/mat-goc-hoa-nen-bat-dau-tu-dau/", label: "lộ trình học lại khi mất gốc Hóa" },
+        { href: "/blog/hoa-10-nen-bat-dau-hoc-tu-dau/", label: "Hóa 10 nên bắt đầu học từ đâu" },
       ]}
       cta={{
         title: "Chưa chắc mình đã nắm vững hóa trị?",
         text: "Làm bài kiểm tra chẩn đoán nhanh để biết mình đã sẵn sàng học cân bằng phương trình hay cần ôn lại hóa trị trước.",
-        href: "/blog/bai-kiem-tra-chan-doan-mat-goc-hoa",
+        href: "/blog/bai-kiem-tra-chan-doan-mat-goc-hoa/",
         label: "Làm bài chẩn đoán",
       }}
     >

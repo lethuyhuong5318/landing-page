@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import SeoArticle from "../_components/SeoArticle";
 
-const path = "/blog/hoc-hoa-online-co-hieu-qua-khong";
+const path = "/blog/hoc-hoa-online-co-hieu-qua-khong/";
 const title = "Học Hóa online có hiệu quả không?";
 const description = "Học Hóa online hiệu quả nếu có tương tác trực tiếp, bài tập chấm chữa và lộ trình rõ ràng — không phải cứ xem video ghi sẵn là học được. Xem tiêu chí đánh giá và cách chọn lớp online phù hợp.";
 export const metadata: Metadata = { title, description, alternates: { canonical: path }, openGraph: { title, description, url: path, type: "article" } };
@@ -50,14 +50,14 @@ export default function Page() {
       howTo={howTo}
       faqs={faqs}
       links={[
-        { href: "/blog/hoc-hoa-tai-quan-9", label: "cách chọn lớp Hóa tại Quận 9" },
-        { href: "/blog/nen-hoc-gia-su-hoa-hay-trung-tam", label: "nên học gia sư hay trung tâm" },
-        { href: "/blog/mat-goc-hoa-nen-bat-dau-tu-dau", label: "lộ trình học lại khi mất gốc Hóa" },
+        { href: "/blog/hoc-hoa-tai-quan-9/", label: "cách chọn lớp Hóa tại Quận 9" },
+        { href: "/blog/nen-hoc-gia-su-hoa-hay-trung-tam/", label: "nên học gia sư hay trung tâm" },
+        { href: "/blog/mat-goc-hoa-nen-bat-dau-tu-dau/", label: "lộ trình học lại khi mất gốc Hóa" },
       ]}
       cta={{
         title: "Muốn thử một buổi học Hóa online trước khi quyết định?",
         text: "ChamChamEdemy có buổi học thử trực tiếp với Cô Trâm để em xem cách dạy có phù hợp không trước khi đăng ký lộ trình dài.",
-        href: "/lay-goc-hoa",
+        href: "/lay-goc-hoa/",
         label: "Xem lộ trình học online",
       }}
     >

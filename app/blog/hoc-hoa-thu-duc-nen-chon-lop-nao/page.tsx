@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import SeoArticle from "../_components/SeoArticle";
 
-const path = "/blog/hoc-hoa-thu-duc-nen-chon-lop-nao";
+const path = "/blog/hoc-hoa-thu-duc-nen-chon-lop-nao/";
 const title = "Học Hóa ở Thủ Đức nên chọn lớp nào?";
 const description = "Học Hóa ở TP. Thủ Đức nên chọn lớp theo đúng trình độ hiện tại, không theo tên tuổi trung tâm. Xem tiêu chí chọn lớp phù hợp cho học sinh mất gốc, trung bình và khá giỏi tại khu vực Thủ Đức.";
 export const metadata: Metadata = { title, description, alternates: { canonical: path }, openGraph: { title, description, url: path, type: "article" } };
@@ -50,14 +50,14 @@ export default function Page() {
       howTo={howTo}
       faqs={faqs}
       links={[
-        { href: "/blog/hoc-hoa-tai-quan-9", label: "cách chọn lộ trình học Hóa tại Quận 9" },
-        { href: "/blog/nen-hoc-gia-su-hoa-hay-trung-tam", label: "nên học gia sư hay trung tâm" },
-        { href: "/blog/gia-su-luyen-thi-hoa-quan-9-tp-thu-duc", label: "gia sư luyện thi Hóa Quận 9 & TP. Thủ Đức" },
+        { href: "/blog/hoc-hoa-tai-quan-9/", label: "cách chọn lộ trình học Hóa tại Quận 9" },
+        { href: "/blog/nen-hoc-gia-su-hoa-hay-trung-tam/", label: "nên học gia sư hay trung tâm" },
+        { href: "/blog/gia-su-luyen-thi-hoa-quan-9-tp-thu-duc/", label: "gia sư luyện thi Hóa Quận 9 & TP. Thủ Đức" },
       ]}
       cta={{
         title: "Muốn tìm lớp Hóa phù hợp tại khu vực Thủ Đức?",
         text: "ChamChamEdemy dạy trực tiếp tại Quận 9 (TP. Thủ Đức) và học online toàn quốc, có buổi học thử trước khi đăng ký lộ trình dài.",
-        href: "/lay-goc-hoa",
+        href: "/lay-goc-hoa/",
         label: "Xem lộ trình học tại Thủ Đức",
       }}
     >

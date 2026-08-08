@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import SeoArticle from "../_components/SeoArticle";
 
-const path = "/blog/mat-goc-hoa-9-thi-vao-10-phai-lam-sao";
+const path = "/blog/mat-goc-hoa-9-thi-vao-10-phai-lam-sao/";
 const title = "Mất gốc Hóa 9 phải làm sao để kịp thi vào 10?";
 const description = "Mất gốc Hóa 9 vẫn kịp thi vào 10 nếu học đúng trọng tâm thay vì học lại toàn bộ sách. Xem thứ tự ưu tiên ôn tập, lịch học theo tuần và cách nhận biết mình đã sẵn sàng cho đề thi.";
 export const metadata: Metadata = { title, description, alternates: { canonical: path }, openGraph: { title, description, url: path, type: "article" } };
@@ -50,14 +50,14 @@ export default function Page() {
       howTo={howTo}
       faqs={faqs}
       links={[
-        { href: "/blog/mat-goc-hoa-nen-bat-dau-tu-dau", label: "lộ trình học lại khi mất gốc Hóa" },
-        { href: "/blog/bai-kiem-tra-chan-doan-mat-goc-hoa", label: "bài kiểm tra chẩn đoán mất gốc Hóa" },
-        { href: "/blog/lo-trinh-lay-goc-hoa-thcs-vao-10", label: "lộ trình lấy gốc Hóa THCS trước khi vào 10" },
+        { href: "/blog/mat-goc-hoa-nen-bat-dau-tu-dau/", label: "lộ trình học lại khi mất gốc Hóa" },
+        { href: "/blog/bai-kiem-tra-chan-doan-mat-goc-hoa/", label: "bài kiểm tra chẩn đoán mất gốc Hóa" },
+        { href: "/blog/lo-trinh-lay-goc-hoa-thcs-vao-10/", label: "lộ trình lấy gốc Hóa THCS trước khi vào 10" },
       ]}
       cta={{
         title: "Chỉ còn ít thời gian trước kỳ thi vào 10?",
         text: "Làm bài kiểm tra chẩn đoán nhanh để biết chính xác mình cần ôn phần nào trước, tránh mất thời gian học lan man.",
-        href: "/blog/bai-kiem-tra-chan-doan-mat-goc-hoa",
+        href: "/blog/bai-kiem-tra-chan-doan-mat-goc-hoa/",
         label: "Làm bài chẩn đoán ngay",
       }}
     >

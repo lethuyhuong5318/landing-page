@@ -26,5 +26,14 @@ export const SAME_AS = [
 
 export function absoluteUrl(path: string): string {
   const clean = path.startsWith("/") ? path : `/${path}`;
-  return `${SITE_URL}${clean}`;
+  // next.config.mjs sets trailingSlash: true, so every real page URL
+  // (and canonical/og:url, which Next's own metadata API already
+  // normalizes) ends in "/". Structured-data URLs built from this
+  // helper were missing that slash, pointing schema.org "item"/"url"
+  // fields at the non-canonical form. Skip normalization for hash
+  // and query paths (e.g. "/#dang-ky") and asset files, which must
+  // never gain a trailing slash.
+  const isPageRoute = !clean.includes("#") && !clean.includes("?") && !/\.[a-z0-9]+$/i.test(clean);
+  const normalized = isPageRoute && !clean.endsWith("/") ? `${clean}/` : clean;
+  return `${SITE_URL}${normalized}`;
 }

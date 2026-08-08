@@ -6,7 +6,7 @@ import { getAssetPath } from "../../basePath";
 
 const TITLE = "Gia sư Hóa học Quận 9: Lộ trình vững nền cùng Cô Trâm";
 const DESCRIPTION = "Lớp học Hóa THCS–THPT, gia sư Hóa Quận 9: lấy gốc Hóa 8–9, ôn thi vào 10 và luyện thi lớp 11–12 cùng Cô Trâm ChamChamEdemy.";
-const SLUG = "/blog/gia-su-luyen-thi-hoa-quan-9-tp-thu-duc";
+const SLUG = "/blog/gia-su-luyen-thi-hoa-quan-9-tp-thu-duc/";
 const IMAGE = "/co-le-thuy-tram-professional.webp";
 const DATE_PUBLISHED = "2026-07-21";
 
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 export default function District9Article() {
   return (
     <SiteChrome>
-      <JsonLd data={breadcrumbSchema([{ name: "Trang chủ", path: "/" }, { name: "Blog Hóa", path: "/blog" }, { name: TITLE, path: SLUG }])} />
+      <JsonLd data={breadcrumbSchema([{ name: "Trang chủ", path: "/" }, { name: "Blog Hóa", path: "/blog/" }, { name: TITLE, path: SLUG }])} />
       <JsonLd data={articleSchema({ headline: TITLE, description: DESCRIPTION, path: SLUG, image: IMAGE, datePublished: DATE_PUBLISHED })} />
       <article className="article-wrap">
         <p className="section-kicker">SEO & ĐỒNG HÀNH KHU VỰC QUẬN 9 · TP. THỦ ĐỨC</p>

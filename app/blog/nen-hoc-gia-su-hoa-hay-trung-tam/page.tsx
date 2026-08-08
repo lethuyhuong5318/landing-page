@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import SeoArticle from "../_components/SeoArticle";
 
-const path = "/blog/nen-hoc-gia-su-hoa-hay-trung-tam";
+const path = "/blog/nen-hoc-gia-su-hoa-hay-trung-tam/";
 const title = "Nên học gia sư Hóa hay trung tâm?";
 const description = "Gia sư Hóa phù hợp khi cần kèm sát theo lỗ hổng riêng, trung tâm phù hợp khi cần môi trường thi đua và học phí thấp hơn. Xem bảng so sánh và cách chọn theo đúng tình trạng học lực.";
 export const metadata: Metadata = { title, description, alternates: { canonical: path }, openGraph: { title, description, url: path, type: "article" } };
@@ -50,14 +50,14 @@ export default function Page() {
       howTo={howTo}
       faqs={faqs}
       links={[
-        { href: "/blog/hoc-hoa-tai-quan-9", label: "cách chọn lộ trình học Hóa tại Quận 9" },
-        { href: "/blog/gia-su-luyen-thi-hoa-quan-9-tp-thu-duc", label: "gia sư luyện thi Hóa Quận 9 & TP. Thủ Đức" },
-        { href: "/blog/hoc-hoa-online-co-hieu-qua-khong", label: "học Hóa online có hiệu quả không" },
+        { href: "/blog/hoc-hoa-tai-quan-9/", label: "cách chọn lộ trình học Hóa tại Quận 9" },
+        { href: "/blog/gia-su-luyen-thi-hoa-quan-9-tp-thu-duc/", label: "gia sư luyện thi Hóa Quận 9 & TP. Thủ Đức" },
+        { href: "/blog/hoc-hoa-online-co-hieu-qua-khong/", label: "học Hóa online có hiệu quả không" },
       ]}
       cta={{
         title: "Chưa chắc con phù hợp hình thức nào?",
         text: "Làm bài kiểm tra chẩn đoán nhanh để biết mức độ mất gốc của con trước khi quyết định gia sư hay trung tâm.",
-        href: "/blog/bai-kiem-tra-chan-doan-mat-goc-hoa",
+        href: "/blog/bai-kiem-tra-chan-doan-mat-goc-hoa/",
         label: "Làm bài chẩn đoán",
       }}
     >
